@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ms. Kak-Man &amp; Mr. Keek-Man</title>
+<style>
+  html,body{margin:0;height:100%;background:#04050b;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Courier New',monospace;}
+  canvas{display:block;}
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<script>
+"use strict";
+
+/* ============================================================
+   MS. KAK-MAN & MR. KEEK-MAN
+
+   You are the rig: a voice mask, or a stenotype machine.
+   The things chasing you are bad punctuation. Literally.
+   Kak = Answer.  Keek = Question.
+   ============================================================ */
+
+const canvas = document.getElementById('game');
+const ctx    = canvas.getContext('2d');
+
+const COLS = 28, ROWS = 31, TS = 20;
+const MAZE_W  = COLS * TS;
+const PANEL_W = 404;
+const HUD_TOP = 74, HUD_BOT = 46;
+canvas.width  = MAZE_W + PANEL_W;
+canvas.height = ROWS * TS + HUD_TOP + HUD_BOT;
+const W = canvas.width, H = canvas.height;
+
+function fitToWindow() {
+  const s = Math.min(window.innerWidth / W, window.innerHeight / H);
+  canvas.style.width  = Math.floor(W * s) + 'px';
+  canvas.style.height = Math.floor(H * s) + 'px';
+}
+window.addEventListener('resize', fitToWindow);
+fitToWindow();
+
+/* ---------- tuning knobs ---------- */
+const PLAYER_BASE_SPEED = 6.2;
+const ENEMY_BASE_SPEED  = 5.5;
+const FRIGHT_SPEED      = 3.5;
+const STRUCK_SPEED      = 13.0;
+const FRIGHT_TIME       = 7.0;
+const INVULN_TIME       = 2.2;
+const START_LIVES       = 3;
+const BOSS_EVERY        = 4;
+const SFX_VOLUME        = 0.55;
+
+/* ---------- the maze ---------- */
+const MAZE = [
+  "############################",
+  "#............##............#",
+  "#.####.#####.##.#####.####.#",
+  "#o####.#####.##.#####.####o#",
+  "#.####.#####.##.#####.####.#",
+  "#..........................#",
+  "#.####.##.########.##.####.#",
+  "#.####.##.########.##.####.#",
+  "#......##....##....##......#",
+  "######.##### ## #####.######",
+  "     #.##### ## #####.#     ",
+  "     #.##          ##.#     ",
+  "     #.## ###--### ##.#     ",
+  "######.## #      # ##.######",
+  "      .   #      #   .      ",
+  "######.## #      # ##.######",
+  "     #.## ######## ##.#     ",
+  "     #.##          ##.#     ",
+  "     #.## ######## ##.#     ",
+  "######.## ######## ##.######",
+  "#............##............#",
+  "#.####.#####.##.#####.####.#",
+  "#.####.#####.##.#####.####.#",
+  "#o..##................##..o#",
+  "###.##.##.########.##.##.###",
+  "###.##.##.########.##.##.###",
+  "#......##....##....##......#",
+  "#.##########.##.##########.#",
+  "#.##########.##.##########.#",
+  "#..........................#",
+  "############################"
+];
+
+const PUNCT = ['.', ',', ';', ':', '?', '"', "'"];
+const punctAt = (c, r) => PUNCT[(c * 3 + r * 5) % PUNCT.length];
+
+const DIRS  = [{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}];
+const RIGHT = DIRS[0], LEFT = DIRS[1], DOWN = DIRS[2], UP = DIRS[3];
+
+const wrapCol = c => ((c % COLS) + COLS) % COLS;
+const tileCh  = (c, r) => (r < 0 || r >= ROWS) ? '#' : MAZE[r][wrapCol(c)];
+const cx = c => c * TS + TS / 2;
+const cy = r => r * TS + TS / 2;
+
+/* ---------- the bad punctuation ---------- */
+const ENEMY_DEFS = [
+  { name:'COMMA SPLICE', glyph:',',      size:38, dy:-4,
+    color:'#ff5f5f', glow:'rgba(255,95,95,0.22)',
+    corner:{c:26,r:1 }, start:{c:14,r:11}, inHouse:false, release:0.0,
+    blurb:'jams two whole sentences together' },
+  { name:'STRAY SEMICOLON', glyph:';',   size:34, dy:-3,
+    color:'#ff8ad8', glow:'rgba(255,138,216,0.22)',
+    corner:{c:1 ,r:1 }, start:{c:14,r:14}, inHouse:true,  release:1.5,
+    blurb:'turns up where it has no business' },
+  { name:'FRAGMENT', glyph:'\u2026',     size:26, dy:2,
+    color:'#7ce4ff', glow:'rgba(124,228,255,0.22)',
+    corner:{c:26,r:29}, start:{c:12,r:14}, inHouse:true,  release:5.0,
+    blurb:'a thought that trails off and dies' },
+  { name:'DANGLER', glyph:'?',           size:30, dy:0,
+    color:'#ffb545', glow:'rgba(255,181,69,0.22)',
+    corner:{c:1 ,r:29}, start:{c:16,r:14}, inHouse:true,  release:9.0,
+    blurb:'modifies the wrong thing entirely' }
+];
+
+/* ---------- the record ---------- */
+const SCRIPT = [
+  { s:'Q', t:'Please state your name for the record.',
+         bad:'Please state your name for the record',
+         err:'no terminal punctuation' },
+  { s:'A', t:'Marcus Delaney. D-E-L-A-N-E-Y.',
+         bad:'Marcus Delaney, D-E-L-A-N-E-Y.',
+         err:'comma splice between two statements' },
+  { s:'Q', t:'Where were you on the evening of the ninth?',
+         bad:'Where were you on the evening of the ninth.',
+         err:'question mark dropped' },
+  { s:'A', t:"At my sister's apartment on Fremont.",
+         bad:'At my sisters apartment on Fremont.',
+         err:'missing possessive' },
+  { s:'Q', t:'What time did you arrive there?',
+         bad:'What time did you arrive there',
+         err:'sentence left open' },
+  { s:'A', t:'Around 9:15, maybe 9:20 at the latest.',
+         bad:'Around 915 maybe 920 at the latest.',
+         err:'time figures and comma both lost' },
+  { s:'Q', t:'Was anyone else present when you arrived?',
+         bad:'Was anyone else present when you arrived, yes.',
+         err:'answer spliced into the question' },
+  { s:'A', t:'Yes. My brother-in-law was in the kitchen.',
+         bad:'Yes my brother in law was in the kitchen.',
+         err:'hyphens and terminal stop missing' },
+  { s:'Q', t:'Did you speak with him at that time?',
+         bad:'Did you speak with him at that time then he left.',
+         err:'run-on, two thoughts in one line' },
+  { s:'A', t:'Briefly, yes. Two or three minutes.',
+         bad:'Briefly yes two or three minutes.',
+         err:'no internal punctuation at all' },
+  { s:'Q', t:'And then what happened, if anything?',
+         bad:'And then what happened if anything?',
+         err:'parenthetical not set off' },
+  { s:'A', t:'I heard a car door out front.',
+         bad:'Heard a car door out front.',
+         err:'subject dropped' },
+  { s:'Q', t:'A car door -- one door or more than one?',
+         bad:'A car door one door or more than one?',
+         err:'interruption not marked' },
+  { s:'A', t:'One. I only heard the one.',
+         bad:'One, I only heard the one.',
+         err:'comma splice' },
+  { s:'Q', t:'Objection; calls for speculation.',
+         bad:'Objection, calls for speculation.',
+         err:'semicolon required between clauses' },
+  { s:'A', t:'"I never said that," is what I told him.',
+         bad:'I never said that, is what I told him.',
+         err:'quotation marks omitted' },
+  { s:'Q', t:'Let the record reflect the witness nodded.',
+         bad:'Let the record reflect the witness nodded',
+         err:'no terminal punctuation' },
+  { s:'A', t:'That is correct, Counsel.',
+         bad:'That is correct Counsel.',
+         err:'direct address not set off' }
+];
+
+/* ---------- game state ---------- */
+let state = 'menu';
+let numPlayers = 1;
+let side = 'VOICE';                       // VOICE | STENO | BOTH
+const bestBySide = { VOICE:0, STENO:0, BOTH:0 };
+
+let pellets = [], pelletsLeft = 0, pelletTotal = 0;
+let level = 1, players = [], enemies = [];
+let frightTimer = 0, combo = 0;
+let modeIndex = 0, modeTimer = 0, globalMode = 'scatter';
+let bonus = null, bonusDone = 0;
+let stateTimer = 0, flashTimer = 0;
+let paused = false, muted = false;
+let msg = '', msgTimer = 0, msgColor = '#fff';
+let lines = [], errorsOnRecord = 0;
+
+const MODE_PLAN = [
+  { mode:'scatter', t:7 }, { mode:'chase', t:20 },
+  { mode:'scatter', t:7 }, { mode:'chase', t:20 },
+  { mode:'scatter', t:5 }, { mode:'chase', t:1e9 }
+];
+const isBossRound = () => level % BOSS_EVERY === 0;
+
+/* which rig is this player holding */
+function rigFor(p) {
+  if (side === 'VOICE') return 'mask';
+  if (side === 'STENO') return 'steno';
+  return p.idx === 0 ? 'mask' : 'steno';
+}
+const sideLabel = () =>
+  side === 'VOICE' ? 'VOICE WRITER'
+: side === 'STENO' ? 'STENOGRAPHER'
+: 'VOICE + STENO TEAM';
+
+/* ============================================================
+   SOUND
+   ============================================================ */
+let AC = null, master = null, audioReady = false;
+function initAudio() {
+  if (audioReady) return;
+  const C = window.AudioContext || window.webkitAudioContext;
+  if (!C) return;
+  AC = new C();
+  const comp = AC.createDynamicsCompressor();
+  comp.threshold.value = -14; comp.knee.value = 20; comp.ratio.value = 8;
+  comp.attack.value = 0.003;  comp.release.value = 0.2;
+  master = AC.createGain();
+  master.gain.value = muted ? 0 : SFX_VOLUME;
+  master.connect(comp); comp.connect(AC.destination);
+  audioReady = true;
+}
+function tone(type, f0, f1, dur, vol) {
+  if (!audioReady) return;
+  const t = AC.currentTime;
+  const o = AC.createOscillator();
+  o.type = type;
+  o.frequency.setValueAtTime(f0, t);
+  o.frequency.exponentialRampToValueAtTime(Math.max(f1, 1), t + dur);
+  const g = AC.createGain();
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+  o.connect(g); g.connect(master);
+  o.start(t); o.stop(t + dur + 0.02);
+}
+let clickFlip = false;
+function sfxStroke() { clickFlip = !clickFlip;
+  tone('square', clickFlip ? 1500 : 1250, 300, 0.035, 0.09); }
+function sfxPower()   { tone('sawtooth', 180, 760, 0.4, 0.24); }
+function sfxStrike()  { tone('square', 320, 1500, 0.22, 0.26); }
+function sfxCertify() { tone('triangle', 880, 1320, 0.16, 0.20); }
+function sfxBonus()   { tone('triangle', 700, 1500, 0.2, 0.28);
+                        setTimeout(()=>tone('triangle',1100,1900,0.18,0.24),110); }
+function sfxError()   { tone('sawtooth', 420, 60, 0.85, 0.30);
+                        tone('square',   180, 40, 0.60, 0.18); }
+function sfxVolume()  { [440,554,659,880].forEach((f,i)=>
+                          setTimeout(()=>tone('square', f, f, 0.14, 0.20), i*115)); }
+function sfxStart()   { [330,440,554,740].forEach((f,i)=>
+                          setTimeout(()=>tone('triangle', f, f, 0.13, 0.22), i*100)); }
+
+/* ============================================================
+   SETUP
+   ============================================================ */
+function buildPellets() {
+  pellets = []; pelletsLeft = 0;
+  for (let r = 0; r < ROWS; r++) {
+    const row = [];
+    for (let c = 0; c < COLS; c++) {
+      const ch = MAZE[r][c];
+      if (ch === '.' || ch === 'o') { row.push(ch); pelletsLeft++; }
+      else row.push(null);
+    }
+    pellets.push(row);
+  }
+  pelletTotal = pelletsLeft;
+}
+function buildTranscript() {
+  lines = SCRIPT.map(() => ({ state:'pending', flash:0 }));
+  errorsOnRecord = 0;
+}
+function makePlayer(i) {
+  const isKak = i === 0;
+  return {
+    idx:i,
+    name: isKak ? 'MS. KAK-MAN' : 'MR. KEEK-MAN',
+    short: isKak ? 'KAK' : 'KEEK',
+    color: isKak ? '#ffd93d' : '#5ad2ff',
+    bow: isKak,
+    startC: isKak ? 12 : 15, startR: 23,
+    x:0, y:0, dir:LEFT, want:null,
+    speed: PLAYER_BASE_SPEED,
+    lives: START_LIVES, score: 0,
+    invuln: 0, dead: false, mouth: 0,
+    keys: isKak
+      ? { up:'KeyW', down:'KeyS', left:'KeyA', right:'KeyD' }
+      : { up:'ArrowUp', down:'ArrowDown', left:'ArrowLeft', right:'ArrowRight' }
+  };
+}
+function placePlayer(p) {
+  p.x = cx(p.startC); p.y = cy(p.startR);
+  p.dir = LEFT; p.want = null; p.dead = false; p.invuln = INVULN_TIME;
+}
+function makeEnemies() {
+  enemies = ENEMY_DEFS.map((d, i) => ({
+    def:d, idx:i,
+    x: cx(d.start.c), y: cy(d.start.r),
+    dir: i === 0 ? LEFT : UP,
+    mode: d.inHouse ? 'house' : 'scatter',
+    releaseIn: d.release, bobDir:-1, isEnemy:true
+  }));
+}
+function resetRound(full) {
+  makeEnemies();
+  frightTimer = 0; combo = 0;
+  modeIndex = 0; modeTimer = 0; globalMode = 'scatter';
+  bonus = null; bonusDone = 0;
+  for (const p of players) placePlayer(p);
+  if (full) for (const p of players) { p.score = 0; p.lives = START_LIVES; }
+}
+function startGame() {
+  level = 1; players = [];
+  for (let i = 0; i < numPlayers; i++) players.push(makePlayer(i));
+  buildPellets(); buildTranscript(); resetRound(true);
+  state = 'playing'; msg = ''; msgTimer = 0;
+  sfxStart();
+  if (isBossRound()) flash('BOSS VOLUME', '#ff7ae0', 2.0);
+}
+function nextLevel() {
+  level++;
+  buildPellets(); buildTranscript(); resetRound(false);
+  const boost = 1 + (level - 1) * 0.045;
+  for (const p of players) p.speed = Math.min(PLAYER_BASE_SPEED * boost, 8.6);
+  state = 'playing';
+  if (isBossRound()) flash('BOSS VOLUME \u2014 double points', '#ff7ae0', 2.0);
+}
+function flash(text, color, secs) { msg = text; msgColor = color || '#fff'; msgTimer = secs; }
+
+function certifiedCount() { return lines.filter(l => l.state === 'clean').length; }
+function certifyProgress() {
+  const eaten = pelletTotal - pelletsLeft;
+  const perLine = pelletTotal / SCRIPT.length;
+  const should = Math.min(Math.floor(eaten / perLine), SCRIPT.length);
+  let n = 0;
+  for (const l of lines) if (l.state !== 'pending') n++;
+  if (should > n) {
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].state === 'pending') {
+        lines[i].state = 'clean'; lines[i].flash = 0.7; sfxCertify(); break;
+      }
+    }
+  }
+}
+function corruptLine(name) {
+  for (let i = lines.length - 1; i >= 0; i--) {
+    if (lines[i].state === 'clean') {
+      lines[i].state = 'bad'; lines[i].flash = 1.0; errorsOnRecord++;
+      flash(name + ' got into line ' + (i + 1), '#ff6b6b', 2.2);
+      return;
+    }
+  }
+  flash(name + ' caught you', '#ff6b6b', 2.0);
+}
+function fixLine() {
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].state === 'bad') {
+      lines[i].state = 'clean'; lines[i].flash = 0.9;
+      errorsOnRecord = Math.max(0, errorsOnRecord - 1);
+      return i + 1;
+    }
+  }
+  return 0;
+}
+
+/* ============================================================
+   MOVEMENT
+   ============================================================ */
+function canGo(e, col, row, d) {
+  const nc = wrapCol(col + d.x), nr = row + d.y;
+  if (nr < 0 || nr >= ROWS) return false;
+  const ch = MAZE[nr][nc];
+  if (ch === '#') return false;
+  if (ch === '-') return !!e.isEnemy && (e.mode === 'struck' || e.mode === 'entering');
+  return true;
+}
+function wrapX(e) {
+  if (e.x < -TS/2)          e.x += COLS * TS;
+  if (e.x > COLS*TS + TS/2) e.x -= COLS * TS;
+}
+function stepPlayer(p, dt) {
+  const spd = p.speed * TS * dt;
+  const col = Math.floor(p.x / TS), row = Math.floor(p.y / TS);
+  const tx = cx(col), ty = cy(row);
+  if (Math.abs(p.x - tx) <= spd && Math.abs(p.y - ty) <= spd) {
+    p.x = tx; p.y = ty;
+    if (p.want && canGo(p, col, row, p.want)) { p.dir = p.want; p.want = null; }
+    if (!canGo(p, col, row, p.dir)) return;
+  }
+  p.x += p.dir.x * spd; p.y += p.dir.y * spd;
+  wrapX(p); p.mouth += dt * 11;
+}
+function enemySpeed(g) {
+  if (g.mode === 'struck') return STRUCK_SPEED;
+  if (g.mode === 'frightened') return FRIGHT_SPEED;
+  return Math.min(ENEMY_BASE_SPEED + (level - 1) * 0.22 + (isBossRound() ? 0.9 : 0), 8.2);
+}
+function nearestPlayer(g) {
+  let best = null, bd = Infinity;
+  for (const p of players) {
+    if (p.lives <= 0 || p.dead) continue;
+    const d = (p.x - g.x) ** 2 + (p.y - g.y) ** 2;
+    if (d < bd) { bd = d; best = p; }
+  }
+  return best;
+}
+function enemyTarget(g) {
+  if (g.mode === 'struck') return { x: cx(14), y: cy(11) };
+  const corner = { x: cx(g.def.corner.c), y: cy(g.def.corner.r) };
+  if (globalMode === 'scatter' && g.mode !== 'frightened') return corner;
+  const p = nearestPlayer(g);
+  if (!p) return corner;
+  if (g.idx === 0) return { x: p.x, y: p.y };
+  if (g.idx === 1) return { x: p.x + p.dir.x*4*TS, y: p.y + p.dir.y*4*TS };
+  if (g.idx === 2) {
+    const red = enemies[0];
+    const ax = p.x + p.dir.x*2*TS, ay = p.y + p.dir.y*2*TS;
+    return { x: ax + (ax - red.x), y: ay + (ay - red.y) };
+  }
+  return Math.hypot(p.x - g.x, p.y - g.y) > 8*TS ? { x:p.x, y:p.y } : corner;
+}
+function stepEnemy(g, dt) {
+  if (g.mode === 'house') {
+    g.releaseIn -= dt;
+    g.y += g.bobDir * 22 * dt;
+    if (g.y < cy(14) - 8) g.bobDir = 1;
+    if (g.y > cy(14) + 8) g.bobDir = -1;
+    if (g.releaseIn <= 0) g.mode = 'exiting';
+    return;
+  }
+  if (g.mode === 'exiting') {
+    const tx = cx(14), ty = cy(11), v = 70*dt;
+    if (Math.abs(g.x - tx) > 1) g.x += Math.sign(tx - g.x) * Math.min(Math.abs(tx - g.x), v);
+    else if (g.y > ty)          g.y -= Math.min(g.y - ty, v);
+    else { g.x = tx; g.y = ty; g.mode = frightTimer > 0 ? 'frightened' : globalMode;
+           g.dir = Math.random() < 0.5 ? LEFT : RIGHT; }
+    return;
+  }
+  if (g.mode === 'entering') {
+    const tx = cx(14), ty = cy(14), v = 180*dt;
+    if (Math.abs(g.x - tx) > 1)      g.x += Math.sign(tx - g.x)*Math.min(Math.abs(tx - g.x), v);
+    else if (Math.abs(g.y - ty) > 1) g.y += Math.sign(ty - g.y)*Math.min(Math.abs(ty - g.y), v);
+    else { g.mode = 'house'; g.releaseIn = 1.1; g.bobDir = -1; }
+    return;
+  }
+  const spd = enemySpeed(g) * TS * dt;
+  const col = Math.floor(g.x / TS), row = Math.floor(g.y / TS);
+  const tx = cx(col), ty = cy(row);
+  if (Math.abs(g.x - tx) <= spd && Math.abs(g.y - ty) <= spd) {
+    g.x = tx; g.y = ty;
+    if (g.mode === 'struck' && Math.abs(g.x - cx(14)) < 2 && Math.abs(g.y - cy(11)) < 2) {
+      g.mode = 'entering'; return;
+    }
+    const back = { x:-g.dir.x, y:-g.dir.y };
+    let opts = DIRS.filter(d => !(d.x === back.x && d.y === back.y) && canGo(g, col, row, d));
+    if (!opts.length) opts = DIRS.filter(d => canGo(g, col, row, d));
+    if (!opts.length) return;
+    if (g.mode === 'frightened') {
+      g.dir = opts[Math.floor(Math.random() * opts.length)];
+    } else {
+      const t = enemyTarget(g);
+      let best = opts[0], bd = Infinity;
+      for (const d of opts) {
+        const nx = (col + d.x)*TS + TS/2, ny = (row + d.y)*TS + TS/2;
+        const dd = (nx - t.x)**2 + (ny - t.y)**2;
+        if (dd < bd) { bd = dd; best = d; }
+      }
+      g.dir = best;
+    }
+  }
+  g.x += g.dir.x * spd; g.y += g.dir.y * spd;
+  wrapX(g);
+}
+
+/* ============================================================
+   UPDATE
+   ============================================================ */
+function update(dt) {
+  if (msgTimer > 0) msgTimer -= dt;
+  flashTimer += dt;
+  for (const l of lines) if (l.flash > 0) l.flash -= dt;
+
+  if (state === 'levelclear') { stateTimer -= dt; if (stateTimer <= 0) nextLevel(); return; }
+  if (state === 'dying') {
+    stateTimer -= dt;
+    if (stateTimer <= 0) {
+      const alive = players.filter(p => p.lives > 0);
+      if (!alive.length) {
+        state = 'gameover';
+        const top = Math.max.apply(null, players.map(p => p.score));
+        if (top > bestBySide[side]) bestBySide[side] = top;
+      } else {
+        for (const p of players) if (p.lives > 0) placePlayer(p);
+        state = 'playing';
+      }
+    }
+    return;
+  }
+  if (state !== 'playing' || paused) return;
+
+  if (frightTimer <= 0) {
+    modeTimer += dt;
+    const plan = MODE_PLAN[Math.min(modeIndex, MODE_PLAN.length - 1)];
+    if (modeTimer >= plan.t) {
+      modeTimer = 0; modeIndex++;
+      globalMode = MODE_PLAN[Math.min(modeIndex, MODE_PLAN.length - 1)].mode;
+      for (const g of enemies)
+        if (g.mode === 'scatter' || g.mode === 'chase') {
+          g.mode = globalMode; g.dir = { x:-g.dir.x, y:-g.dir.y };
+        }
+    }
+  } else {
+    frightTimer -= dt;
+    if (frightTimer <= 0) {
+      combo = 0;
+      for (const g of enemies) if (g.mode === 'frightened') g.mode = globalMode;
+    }
+  }
+
+  for (const p of players) {
+    if (p.lives <= 0 || p.dead) continue;
+    if (p.invuln > 0) p.invuln -= dt;
+    stepPlayer(p, dt);
+
+    const c = Math.floor(p.x / TS), r = Math.floor(p.y / TS), cw = wrapCol(c);
+    const pel = (r >= 0 && r < ROWS) ? pellets[r][cw] : null;
+    if (pel) {
+      pellets[r][cw] = null; pelletsLeft--;
+      const mult = isBossRound() ? 2 : 1;
+      if (pel === '.') { p.score += 10 * mult; sfxStroke(); }
+      else {
+        p.score += 50 * mult; sfxPower();
+        frightTimer = Math.max(FRIGHT_TIME - (level - 1) * 0.45, 2.0);
+        combo = 0;
+        flash("MORSON'S IS OPEN \u2014 go strike them", '#ff8ad8', 1.6);
+        for (const g of enemies)
+          if (g.mode === 'scatter' || g.mode === 'chase') {
+            g.mode = 'frightened'; g.dir = { x:-g.dir.x, y:-g.dir.y };
+          }
+      }
+      certifyProgress();
+      const eaten = pelletTotal - pelletsLeft;
+      if ((eaten === 70 || eaten === 170) && bonusDone < 2 && !bonus) {
+        bonus = { x: cx(14), y: cy(17), t: 9.5, value: 300 + level * 100 };
+        bonusDone++;
+      }
+      if (pelletsLeft <= 0) { state = 'levelclear'; stateTimer = 2.6; sfxVolume(); return; }
+    }
+  }
+
+  if (bonus) {
+    bonus.t -= dt;
+    if (bonus.t <= 0) bonus = null;
+    else for (const p of players) {
+      if (p.lives <= 0 || p.dead) continue;
+      if (Math.hypot(p.x - bonus.x, p.y - bonus.y) < 14) {
+        p.score += bonus.value * (isBossRound() ? 2 : 1);
+        flash("REPORTER'S CERTIFICATE  +" + bonus.value, '#5fe08a', 1.6);
+        sfxBonus(); bonus = null; break;
+      }
+    }
+  }
+
+  for (const g of enemies) stepEnemy(g, dt);
+
+  for (const p of players) {
+    if (p.lives <= 0 || p.dead) continue;
+    for (const g of enemies) {
+      if (g.mode === 'struck' || g.mode === 'entering' || g.mode === 'house') continue;
+      if (Math.hypot(p.x - g.x, p.y - g.y) > 13) continue;
+      if (g.mode === 'frightened') {
+        combo++;
+        const pts = 200 * Math.pow(2, Math.min(combo - 1, 3)) * (isBossRound() ? 2 : 1);
+        p.score += pts;
+        const ln = fixLine();
+        flash(g.def.name + ' STRUCK' + (ln ? '  \u2014 line ' + ln + ' restored' : '') + '  +' + pts,
+              '#5fe08a', 1.6);
+        g.mode = 'struck'; sfxStrike();
+      } else if (p.invuln <= 0) {
+        p.lives--; p.dead = true; sfxError();
+        corruptLine(g.def.name);
+        state = 'dying'; stateTimer = 1.8;
+      }
+    }
+  }
+}
+
+/* ============================================================
+   DRAWING HELPERS
+   ============================================================ */
+function rr(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+/* ---- THE VOICE MASK ---- */
+function drawMaskBody(color, open) {
+  /* cord out the back */
+  ctx.strokeStyle = '#3b3b52'; ctx.lineWidth = 2.4; ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(-10, 1);
+  ctx.quadraticCurveTo(-17, 6, -21, 2);
+  ctx.stroke();
+
+  /* head strap over the back */
+  ctx.strokeStyle = 'rgba(12,10,28,0.8)'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.arc(0, 0, 12, 0.60 * Math.PI, 1.40 * Math.PI); ctx.stroke();
+
+  /* the cup, chomping at the front */
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.arc(0, 0, 11, open * Math.PI, (2 - open) * Math.PI);
+  ctx.closePath(); ctx.fill();
+
+  /* padded rim at the back of the cup */
+  ctx.strokeStyle = 'rgba(10,8,24,0.45)'; ctx.lineWidth = 2.6;
+  ctx.beginPath(); ctx.arc(0, 0, 8.6, 0.66 * Math.PI, 1.34 * Math.PI); ctx.stroke();
+
+  /* mic grille */
+  ctx.strokeStyle = 'rgba(12,8,30,0.6)'; ctx.lineWidth = 1.3;
+  for (let i = -1; i <= 1; i++) {
+    ctx.beginPath(); ctx.moveTo(-5.5, i * 3.1); ctx.lineTo(0.5, i * 3.1); ctx.stroke();
+  }
+  ctx.fillStyle = 'rgba(12,8,30,0.7)';
+  ctx.beginPath(); ctx.arc(-3, 0, 2.1, 0, Math.PI * 2); ctx.fill();
+}
+
+/* ---- THE STENOTYPE MACHINE ---- */
+function drawStenoBody(color, open) {
+  const swing = open * 0.62;
+
+  /* tripod stub under the back */
+  ctx.strokeStyle = '#3b3b52'; ctx.lineWidth = 2.4; ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(-8, 6); ctx.lineTo(-13, 11);
+  ctx.moveTo(-8, -6); ctx.lineTo(-13, -11);
+  ctx.stroke();
+
+  /* upper key bank, hinged at the back */
+  ctx.save();
+  ctx.translate(-9, 0); ctx.rotate(-swing);
+  ctx.fillStyle = color;
+  rr(0, -9, 21, 9, 2.6); ctx.fill();
+  ctx.fillStyle = 'rgba(12,8,30,0.62)';
+  for (let i = 0; i < 4; i++) rr(3 + i * 4.4, -7.4, 3.3, 5.6, 1.1), ctx.fill();
+  ctx.restore();
+
+  /* lower key bank */
+  ctx.save();
+  ctx.translate(-9, 0); ctx.rotate(swing);
+  ctx.fillStyle = color;
+  rr(0, 0, 21, 9, 2.6); ctx.fill();
+  ctx.fillStyle = 'rgba(12,8,30,0.62)';
+  for (let i = 0; i < 4; i++) rr(3 + i * 4.4, 1.8, 3.3, 5.6, 1.1), ctx.fill();
+  ctx.restore();
+
+  /* paper tape curling off the back */
+  ctx.strokeStyle = '#efe9d6'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(-10, 0); ctx.quadraticCurveTo(-16, -4, -20, 1);
+  ctx.stroke();
+}
+
+function drawRig(x, y, angle, open, color, rig, scale) {
+  ctx.save();
+  ctx.translate(x, y); ctx.rotate(angle); ctx.scale(scale, scale);
+  if (rig === 'steno') drawStenoBody(color, open);
+  else                 drawMaskBody(color, open);
+  ctx.restore();
+}
+
+/* ============================================================
+   DRAW — MAZE SIDE
+   ============================================================ */
+function drawMaze() {
+  const wallFill = isBossRound() ? '#1a0d1f' : '#080b1c';
+  const wallEdge = isBossRound() ? '#c04ad8' : '#3d5bf5';
+  for (let r = 0; r < ROWS; r++)
+    for (let c = 0; c < COLS; c++)
+      if (MAZE[r][c] === '#') { ctx.fillStyle = wallFill; ctx.fillRect(c*TS, r*TS, TS, TS); }
+  ctx.strokeStyle = wallEdge; ctx.lineWidth = 2;
+  ctx.beginPath();
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      if (MAZE[r][c] !== '#') continue;
+      const x = c*TS, y = r*TS;
+      if (tileCh(c, r-1) !== '#') { ctx.moveTo(x, y);    ctx.lineTo(x+TS, y); }
+      if (tileCh(c, r+1) !== '#') { ctx.moveTo(x, y+TS); ctx.lineTo(x+TS, y+TS); }
+      if (tileCh(c-1, r) !== '#') { ctx.moveTo(x, y);    ctx.lineTo(x, y+TS); }
+      if (tileCh(c+1, r) !== '#') { ctx.moveTo(x+TS, y); ctx.lineTo(x+TS, y+TS); }
+    }
+  }
+  ctx.stroke();
+  ctx.strokeStyle = '#ff8ad8'; ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(13*TS, 12*TS + TS/2); ctx.lineTo(15*TS, 12*TS + TS/2);
+  ctx.stroke();
+}
+
+function drawPellets() {
+  const pulse = 0.6 + 0.4 * Math.sin(flashTimer * 6);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const p = pellets[r][c];
+      if (!p) continue;
+      if (p === '.') {
+        ctx.fillStyle = '#f3e6c8';
+        ctx.font = 'bold 14px "Courier New",monospace';
+        ctx.fillText(punctAt(c, r), cx(c), cy(r) + 1);
+      } else {
+        ctx.save(); ctx.translate(cx(c), cy(r)); ctx.globalAlpha = pulse;
+        ctx.fillStyle = '#7a1030'; ctx.fillRect(-7, -9, 14, 18);
+        ctx.fillStyle = '#ff8ad8'; ctx.fillRect(-7, -9, 3, 18);
+        ctx.fillStyle = '#ffe9f6';
+        ctx.font = 'bold 9px "Courier New",monospace';
+        ctx.fillText('M', 1, 1);
+        ctx.globalAlpha = 1; ctx.restore();
+      }
+    }
+  }
+}
+
+function drawBonus() {
+  if (!bonus) return;
+  const bob = Math.sin(flashTimer * 5) * 2;
+  ctx.save(); ctx.translate(bonus.x, bonus.y + bob);
+  ctx.fillStyle = '#f6f2e8'; ctx.fillRect(-9, -11, 18, 22);
+  ctx.strokeStyle = '#8a8676'; ctx.lineWidth = 1; ctx.strokeRect(-9, -11, 18, 22);
+  ctx.fillStyle = '#8a8676';
+  for (let i = 0; i < 5; i++) ctx.fillRect(-6, -7 + i*3.4, 12, 1);
+  ctx.fillStyle = '#c9a227';
+  ctx.beginPath(); ctx.arc(3, 7, 3.4, 0, Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+function drawPlayer(p) {
+  if (p.lives <= 0 || p.dead) return;
+  if (p.invuln > 0 && Math.floor(p.invuln * 12) % 2 === 0) return;
+  const open  = Math.abs(Math.sin(p.mouth)) * 0.30 + 0.03;
+  const angle = Math.atan2(p.dir.y, p.dir.x);
+
+  drawRig(p.x, p.y, angle, open, p.color, rigFor(p), 1);
+
+  if (p.bow) {                       /* Ms. Kak-Man's pink bow */
+    ctx.save(); ctx.translate(p.x, p.y - 11);
+    ctx.fillStyle = '#ff5fa8';
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(-7,-5); ctx.lineTo(-7,3); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo( 7,-5); ctx.lineTo( 7,3); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.arc(0,-1,2.4,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  ctx.font = 'bold 8px "Courier New",monospace';
+  ctx.fillStyle = p.color; ctx.globalAlpha = 0.9;
+  ctx.fillText(p.short, p.x, p.y + 23);
+  ctx.globalAlpha = 1;
+}
+
+/* the enemies ARE the punctuation marks */
+function drawEnemy(g) {
+  const d = g.def;
+  const gone  = (g.mode === 'struck' || g.mode === 'entering');
+  const fright = g.mode === 'frightened';
+  const blink  = fright && frightTimer < 2 && Math.floor(frightTimer * 8) % 2 === 0;
+  const bob    = Math.sin(flashTimer * 7 + g.idx * 1.7) * 1.8;
+  const lean   = g.dir.x * 0.12 + (g.dir.y ? Math.sin(flashTimer * 9) * 0.05 : 0);
+
+  ctx.save();
+  ctx.translate(g.x, g.y + bob);
+  ctx.rotate(lean);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+
+  if (gone) {
+    /* a struck mark drifting back to the ghost house */
+    ctx.globalAlpha = 0.45;
+    ctx.font = 'bold ' + d.size + 'px "Courier New",monospace';
+    ctx.lineWidth = 1.6; ctx.strokeStyle = '#9fb4ff';
+    ctx.strokeText(d.glyph, 0, d.dy);
+    ctx.strokeStyle = '#ff3b30'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(-10, 4); ctx.lineTo(10, -6); ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.restore();
+    return;
+  }
+
+  /* aura so the mark never disappears against the maze */
+  ctx.fillStyle = fright ? 'rgba(60,86,255,0.26)' : d.glow;
+  ctx.beginPath(); ctx.arc(0, 0, 12.5, 0, Math.PI * 2); ctx.fill();
+
+  ctx.font = 'bold ' + d.size + 'px "Courier New",monospace';
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = 5; ctx.strokeStyle = '#04050b';
+  ctx.strokeText(d.glyph, 0, d.dy);
+  ctx.fillStyle = fright ? (blink ? '#ffffff' : '#7d92ff') : d.color;
+  ctx.fillText(d.glyph, 0, d.dy);
+
+  if (fright) {                       /* proofreader's strike, ready to be run down */
+    ctx.strokeStyle = '#ff3b30'; ctx.lineWidth = 2.6; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(-11, 5); ctx.lineTo(11, -7); ctx.stroke();
+  }
+  ctx.restore();
+
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  ctx.font = 'bold 7px "Courier New",monospace';
+  ctx.fillStyle = fright ? '#9fb4ff' : d.color;
+  ctx.globalAlpha = 0.92;
+  ctx.fillText(d.name, g.x, g.y - 15);
+  ctx.globalAlpha = 1;
+}
+
+/* ============================================================
+   DRAW — THE TRANSCRIPT PAGE
+   ============================================================ */
+function wrapText(text, maxChars) {
+  const words = text.split(' ');
+  const out = []; let cur = '';
+  for (const w of words) {
+    if ((cur + ' ' + w).trim().length > maxChars) { out.push(cur.trim()); cur = w; }
+    else cur = (cur + ' ' + w).trim();
+  }
+  if (cur) out.push(cur);
+  return out.slice(0, 2);
+}
+
+function drawTranscript() {
+  const px = MAZE_W, py = HUD_TOP, pw = PANEL_W, ph = ROWS * TS;
+  ctx.fillStyle = '#f5f2e7'; ctx.fillRect(px + 10, py, pw - 20, ph);
+  ctx.strokeStyle = '#c8c2ac'; ctx.lineWidth = 1;
+  ctx.strokeRect(px + 10, py, pw - 20, ph);
+
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = '#1a1a2e'; ctx.font = 'bold 11px "Courier New",monospace';
+  ctx.fillText('OFFICIAL TRANSCRIPT OF PROCEEDINGS', px + pw/2, py + 22);
+  ctx.font = '10px "Courier New",monospace'; ctx.fillStyle = '#6b6552';
+  ctx.fillText('VOLUME ' + level + '   \u2014   reported by ' + sideLabel(), px + pw/2, py + 38);
+
+  const cert = certifiedCount();
+  ctx.font = 'bold 10px "Courier New",monospace';
+  ctx.fillStyle = errorsOnRecord ? '#b3261e' : '#1f7a3d';
+  ctx.fillText('CERTIFIED ' + cert + ' / ' + SCRIPT.length +
+               '      ERRORS ON THE RECORD: ' + errorsOnRecord, px + pw/2, py + 54);
+
+  const left = px + 22, right = px + pw - 22, top = py + 68;
+  ctx.strokeStyle = '#d9534f'; ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(left + 26, py + 8); ctx.lineTo(left + 26, py + ph - 8);
+  ctx.moveTo(left + 29, py + 8); ctx.lineTo(left + 29, py + ph - 8);
+  ctx.stroke();
+
+  let y = top + 12;
+  const rowH = 15, maxChars = 44;
+  for (let i = 0; i < SCRIPT.length; i++) {
+    const sl = SCRIPT[i], ln = lines[i];
+    if (y > py + ph - 14) break;
+
+    ctx.textAlign = 'right'; ctx.font = '10px "Courier New",monospace';
+    ctx.fillStyle = '#9a9481';
+    ctx.fillText(String(i + 1), left + 20, y);
+    ctx.textAlign = 'left';
+    const bodyX = left + 38;
+
+    if (ln.state === 'pending') {
+      ctx.fillStyle = '#ded8c6'; ctx.font = '11px "Courier New",monospace';
+      ctx.fillText('\u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7', bodyX, y);
+      y += rowH; continue;
+    }
+    const bad = ln.state === 'bad';
+    const text = bad ? sl.bad : sl.t;
+    if (ln.flash > 0) {
+      ctx.fillStyle = bad ? 'rgba(179,38,30,0.18)' : 'rgba(31,122,61,0.18)';
+      ctx.fillRect(bodyX - 4, y - 11, right - bodyX + 2, rowH - 1);
+    }
+    ctx.font = 'bold 11px "Courier New",monospace';
+    ctx.fillStyle = bad ? '#b3261e' : '#15151f';
+    ctx.fillText(sl.s + '.', bodyX, y);
+    const rows = wrapText(text, maxChars);
+    ctx.font = '11px "Courier New",monospace';
+    ctx.fillText(rows[0], bodyX + 22, y);
+    if (rows[1]) { y += rowH; ctx.fillText(rows[1], bodyX + 22, y); }
+    if (bad) {
+      y += rowH - 3;
+      ctx.font = 'italic 9px "Courier New",monospace'; ctx.fillStyle = '#c25a54';
+      ctx.fillText('\u2716 ' + sl.err, bodyX + 22, y);
+    } else {
+      ctx.font = 'bold 10px "Courier New",monospace'; ctx.fillStyle = '#1f7a3d';
+      ctx.fillText('\u2713', bodyX - 14, y);
+    }
+    y += rowH;
+  }
+}
+
+/* ============================================================
+   DRAW — HUD
+   ============================================================ */
+function drawHUD() {
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = '#04050b'; ctx.fillRect(0, 0, W, HUD_TOP);
+
+  const p1 = players[0], p2 = players[1];
+  ctx.textAlign = 'left';
+  if (p1) {
+    ctx.fillStyle = p1.color; ctx.font = 'bold 14px "Courier New",monospace';
+    ctx.fillText('MS. KAK-MAN', 12, 20);
+    ctx.font = 'bold 20px "Courier New",monospace';
+    ctx.fillText(String(p1.score).padStart(6, '0'), 12, 44);
+    for (let i = 0; i < p1.lives; i++)
+      drawRig(128 + i * 20, 36, 0, 0.22, p1.color, rigFor(p1), 0.55);
+    ctx.font = '9px "Courier New",monospace'; ctx.fillStyle = '#6b7398';
+    ctx.fillText('W A S D  \u00b7  ' + (rigFor(p1) === 'mask' ? 'VOICE MASK' : 'STENOTYPE'), 12, 60);
+  }
+  if (p2) {
+    ctx.fillStyle = p2.color; ctx.font = 'bold 14px "Courier New",monospace';
+    ctx.fillText('MR. KEEK-MAN', 250, 20);
+    ctx.font = 'bold 20px "Courier New",monospace';
+    ctx.fillText(String(p2.score).padStart(6, '0'), 250, 44);
+    for (let i = 0; i < p2.lives; i++)
+      drawRig(368 + i * 20, 36, 0, 0.22, p2.color, rigFor(p2), 0.55);
+    ctx.font = '9px "Courier New",monospace'; ctx.fillStyle = '#6b7398';
+    ctx.fillText('ARROWS  \u00b7  ' + (rigFor(p2) === 'mask' ? 'VOICE MASK' : 'STENOTYPE'), 250, 60);
+  }
+
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 13px "Courier New",monospace';
+  ctx.fillStyle = isBossRound() ? '#ff7ae0' : '#5fe08a';
+  ctx.fillText((isBossRound() ? 'BOSS ' : '') + 'VOLUME ' + level, MAZE_W + PANEL_W/2, 20);
+  if (msgTimer > 0) {
+    ctx.fillStyle = msgColor; ctx.font = 'bold 12px "Courier New",monospace';
+    ctx.fillText(msg, MAZE_W + PANEL_W/2, 44);
+  } else {
+    ctx.fillStyle = '#5b6488'; ctx.font = '10px "Courier New",monospace';
+    ctx.fillText('eat punctuation to certify the record', MAZE_W + PANEL_W/2, 44);
+  }
+
+  const by = HUD_TOP + ROWS*TS;
+  ctx.fillStyle = '#04050b'; ctx.fillRect(0, by, W, HUD_BOT);
+  ctx.textAlign = 'left';
+  let lx = 10;
+  ctx.font = '9px "Courier New",monospace'; ctx.fillStyle = '#4a5378';
+  ctx.fillText('LOOSE ON THE RECORD:', lx, by + 18); lx += 124;
+  for (const d of ENEMY_DEFS) {
+    ctx.fillStyle = d.color;
+    ctx.font = 'bold 15px "Courier New",monospace';
+    ctx.fillText(d.glyph, lx, by + 19); lx += 13;
+    ctx.font = '9px "Courier New",monospace';
+    ctx.fillText(d.name, lx, by + 18);
+    lx += ctx.measureText(d.name).width + 16;
+  }
+  ctx.fillStyle = '#4a5378';
+  ctx.fillText('P pause    M mute    R restart    ESC menu', 10, by + 35);
+  ctx.textAlign = 'right'; ctx.fillStyle = '#8a6ea8';
+  ctx.fillText("MORSON'S turns them blue \u2014 run one down and it restores a line", W - 10, by + 35);
+}
+
+function drawBannerBox(rows) {
+  const w = 470, h = 34 + rows.length * 27;
+  const x = MAZE_W/2 - w/2, y = HUD_TOP + ROWS*TS/2 - h/2;
+  ctx.fillStyle = 'rgba(3,4,12,0.94)'; ctx.fillRect(x, y, w, h);
+  ctx.strokeStyle = '#3d5bf5'; ctx.lineWidth = 2; ctx.strokeRect(x, y, w, h);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  rows.forEach((l, i) => {
+    ctx.fillStyle = l.color || '#fff';
+    ctx.font = l.font || '15px "Courier New",monospace';
+    ctx.fillText(l.t, MAZE_W/2, y + 34 + i*27);
+  });
+}
+
+function drawMenu() {
+  ctx.fillStyle = '#04050b'; ctx.fillRect(0, 0, W, H);
+  const mx = W/2;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+
+  ctx.fillStyle = '#ffd93d'; ctx.font = 'bold 36px "Courier New",monospace';
+  ctx.fillText('MS. KAK-MAN', mx, 84);
+  ctx.fillStyle = '#5ad2ff'; ctx.font = 'bold 26px "Courier New",monospace';
+  ctx.fillText('& MR. KEEK-MAN', mx, 118);
+  ctx.fillStyle = '#7c86b0'; ctx.font = '13px "Courier New",monospace';
+  ctx.fillText('you are the rig. bad punctuation is coming for the record.', mx, 144);
+
+  /* the enemies, drawn as they actually appear */
+  let y = 186;
+  ctx.font = '11px "Courier New",monospace';
+  for (const d of ENEMY_DEFS) {
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = 'bold ' + Math.round(d.size * 0.8) + 'px "Courier New",monospace';
+    ctx.fillStyle = d.glow;
+    ctx.beginPath(); ctx.arc(mx - 216, y - 3, 11, 0, Math.PI*2); ctx.fill();
+    ctx.lineJoin = 'round'; ctx.lineWidth = 4; ctx.strokeStyle = '#04050b';
+    ctx.strokeText(d.glyph, mx - 216, y - 3 + d.dy * 0.8);
+    ctx.fillStyle = d.color;
+    ctx.fillText(d.glyph, mx - 216, y - 3 + d.dy * 0.8);
+    ctx.textBaseline = 'alphabetic';
+    ctx.textAlign = 'left';
+    ctx.font = 'bold 11px "Courier New",monospace';
+    ctx.fillText(d.name, mx - 196, y);
+    ctx.fillStyle = '#6b7398'; ctx.font = '11px "Courier New",monospace';
+    ctx.fillText(d.blurb, mx - 60, y);
+    y += 26;
+  }
+
+  ctx.textAlign = 'center';
+  y += 18;
+  ctx.font = 'bold 15px "Courier New",monospace'; ctx.fillStyle = '#fff';
+  ctx.fillText('[1] ONE REPORTER          [2] TWO REPORTERS', mx, y);
+  ctx.font = '11px "Courier New",monospace'; ctx.fillStyle = '#5fe08a';
+  ctx.fillText('\u25b2 ' + (numPlayers === 1 ? 'one' : 'two') + ' selected', mx, y + 18);
+
+  /* pick your rig, with live previews */
+  y += 56;
+  ctx.font = 'bold 14px "Courier New",monospace'; ctx.fillStyle = '#fff';
+  ctx.fillText('PICK YOUR RIG', mx, y);
+
+  const open = Math.abs(Math.sin(flashTimer * 5)) * 0.30 + 0.03;
+  const cols = [
+    { key:'[V]', label:'VOICE MASK',  val:'VOICE', rig:'mask',  x: mx - 190 },
+    { key:'[S]', label:'STENOTYPE',   val:'STENO', rig:'steno', x: mx },
+    { key:'[B]', label:'BOTH \u2014 2P', val:'BOTH',  rig:'both',  x: mx + 190 }
+  ];
+  y += 34;
+  for (const c of cols) {
+    const on = side === c.val;
+    if (c.rig === 'both') {
+      drawRig(c.x - 16, y, 0, open, '#ffd93d', 'mask',  1.25);
+      drawRig(c.x + 20, y, 0, open, '#5ad2ff', 'steno', 1.25);
+    } else {
+      drawRig(c.x, y, 0, open, on ? '#ffd93d' : '#59608a', c.rig, 1.5);
+    }
+    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = 'bold 11px "Courier New",monospace';
+    ctx.fillStyle = on ? '#5fe08a' : '#59608a';
+    ctx.fillText(c.key + ' ' + c.label, c.x, y + 30);
+  }
+  ctx.font = '11px "Courier New",monospace'; ctx.fillStyle = '#5b6488';
+  ctx.fillText('same maze, same rules, same enemies \u2014 only the high score differs', mx, y + 52);
+
+  y += 78;
+  ctx.font = '11px "Courier New",monospace'; ctx.fillStyle = '#7c86b0';
+  ctx.fillText('VOICE ' + String(bestBySide.VOICE).padStart(6,'0') +
+               '     STENO ' + String(bestBySide.STENO).padStart(6,'0') +
+               '     BOTH ' + String(bestBySide.BOTH).padStart(6,'0'), mx, y);
+
+  y += 32;
+  ctx.font = 'bold 16px "Courier New",monospace';
+  ctx.fillStyle = Math.floor(flashTimer*2) % 2 ? '#5fe08a' : '#2a6b44';
+  ctx.fillText('PRESS ENTER TO GO ON THE RECORD', mx, y);
+  ctx.font = '10px "Courier New",monospace'; ctx.fillStyle = '#4a5378';
+  ctx.fillText('MS. KAK-MAN  W A S D            MR. KEEK-MAN  ARROW KEYS', mx, y + 24);
+}
+
+function draw() {
+  if (state === 'menu') { drawMenu(); return; }
+  ctx.fillStyle = '#04050b'; ctx.fillRect(0, 0, W, H);
+
+  ctx.save();
+  ctx.translate(0, HUD_TOP);
+  const clearFlash = state === 'levelclear' && Math.floor(stateTimer*6) % 2 === 0;
+  if (!clearFlash) drawMaze();
+  drawPellets();
+  drawBonus();
+  for (const g of enemies) drawEnemy(g);
+  for (const p of players) drawPlayer(p);
+  ctx.restore();
+
+  drawTranscript();
+  drawHUD();
+
+  if (state === 'levelclear') {
+    drawBannerBox([
+      { t:'VOLUME CERTIFIED', color:'#5fe08a', font:'bold 22px "Courier New",monospace' },
+      { t: certifiedCount() + ' of ' + SCRIPT.length + ' lines clean, ' +
+           errorsOnRecord + ' error(s) standing', color:'#9aa3c7', font:'12px "Courier New",monospace' },
+      { t:'volume ' + (level+1) + ' coming up', color:'#9aa3c7', font:'13px "Courier New",monospace' }
+    ]);
+  } else if (state === 'gameover') {
+    const rows = [{ t:'OFF THE RECORD', color:'#ff5f5f', font:'bold 24px "Courier New",monospace' }];
+    if (players.length === 2) {
+      const a = players[0].score, b = players[1].score;
+      rows.push({ t: a > b ? 'MS. KAK-MAN WINS' : b > a ? 'MR. KEEK-MAN WINS' : 'DEAD HEAT',
+                  color:'#fff', font:'bold 16px "Courier New",monospace' });
+      rows.push({ t: a + '  to  ' + b, color:'#9aa3c7', font:'14px "Courier New",monospace' });
+    } else {
+      rows.push({ t:'score  ' + players[0].score, color:'#fff', font:'16px "Courier New",monospace' });
+    }
+    rows.push({ t: errorsOnRecord + ' error(s) left standing', color:'#c25a54', font:'12px "Courier New",monospace' });
+    rows.push({ t: side + ' best this session: ' + bestBySide[side],
+                color:'#ffd93d', font:'12px "Courier New",monospace' });
+    rows.push({ t:'R to go back on the record    ESC for menu', color:'#5fe08a', font:'13px "Courier New",monospace' });
+    drawBannerBox(rows);
+  } else if (paused) {
+    drawBannerBox([{ t:'OFF THE RECORD \u2014 PAUSED', color:'#fff', font:'bold 20px "Courier New",monospace' },
+                   { t:'P to resume', color:'#9aa3c7', font:'13px "Courier New",monospace' }]);
+  }
+}
+
+/* ============================================================
+   INPUT
+   ============================================================ */
+addEventListener('keydown', e => {
+  initAudio();
+  if (AC && AC.state === 'suspended') AC.resume();
+  if (['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)) e.preventDefault();
+
+  if (e.code === 'KeyM') {
+    muted = !muted;
+    if (master) master.gain.value = muted ? 0 : SFX_VOLUME;
+  }
+  if (state === 'menu') {
+    if (e.code === 'Digit1' || e.code === 'Numpad1') numPlayers = 1;
+    if (e.code === 'Digit2' || e.code === 'Numpad2') numPlayers = 2;
+    if (e.code === 'KeyV') side = 'VOICE';
+    if (e.code === 'KeyS') side = 'STENO';
+    if (e.code === 'KeyB') { side = 'BOTH'; numPlayers = 2; }
+    if (e.code === 'Enter' || e.code === 'Space') startGame();
+    return;
+  }
+  if (e.code === 'Escape') { state = 'menu'; paused = false; return; }
+  if (e.code === 'KeyR')   { startGame(); return; }
+  if (e.code === 'KeyP' && state === 'playing') paused = !paused;
+
+  for (const p of players) {
+    if (p.lives <= 0) continue;
+    if (e.code === p.keys.up)    p.want = UP;
+    if (e.code === p.keys.down)  p.want = DOWN;
+    if (e.code === p.keys.left)  p.want = LEFT;
+    if (e.code === p.keys.right) p.want = RIGHT;
+    if (players.length === 1) {
+      if (e.code === 'ArrowUp'    || e.code === 'KeyW') p.want = UP;
+      if (e.code === 'ArrowDown'  || e.code === 'KeyS') p.want = DOWN;
+      if (e.code === 'ArrowLeft'  || e.code === 'KeyA') p.want = LEFT;
+      if (e.code === 'ArrowRight' || e.code === 'KeyD') p.want = RIGHT;
+    }
+  }
+});
+canvas.addEventListener('click', () => {
+  initAudio();
+  if (AC && AC.state === 'suspended') AC.resume();
+});
+
+/* ============================================================
+   LOOP
+   ============================================================ */
+buildPellets(); buildTranscript();
+players = [makePlayer(0)];
+makeEnemies();
+
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min((now - last) / 1000, 0.05);
+  last = now;
+  update(dt);
+  draw();
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

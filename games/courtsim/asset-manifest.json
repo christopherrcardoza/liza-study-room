@@ -1,0 +1,75 @@
+{
+  "base": "https://christopherrcardoza.github.io/liza-study-room/games/courtsim/assets/",
+  "files": [
+    {
+      "path": "avatars/bailiff.glb",
+      "bytes": 51504044,
+      "sha256": "77c0873d496920e527bff90334a282cc2a7f11d74e3ebd8d66361516e2eb021f"
+    },
+    {
+      "path": "avatars/clerk.glb",
+      "bytes": 49286016,
+      "sha256": "4179eec09ef892f9648b90af96f6b6f566fd6ec37816bfe936e0e635579fb4a4"
+    },
+    {
+      "path": "avatars/counsel_a.glb",
+      "bytes": 39511300,
+      "sha256": "2614a26fb278709e25dfbda79b25c8684da5dd60029fd551629dc62df68c70fd"
+    },
+    {
+      "path": "avatars/counsel_b.glb",
+      "bytes": 51057796,
+      "sha256": "ca33b7ba383c1f19852e6e54cb476a69bde7968048bd645138932319317711f7"
+    },
+    {
+      "path": "avatars/judge.glb",
+      "bytes": 39786468,
+      "sha256": "07fe3472c896bba8537dec7468f32b1d1fba7e1cc14f29693e19cdac1b6a1a8a"
+    },
+    {
+      "path": "avatars/juror_1.glb",
+      "bytes": 40813924,
+      "sha256": "b09075a97768c937f58e16fc90e284b10041622748f21e3a7d93aebf5e2f1659"
+    },
+    {
+      "path": "avatars/juror_2.glb",
+      "bytes": 51238448,
+      "sha256": "00a41d522268865982a9a350847cf2eb4a597292201b6e22da2232dcf4d5b1af"
+    },
+    {
+      "path": "avatars/juror_3.glb",
+      "bytes": 40793068,
+      "sha256": "30e7fa18d07bf2a4a7249585bd4464a58ce2a477adcbc5f514876d7c1469dea9"
+    },
+    {
+      "path": "avatars/juror_4.glb",
+      "bytes": 49762288,
+      "sha256": "acd7d209bbcc07d3b567c310d054953ab57c1ecbf629187664fe20a262da782a"
+    },
+    {
+      "path": "avatars/juror_5.glb",
+      "bytes": 46829360,
+      "sha256": "3db436e018e2a4c6c39885fdd764056b029dab22911eaa217993d44ccc046a72"
+    },
+    {
+      "path": "avatars/juror_6.glb",
+      "bytes": 46181984,
+      "sha256": "1449c5d40bdcc3e3950ecee077c44ef19bebb72d4a34b40dc6df8119ccd20a65"
+    },
+    {
+      "path": "avatars/witness.glb",
+      "bytes": 48034452,
+      "sha256": "1d754dc5c1e0bee27cab2b7950e2c94a111f0175391ba1352034130f74f95f0f"
+    },
+    {
+      "path": "models/audio2face-3d-v2.3-mark/lipsync_reduced.json",
+      "bytes": 282964,
+      "sha256": "d629ec5670794f02600d7d613a672b13c494373651b6a711a71c6408e0164f75"
+    },
+    {
+      "path": "models/audio2face-3d-v2.3-mark/network.onnx",
+      "bytes": 75751144,
+      "sha256": "dcd16d3b1affb090d4da1ba88791faa6bcd755f97c853b3b667abad9be15cb4b"
+    }
+  ]
+}

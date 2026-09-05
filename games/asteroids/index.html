@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Asteroids — 2 Player Build Night</title>
+<style>
+  html,body{margin:0;height:100%;background:#000;display:flex;
+    align-items:center;justify-content:center;font-family:monospace;color:#ddd;}
+  #wrap{position:relative;}
+  canvas{border:1px solid #222;display:block;}
+  #net{position:absolute;top:70px;left:50%;transform:translateX(-50%);
+    width:620px;background:#0b0b0b;border:1px solid #333;padding:14px;
+    font-size:13px;line-height:1.5;}
+  #net h3{margin:0 0 8px;font-size:14px;color:#0f0;}
+  #net button{background:#161616;color:#ddd;border:1px solid #444;
+    padding:7px 12px;font-family:monospace;font-size:13px;cursor:pointer;margin-right:6px;}
+  #net button:hover{background:#242424;}
+  #netbox{width:100%;height:90px;background:#000;color:#8f8;border:1px solid #333;
+    font-family:monospace;font-size:11px;margin:8px 0;padding:6px;box-sizing:border-box;}
+  #netstep{color:#ffd166;white-space:pre-line;margin-bottom:6px;}
+  .hidden{display:none;}
+</style>
+</head>
+<body>
+<div id="wrap">
+<canvas id="game" width="900" height="640"></canvas>
+
+<div id="net">
+  <h3>ASTEROIDS — CONNECT</h3>
+  <div id="netbtns">
+    <button id="bLocal">LOCAL 2 PLAYER</button>
+    <button id="bHost">HOST ONLINE</button>
+    <button id="bJoin">JOIN ONLINE</button>
+  </div>
+  <div id="netstep">Both players on one keyboard? Click LOCAL 2 PLAYER.
+Two different devices? One clicks HOST ONLINE, the other clicks JOIN ONLINE.</div>
+  <textarea id="netbox" class="hidden" spellcheck="false"></textarea>
+  <div id="netactions" class="hidden">
+    <button id="bCopy">COPY MY CODE</button>
+    <button id="bGo">USE PASTED CODE</button>
+    <button id="bHide">HIDE PANEL (N)</button>
+  </div>
+</div>
+</div>
+
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+
+let lastKey = '(none)';
+let muted = false;
+
+// ---- tuning knobs ----
+const TURN_SPEED     = 3.2;
+const THRUST         = 260;
+const FRICTION       = 0.6;
+const MAX_SPEED      = 420;
+const BULLET_SPEED   = 520;
+const BULLET_LIFE    = 1.2;
+const FIRE_COOLDOWN  = 0.22;
+const ASTEROID_COUNT = 5;
+const ASTEROID_SPEED = 55;
+const START_LIVES    = 3;
+const INVULN_TIME    = 2.5;
+const WAVE_PAUSE     = 1.6;
+const POINTS = { 3: 20, 2: 50, 1: 100 };
+const SFX_VOLUME    = 0.7;
+const THRUST_VOLUME = 0.55;
+const FIRE_VOLUME   = 0.18;
+const BREAK_VOLUME  = 0.95;
+const DEATH_VOLUME  = 0.9;
+const NET_RATE      = 20;    // times per second the host sends the world
+
+// ---- state ----
+const ships = [
+  { name:'BLUE',   startX: W*0.3, startY: H/2, color:'#4fd1ff', pitch: 1.0,
+    controls: { left:'KeyA', right:'KeyD', thrust:'KeyW', fire:'Space' } },
+  { name:'ORANGE', startX: W*0.7, startY: H/2, color:'#ff8a5c', pitch: 0.72,
+    controls: { left:'ArrowLeft', right:'ArrowRight', thrust:'ArrowUp', fire:'Enter' } }
+];
+
+let bullets = [];
+let asteroids = [];
+let wave = 1;
+let clearTimer = 0;
+let gameOver = false;
+
+// ---- network ----
+// mode 'local'  : both players share this keyboard, this machine runs everything
+// mode 'host'   : this machine runs the whole game and mails the world to the guest
+// mode 'guest'  : this machine sends only its key presses and draws what it is sent
+const net = {
+  mode: 'local',
+  pc: null, dc: null,
+  status: 'offline',
+  guestInput: { left:false, right:false, thrust:false, fire:false },
+  events: [],          // sounds the guest needs to play
+  sendTimer: 0,
+  ping: 0, lastStamp: 0
+};
+
+const RTC_CONFIG = { iceServers: [
+  { urls: 'stun:stun.l.google.com:19302' },
+  { urls: 'stun:global.stun.twilio.com:3478' }
+]};
+
+const elNet   = document.getElementById('net');
+const elStep  = document.getElementById('netstep');
+const elBox   = document.getElementById('netbox');
+const elActs  = document.getElementById('netactions');
+
+function setStep(txt) { elStep.textContent = txt; }
+function showBox(txt)  { elBox.classList.remove('hidden'); elActs.classList.remove('hidden'); elBox.value = txt; }
+function hidePanel()   { elNet.classList.add('hidden'); }
+function showPanel()   { elNet.classList.remove('hidden'); }
+
+// Wait until the browser has finished working out how to reach this machine.
+// Everything it learns gets folded into the code you copy.
+function waitIce(pc) {
+  return new Promise(resolve => {
+    if (pc.iceGatheringState === 'complete') return resolve();
+    const check = () => { if (pc.iceGatheringState === 'complete') resolve(); };
+    pc.addEventListener('icegatheringstatechange', check);
+    setTimeout(resolve, 4000);
+  });
+}
+
+function wireChannel() {
+  net.dc.onopen = () => {
+    net.status = 'connected';
+    setStep('CONNECTED. Panel hiding — press N to bring it back.');
+    setTimeout(hidePanel, 900);
+    if (net.mode === 'host') startGame();
+  };
+  net.dc.onclose = () => { net.status = 'disconnected'; showPanel(); setStep('Connection closed.'); };
+  net.dc.onmessage = e => {
+    if (typeof e.data !== 'string' || e.data.length > 100000) return;
+    let m; try { m = JSON.parse(e.data); } catch (err) { return; }
+    if (!m || typeof m !== 'object') return;
+    if (m.t === 'in' && net.mode === 'host') {
+      if (!m.k || !['left','right','thrust','fire'].every(k => typeof m.k[k] === 'boolean')) return;
+      net.guestInput = {left:m.k.left,right:m.k.right,thrust:m.k.thrust,fire:m.k.fire};
+      if (Number.isFinite(m.stamp)) net.ping = Math.max(0, Math.round(performance.now() - m.stamp));
+      if (m.r) startGame();
+    } else if (m.t === 'st' && net.mode === 'guest') {
+      if (!validState(m)) return;
+      applyState(m);
+    }
+  };
+}
+function disconnectPeer() {
+  if (net.dc) { net.dc.onclose = null; net.dc.close(); }
+  if (net.pc) net.pc.close();
+  net.dc = null; net.pc = null;
+}
+window.addEventListener('pagehide', disconnectPeer);
+function validState(m) {
+  const finite = x => typeof x === 'number' && Number.isFinite(x) && Math.abs(x) < 1e8;
+  if (!finite(m.w) || typeof m.go !== 'boolean' || !finite(m.stamp)) return false;
+  if (!Array.isArray(m.sh) || m.sh.length !== 2 || !m.sh.every(s => s && ['x','y','a','l','sc','iv'].every(k => finite(s[k])))) return false;
+  if (!Array.isArray(m.b) || m.b.length > 2000 || !m.b.every(b => b && finite(b.x) && finite(b.y) && (b.o === 0 || b.o === 1))) return false;
+  if (!Array.isArray(m.a) || m.a.length > 1000 || !m.a.every(a => a && ['x','y','r','an'].every(k => finite(a[k])) && Array.isArray(a.o) && a.o.length <= 100 && a.o.every(finite))) return false;
+  return Array.isArray(m.ev) && m.ev.length <= 100 && m.ev.every(e => typeof e === 'string' && /^(d|b[0-9]|f[01])$/.test(e));
+}
+
+async function hostOnline() {
+  disconnectPeer();
+  net.mode = 'host';
+  net.status = 'creating code';
+  setStep('Making your invite code...');
+  net.pc = new RTCPeerConnection(RTC_CONFIG);
+  net.dc = net.pc.createDataChannel('game');
+  wireChannel();
+  await net.pc.setLocalDescription(await net.pc.createOffer());
+  await waitIce(net.pc);
+  showBox(btoa(JSON.stringify(net.pc.localDescription)));
+  setStep('YOU ARE THE HOST (blue ship).\n'
+        + '1. Click COPY MY CODE and send that text to the other player.\n'
+        + '2. They send a code back. Paste it in this box.\n'
+        + '3. Click USE PASTED CODE.');
+  net.status = 'waiting for guest';
+}
+
+async function joinOnline() {
+  disconnectPeer();
+  net.mode = 'guest';
+  net.pc = new RTCPeerConnection(RTC_CONFIG);
+  net.pc.ondatachannel = e => { net.dc = e.channel; wireChannel(); };
+  showBox('');
+  setStep('YOU ARE THE GUEST (orange ship).\n'
+        + '1. Paste the host code into this box.\n'
+        + '2. Click USE PASTED CODE.\n'
+        + '3. Your own code appears — COPY it and send it back to the host.');
+  net.status = 'waiting for host code';
+}
+
+async function usePasted() {
+  const raw = elBox.value.trim();
+  if (raw.length > 100000) { setStep('Invite code is too large.'); return; }
+  if (!raw) { setStep('Nothing pasted in the box yet.'); return; }
+  let desc;
+  try { desc = JSON.parse(atob(raw)); }
+  catch (err) { setStep('That code is not readable. Copy the whole thing and try again.'); return; }
+  if (!desc || !['offer','answer'].includes(desc.type) || typeof desc.sdp !== 'string' || !net.pc) { setStep('Choose Host or Join and paste a valid invite code.'); return; }
+
+  if (net.mode === 'guest') {
+    await net.pc.setRemoteDescription(desc);
+    await net.pc.setLocalDescription(await net.pc.createAnswer());
+    await waitIce(net.pc);
+    showBox(btoa(JSON.stringify(net.pc.localDescription)));
+    setStep('Now click COPY MY CODE and send it back to the host.\nThe game starts as soon as they paste it in.');
+    net.status = 'code ready to send back';
+  } else if (net.mode === 'host') {
+    await net.pc.setRemoteDescription(desc);
+    setStep('Connecting...');
+    net.status = 'connecting';
+  }
+}
+
+document.getElementById('bLocal').onclick = () => {
+  disconnectPeer();
+  net.mode = 'local'; net.status = 'offline';
+  hidePanel(); startGame();
+};
+document.getElementById('bHost').onclick = hostOnline;
+document.getElementById('bJoin').onclick = joinOnline;
+document.getElementById('bGo').onclick  = usePasted;
+document.getElementById('bHide').onclick = hidePanel;
+document.getElementById('bCopy').onclick = () => {
+  elBox.select();
+  navigator.clipboard.writeText(elBox.value).catch(() => document.execCommand('copy'));
+  setStep('Copied. Send that text to the other player any way you like — text, chat, email.');
+};
+
+// ---- guest: paint yourself with whatever the host says ----
+function applyState(m) {
+  wave = m.w; gameOver = m.go;
+  for (let i = 0; i < 2; i++) {
+    const s = ships[i], d = m.sh[i];
+    s.x = d.x; s.y = d.y; s.angle = d.a;
+    s.thrusting = !!d.th; s.lives = d.l; s.score = d.sc; s.invuln = d.iv;
+    s.radius = 12;
+  }
+  bullets = m.b.map(b => ({ x:b.x, y:b.y, radius:3, color: ships[b.o].color }));
+  asteroids = m.a.map(a => ({ x:a.x, y:a.y, radius:a.r, angle:a.an, offsets:a.o }));
+  for (const ev of m.ev) {
+    if (ev === 'd') playDeath();
+    else if (ev[0] === 'b') playBreak(Number(ev[1]));
+    else if (ev[0] === 'f') playFire(ships[Number(ev[1])]);
+  }
+  net.lastStamp = m.stamp;
+}
+
+const r1 = v => Math.round(v * 10) / 10;
+const r2 = v => Math.round(v * 100) / 100;
+
+function sendState() {
+  if (!net.dc || net.dc.readyState !== 'open') return;
+  net.dc.send(JSON.stringify({
+    t:'st', w:wave, go:gameOver, stamp: performance.now(),
+    sh: ships.map(s => ({ x:r1(s.x), y:r1(s.y), a:r2(s.angle),
+      th: s.thrusting ? 1 : 0, l:s.lives, sc:s.score, iv:r1(s.invuln) })),
+    b: bullets.map(b => ({ x:r1(b.x), y:r1(b.y), o: b.owner === 'BLUE' ? 0 : 1 })),
+    a: asteroids.map(a => ({ x:r1(a.x), y:r1(a.y), r:a.radius, an:r2(a.angle),
+      o: a.offsets.map(v => r2(v)) })),
+    ev: net.events.splice(0)
+  }));
+}
+
+function sendInput() {
+  if (!net.dc || net.dc.readyState !== 'open') return;
+  net.dc.send(JSON.stringify({
+    t:'in', k: readLocalInput(), stamp: net.lastStamp,
+    r: keys['KeyR'] ? 1 : 0
+  }));
+}
+
+// ---- sound ----
+let AC = null, master = null, noiseBuffer = null, audioReady = false;
+let sfxLabel = '', sfxLabelUntil = 0;
+function label(txt, ms) { sfxLabel = txt; sfxLabelUntil = performance.now() + ms; }
+
+function initAudio() {
+  if (audioReady) return;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return;
+  AC = new Ctx();
+  const comp = AC.createDynamicsCompressor();
+  comp.threshold.value = -12; comp.knee.value = 20; comp.ratio.value = 8;
+  comp.attack.value = 0.003; comp.release.value = 0.2;
+  master = AC.createGain();
+  master.gain.value = muted ? 0 : SFX_VOLUME;
+  master.connect(comp); comp.connect(AC.destination);
+  const len = Math.floor(AC.sampleRate * 3);
+  noiseBuffer = AC.createBuffer(1, len, AC.sampleRate);
+  const data = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+  for (const s of ships) startThrustSound(s);
+  audioReady = true;
+}
+
+function startThrustSound(s) {
+  const g = AC.createGain(); g.gain.value = 0; g.connect(master);
+  const noise = AC.createBufferSource();
+  noise.buffer = noiseBuffer; noise.loop = true;
+  const nf = AC.createBiquadFilter();
+  nf.type = 'lowpass'; nf.frequency.value = 1100 * s.pitch; nf.Q.value = 1.2;
+  const ng = AC.createGain(); ng.gain.value = 0.8;
+  noise.connect(nf); nf.connect(ng); ng.connect(g); noise.start();
+  const osc = AC.createOscillator();
+  osc.type = 'sawtooth'; osc.frequency.value = 52 * s.pitch;
+  const of = AC.createBiquadFilter();
+  of.type = 'lowpass'; of.frequency.value = 240 * s.pitch;
+  const og = AC.createGain(); og.gain.value = 0.75;
+  osc.connect(of); of.connect(og); og.connect(g); osc.start();
+  s.thrustGain = g; s.testUntil = 0;
+}
+
+function updateSound() {
+  if (!audioReady) return;
+  const now = performance.now();
+  for (const s of ships) {
+    if (!s.thrustGain) continue;
+    const on = (s.testUntil && now < s.testUntil) ||
+               (!gameOver && s.lives > 0 && s.thrusting);
+    s.thrustGain.gain.setTargetAtTime(on ? THRUST_VOLUME : 0, AC.currentTime, 0.04);
+  }
+}
+
+function playFire(s) {
+  if (!audioReady) return;
+  const t = AC.currentTime;
+  const osc = AC.createOscillator();
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(900 * s.pitch, t);
+  osc.frequency.exponentialRampToValueAtTime(170 * s.pitch, t + 0.11);
+  const g = AC.createGain();
+  g.gain.setValueAtTime(FIRE_VOLUME, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.13);
+  osc.connect(g); g.connect(master);
+  osc.start(t); osc.stop(t + 0.14);
+}
+
+function playBreak(size) {
+  if (!audioReady) return;
+  const t = AC.currentTime;
+  const dur = size === 3 ? 0.55 : size === 2 ? 0.38 : 0.24;
+  const hi  = size === 3 ? 900  : size === 2 ? 1700 : 2900;
+  const lo  = size === 3 ? 140  : size === 2 ? 280  : 600;
+  const thumpFrom = size === 3 ? 190 : size === 2 ? 260 : 340;
+  const g = AC.createGain();
+  g.gain.setValueAtTime(BREAK_VOLUME, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+  g.connect(master);
+  const noise = AC.createBufferSource();
+  noise.buffer = noiseBuffer;
+  const f = AC.createBiquadFilter();
+  f.type = 'lowpass';
+  f.frequency.setValueAtTime(hi, t);
+  f.frequency.exponentialRampToValueAtTime(lo, t + dur);
+  f.Q.value = 2;
+  noise.connect(f); f.connect(g);
+  noise.start(t, Math.random() * 1.5); noise.stop(t + dur);
+  const osc = AC.createOscillator();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(thumpFrom, t);
+  osc.frequency.exponentialRampToValueAtTime(38, t + dur * 0.9);
+  const og = AC.createGain();
+  og.gain.setValueAtTime(0.9, t);
+  og.gain.exponentialRampToValueAtTime(0.001, t + dur);
+  osc.connect(og); og.connect(g);
+  osc.start(t); osc.stop(t + dur);
+}
+
+function playDeath() {
+  if (!audioReady) return;
+  const t = AC.currentTime, dur = 1.1;
+  const g = AC.createGain();
+  g.gain.setValueAtTime(DEATH_VOLUME, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+  g.connect(master);
+  const noise = AC.createBufferSource();
+  noise.buffer = noiseBuffer;
+  const f = AC.createBiquadFilter();
+  f.type = 'lowpass';
+  f.frequency.setValueAtTime(2600, t);
+  f.frequency.exponentialRampToValueAtTime(90, t + dur);
+  noise.connect(f); f.connect(g);
+  noise.start(t, Math.random() * 1.5); noise.stop(t + dur);
+  const osc = AC.createOscillator();
+  osc.type = 'sawtooth';
+  osc.frequency.setValueAtTime(420, t);
+  osc.frequency.exponentialRampToValueAtTime(34, t + dur * 0.85);
+  const of = AC.createBiquadFilter();
+  of.type = 'lowpass';
+  of.frequency.setValueAtTime(1800, t);
+  of.frequency.exponentialRampToValueAtTime(200, t + dur);
+  const og = AC.createGain();
+  og.gain.setValueAtTime(0.55, t);
+  og.gain.exponentialRampToValueAtTime(0.001, t + dur);
+  osc.connect(of); of.connect(og); og.connect(g);
+  osc.start(t); osc.stop(t + dur);
+}
+
+function playSoundTest() {
+  if (!audioReady) return;
+  ships[0].testUntil = performance.now() + 1500;
+  label('TEST: thrust', 1500);
+  setTimeout(() => { playFire(ships[0]); label('TEST: gun', 400); }, 1600);
+  setTimeout(() => { playBreak(3);       label('TEST: big rock', 500); }, 2100);
+  setTimeout(() => { playBreak(1);       label('TEST: small rock', 400); }, 2700);
+  setTimeout(() => { playDeath();        label('TEST: ship destroyed', 1200); }, 3200);
+}
+
+// ---- input ----
+const keys = {};
+addEventListener('keydown', e => {
+  if (document.activeElement === elBox) return;   // typing in the code box
+  initAudio();
+  if (AC && AC.state === 'suspended') AC.resume();
+  if (e.code === 'KeyM') {
+    muted = !muted;
+    if (master) master.gain.value = muted ? 0 : SFX_VOLUME;
+  }
+  if (e.code === 'KeyT') playSoundTest();
+  if (e.code === 'KeyN') elNet.classList.toggle('hidden');
+  keys[e.code] = true;
+  lastKey = e.code;
+  if(['Space','Enter','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)) e.preventDefault();
+});
+addEventListener('keyup', e => { keys[e.code] = false; });
+canvas.addEventListener('click', () => {
+  initAudio();
+  if (AC && AC.state === 'suspended') AC.resume();
+});
+
+// Local 2-player: each ship reads its own half of the keyboard.
+function readShipKeys(s) {
+  return { left: !!keys[s.controls.left], right: !!keys[s.controls.right],
+           thrust: !!keys[s.controls.thrust], fire: !!keys[s.controls.fire] };
+}
+// Online: you have a whole keyboard to yourself, so either set works.
+function readLocalInput() {
+  return {
+    left:   !!(keys['KeyA'] || keys['ArrowLeft']),
+    right:  !!(keys['KeyD'] || keys['ArrowRight']),
+    thrust: !!(keys['KeyW'] || keys['ArrowUp']),
+    fire:   !!(keys['Space'] || keys['Enter'])
+  };
+}
+function inputFor(s, i) {
+  if (net.mode === 'local') return readShipKeys(s);
+  if (net.mode === 'host')  return i === 0 ? readLocalInput() : net.guestInput;
+  return { left:false, right:false, thrust:false, fire:false };
+}
+
+// ---- helpers ----
+function resetShip(s, full) {
+  s.x = s.startX; s.y = s.startY;
+  s.angle = -Math.PI/2;
+  s.vx = 0; s.vy = 0;
+  s.radius = 12;
+  s.thrusting = false;
+  s.cooldown = 0;
+  s.invuln = INVULN_TIME;
+  if (full) { s.lives = START_LIVES; s.score = 0; }
+}
+
+function wrap(obj) {
+  if (obj.x < 0) obj.x += W;
+  if (obj.x > W) obj.x -= W;
+  if (obj.y < 0) obj.y += H;
+  if (obj.y > H) obj.y -= H;
+}
+
+function fire(s) {
+  bullets.push({
+    x: s.x + Math.cos(s.angle) * 15,
+    y: s.y + Math.sin(s.angle) * 15,
+    vx: s.vx + Math.cos(s.angle) * BULLET_SPEED,
+    vy: s.vy + Math.sin(s.angle) * BULLET_SPEED,
+    life: BULLET_LIFE, radius: 3, color: s.color, owner: s.name
+  });
+  playFire(s);
+  net.events.push('f' + (s.name === 'BLUE' ? 0 : 1));
+}
+
+function makeAsteroid(x, y, size) {
+  const speed = ASTEROID_SPEED * (1 + (3 - size) * 0.4) * (1 + (wave - 1) * 0.12);
+  const dir = Math.random() * Math.PI * 2;
+  const points = 9 + Math.floor(Math.random() * 4);
+  const offsets = [];
+  for (let i = 0; i < points; i++) offsets.push(0.72 + Math.random() * 0.55);
+  return { x, y, vx: Math.cos(dir) * speed, vy: Math.sin(dir) * speed,
+    size, radius: size * 14, angle: 0,
+    spin: (Math.random() - 0.5) * 1.3, offsets };
+}
+
+function spawnWave(count) {
+  for (let i = 0; i < count; i++) {
+    let x, y, tries = 0;
+    do {
+      x = Math.random() * W; y = Math.random() * H; tries++;
+    } while (tries < 100 && ships.some(s => Math.hypot(s.x - x, s.y - y) < 150));
+    asteroids.push(makeAsteroid(x, y, 3));
+  }
+}
+
+function startGame() {
+  bullets = []; asteroids = [];
+  wave = 1; clearTimer = 0; gameOver = false;
+  for (const s of ships) resetShip(s, true);
+  spawnWave(ASTEROID_COUNT);
+}
+
+startGame();
+
+function inPlay(s) { return s.lives > 0; }
+function killShip(s) { s.lives -= 1; resetShip(s, false); }
+
+// ---- update (host and local only; the guest never runs this) ----
+function update(dt) {
+  if (gameOver) {
+    if (keys['KeyR'] && net.mode !== 'guest') startGame();
+    return;
+  }
+
+  ships.forEach((s, i) => {
+    if (!inPlay(s)) { s.thrusting = false; return; }
+    const inp = inputFor(s, i);
+
+    if (s.invuln > 0) s.invuln -= dt;
+    if (inp.left)  s.angle -= TURN_SPEED * dt;
+    if (inp.right) s.angle += TURN_SPEED * dt;
+
+    s.thrusting = inp.thrust;
+    if (s.thrusting) {
+      s.vx += Math.cos(s.angle) * THRUST * dt;
+      s.vy += Math.sin(s.angle) * THRUST * dt;
+    }
+
+    const decay = Math.pow(FRICTION, dt);
+    s.vx *= decay; s.vy *= decay;
+
+    const speed = Math.hypot(s.vx, s.vy);
+    if (speed > MAX_SPEED) {
+      s.vx = (s.vx / speed) * MAX_SPEED;
+      s.vy = (s.vy / speed) * MAX_SPEED;
+    }
+
+    s.x += s.vx * dt; s.y += s.vy * dt;
+    wrap(s);
+
+    s.cooldown -= dt;
+    if (inp.fire && s.cooldown <= 0) { fire(s); s.cooldown = FIRE_COOLDOWN; }
+  });
+
+  for (const b of bullets) {
+    b.x += b.vx * dt; b.y += b.vy * dt; b.life -= dt; wrap(b);
+  }
+  for (let i = bullets.length - 1; i >= 0; i--) {
+    if (bullets[i].life <= 0) bullets.splice(i, 1);
+  }
+
+  for (const a of asteroids) {
+    a.x += a.vx * dt; a.y += a.vy * dt; a.angle += a.spin * dt; wrap(a);
+  }
+
+  // bullet hits rock. Both loops run BACKWARDS so removing an item
+  // never makes the loop skip the next one.
+  for (let i = asteroids.length - 1; i >= 0; i--) {
+    const a = asteroids[i];
+    for (let j = bullets.length - 1; j >= 0; j--) {
+      const b = bullets[j];
+      if (Math.hypot(a.x - b.x, a.y - b.y) < a.radius) {
+        const shooter = ships.find(s => s.name === b.owner);
+        if (shooter) shooter.score += POINTS[a.size];
+        playBreak(a.size);
+        net.events.push('b' + a.size);
+        bullets.splice(j, 1);
+        asteroids.splice(i, 1);
+        if (a.size > 1) {
+          asteroids.push(makeAsteroid(a.x, a.y, a.size - 1));
+          asteroids.push(makeAsteroid(a.x, a.y, a.size - 1));
+        }
+        break;
+      }
+    }
+  }
+
+  for (const s of ships) {
+    if (!inPlay(s) || s.invuln > 0) continue;
+    for (const a of asteroids) {
+      if (Math.hypot(a.x - s.x, a.y - s.y) < a.radius + s.radius) {
+        playDeath();
+        net.events.push('d');
+        killShip(s);
+        break;
+      }
+    }
+  }
+
+  if (!ships.some(inPlay)) { gameOver = true; return; }
+
+  if (asteroids.length === 0) {
+    clearTimer += dt;
+    if (clearTimer >= WAVE_PAUSE) {
+      wave += 1; clearTimer = 0;
+      spawnWave(ASTEROID_COUNT + wave - 1);
+    }
+  } else clearTimer = 0;
+}
+
+// ---- draw ----
+function drawShip(s) {
+  if (s.invuln > 0 && Math.floor(s.invuln * 10) % 2 === 0) return;
+  ctx.save();
+  ctx.translate(s.x, s.y);
+  ctx.rotate(s.angle);
+  if (s.thrusting) {
+    ctx.strokeStyle = '#ffd166'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-8, -5);
+    ctx.lineTo(-16 - Math.random() * 6, 0);
+    ctx.lineTo(-8, 5);
+    ctx.stroke();
+  }
+  ctx.strokeStyle = s.color; ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(15, 0); ctx.lineTo(-10, -9);
+  ctx.lineTo(-6, 0); ctx.lineTo(-10, 9);
+  ctx.closePath(); ctx.stroke();
+  ctx.restore();
+}
+
+function drawAsteroid(a) {
+  ctx.save();
+  ctx.translate(a.x, a.y); ctx.rotate(a.angle);
+  ctx.strokeStyle = '#c9c9c9'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  for (let i = 0; i < a.offsets.length; i++) {
+    const ang = (i / a.offsets.length) * Math.PI * 2;
+    const r = a.radius * a.offsets[i];
+    const px = Math.cos(ang) * r, py = Math.sin(ang) * r;
+    if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.closePath(); ctx.stroke();
+  ctx.restore();
+}
+
+function drawBullets() {
+  for (const b of bullets) {
+    ctx.fillStyle = b.color;
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawHUD() {
+  ctx.font = '18px monospace';
+  ctx.fillStyle = ships[0].color; ctx.textAlign = 'left';
+  ctx.fillText('BLUE  ' + ships[0].score, 14, 28);
+  ctx.fillText(ships[0].lives > 0 ? '<'.repeat(ships[0].lives) : 'OUT', 14, 50);
+  ctx.fillStyle = ships[1].color; ctx.textAlign = 'right';
+  ctx.fillText(ships[1].score + '  ORANGE', W - 14, 28);
+  ctx.fillText(ships[1].lives > 0 ? '<'.repeat(ships[1].lives) : 'OUT', W - 14, 50);
+
+  ctx.fillStyle = '#0f0'; ctx.textAlign = 'center'; ctx.font = '15px monospace';
+  ctx.fillText('BUILD M9   WAVE ' + wave, W / 2, 28);
+
+  ctx.font = '12px monospace';
+  if (performance.now() < sfxLabelUntil) {
+    ctx.fillStyle = '#ff0'; ctx.fillText(sfxLabel, W / 2, 48);
+  } else if (net.mode === 'local') {
+    ctx.fillStyle = '#484'; ctx.fillText('LOCAL 2P   N connect panel   M mute   T sounds', W / 2, 48);
+  } else {
+    const you = net.mode === 'host' ? 'HOST = BLUE' : 'GUEST = ORANGE';
+    ctx.fillStyle = net.status === 'connected' ? '#484' : '#ff0';
+    ctx.fillText(you + '   ' + net.status +
+      (net.status === 'connected' ? '   ping ' + net.ping + 'ms' : '') +
+      '   N panel', W / 2, 48);
+  }
+
+  ctx.textAlign = 'left'; ctx.font = '13px monospace';
+  if (net.mode === 'local') {
+    ctx.fillStyle = '#4fd1ff';
+    ctx.fillText('BLUE: A / D turn, W thrust, SPACE fire', 14, H - 30);
+    ctx.fillStyle = '#ff8a5c';
+    ctx.fillText('ORANGE: LEFT / RIGHT turn, UP thrust, ENTER fire', 14, H - 12);
+  } else {
+    ctx.fillStyle = net.mode === 'host' ? ships[0].color : ships[1].color;
+    ctx.fillText('YOU: A/D or arrows turn, W or UP thrust, SPACE or ENTER fire', 14, H - 12);
+  }
+  ctx.fillStyle = '#666'; ctx.textAlign = 'right';
+  ctx.fillText('bullets ' + bullets.length + '   rocks ' + asteroids.length, W - 14, H - 12);
+  ctx.textAlign = 'left';
+}
+
+function drawBanner() {
+  ctx.textAlign = 'center';
+  if (gameOver) {
+    const b = ships[0].score, o = ships[1].score;
+    const winner = b > o ? 'BLUE WINS' : o > b ? 'ORANGE WINS' : 'DEAD HEAT';
+    ctx.fillStyle = '#f55'; ctx.font = '34px monospace';
+    ctx.fillText('GAME OVER', W / 2, H / 2 - 40);
+    ctx.fillStyle = '#fff'; ctx.font = '26px monospace';
+    ctx.fillText(winner + '   ' + b + ' to ' + o, W / 2, H / 2);
+    ctx.fillStyle = '#0f0'; ctx.font = '20px monospace';
+    ctx.fillText('press R to play again', W / 2, H / 2 + 44);
+  } else if (asteroids.length === 0) {
+    ctx.fillStyle = '#0f0'; ctx.font = '28px monospace';
+    ctx.fillText('FIELD CLEAR', W / 2, H / 2);
+    ctx.font = '18px monospace';
+    ctx.fillText('wave ' + (wave + 1) + ' incoming', W / 2, H / 2 + 32);
+  }
+  ctx.textAlign = 'left'; ctx.font = '13px monospace';
+}
+
+function draw() {
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, W, H);
+  for (const a of asteroids) drawAsteroid(a);
+  drawBullets();
+  for (const s of ships) if (inPlay(s)) drawShip(s);
+  drawHUD();
+  drawBanner();
+}
+
+// ---- loop ----
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min((now - last) / 1000, 0.05);
+  last = now;
+
+  if (net.mode === 'guest') {
+    sendInput();                 // the guest only ever sends keys
+  } else {
+    update(dt);                  // local and host run the real game
+    if (net.mode === 'host') {
+      net.sendTimer += dt;
+      if (net.sendTimer >= 1 / NET_RATE) { net.sendTimer = 0; sendState(); }
+    }
+  }
+
+  updateSound();
+  draw();
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

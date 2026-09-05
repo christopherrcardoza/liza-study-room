@@ -1,0 +1,433 @@
+:root {
+  color-scheme: dark;
+  --bg: #17171c;
+  --panel: #1e1e26;
+  --text: #d9d9df;
+  --dim: #8a8a95;
+  --accent: #6fae6f;
+  --warn: #d97a4d;
+  --error: #d95d5d;
+  --recognizer: #5d95d9;
+
+  /* VIEWPORT-CONTAIN-001 Step 4 -- safe-area inset control. Research
+     §6.1/§10.2 Step 4: SMPTE ST 2046-1's 93%/90% (= 3.5%/5% inset), which
+     EBU R 95 and ITU-R BT.1848 independently converge on -- the defended
+     default for "must be on screen" (action-safe) vs "must be legible"
+     (title-safe) HUD content. "Query the real inset at runtime rather than
+     hardcoding it... env(safe-area-inset-*), which return zero when
+     nothing is occluding, so the full-viewport case is just the degenerate
+     one" (research, verbatim) -- max() takes whichever is larger: an actual
+     device notch/pill (env()) or the broadcast-safe percentage, so a
+     plain desktop with no notch still gets the 3.5%/5% margin instead of
+     silently reading as 0. This is a DEFENDED CONSTANT, not a founder-
+     facing slider, unlike protection-margin/camera-distance above --
+     3.5%/5% is a cross-standards-body convergence value (SMPTE/EBU/ITU-R
+     agree, §6.1), not a taste parameter with a legitimate range to expose. */
+  --safe-action-x: max(env(safe-area-inset-left, 0px), 3.5vw);
+  --safe-action-top: max(env(safe-area-inset-top, 0px), 3.5vh);
+  --safe-action-bottom: max(env(safe-area-inset-bottom, 0px), 3.5vh);
+  --safe-title-x: max(env(safe-area-inset-left, 0px), 5vw);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* FIELD-TEST-BUILD-002 -- MEASURED BUG, found by this job's own new
+   WINDOW-GEOMETRY-002 test (not something the founder reported directly,
+   but a real, latent defect the test exposed): `min-height` and `height`
+   are NOT the same override relationship. applyWindowPreset() (main.js)
+   sets an INLINE `height` (e.g. '480px' for the 'small' preset) which
+   correctly overrides a stylesheet `height` rule -- but it can never
+   override a stylesheet `min-height`, because the CSS box model always
+   renders the box at max(specified-height, min-height) regardless of
+   which one came from an inline style. With `min-height: 100vh` here, a
+   smaller preset's own inline height was silently clamped back up to the
+   full real viewport height on every window-size preset except 'fill' --
+   reproduced directly: on a 1280x800 window, selecting the 'small' preset
+   (meant to be 760x480) rendered #app at 760x648 (648px = 100vh at that
+   window size), not 480px. Plain `height` (not `min-height`) is a correct
+   drop-in default: nothing set it before any preset was ever chosen still
+   renders at the full 100vh it always did, and applyWindowPreset()'s own
+   inline `height` now genuinely overrides it for every preset, including
+   ones smaller than the current viewport. */
+#app { position: relative; width: 100%; height: 100vh; }
+
+.screen { padding: 24px 32px; max-width: 900px; margin: 0 auto; }
+.screen.hidden { display: none; }
+
+h1 { font-size: 22px; font-weight: 600; margin: 12px 0 8px; }
+.dim { color: var(--dim); font-size: 14px; }
+.small { font-size: 12px; }
+
+.progress-bar {
+  width: 100%; max-width: 420px; height: 10px; background: #2a2a33;
+  border-radius: 5px; margin: 16px 0 8px; overflow: hidden;
+}
+.progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.2s; }
+
+.proceedings-list { list-style: none; padding: 0; margin: 16px 0; }
+.proceedings-list li {
+  padding: 10px 14px; margin-bottom: 6px; background: var(--panel);
+  border-radius: 6px; cursor: pointer; border: 1px solid transparent;
+}
+.proceedings-list li:hover { border-color: #3a3a45; }
+.proceedings-list li.selected { border-color: var(--accent); background: #22301f; }
+
+.field-label { display: block; margin-top: 20px; font-size: 13px; color: var(--dim); }
+.device-row { display: flex; gap: 10px; margin-top: 8px; }
+#device-picker { flex: 1; padding: 8px; background: var(--panel); color: var(--text); border: 1px solid #3a3a45; border-radius: 4px; }
+.venue-picker { display: block; width: 100%; max-width: 460px; padding: 8px; margin-top: 4px; background: var(--panel); color: var(--text); border: 1px solid #3a3a45; border-radius: 4px; }
+
+button {
+  padding: 10px 18px; background: #2c3e2c; color: var(--text);
+  border: 1px solid #3f5a3f; border-radius: 5px; cursor: pointer; font-size: 14px;
+}
+button:hover:not(:disabled) { background: #35492f; }
+button:disabled { opacity: 0.4; cursor: default; }
+
+.mic-permission-notice {
+  margin-top: 18px; padding: 10px 14px; background: #2a2416; border: 1px solid #5a4a20;
+  border-radius: 6px; font-size: 13px; color: #e0cf8f;
+}
+
+#start-session-btn { margin-top: 12px; }
+
+.mic-warning-banner {
+  padding: 12px 16px; margin-bottom: 14px; background: #3a1e1e; border: 1px solid var(--error);
+  border-radius: 6px; font-size: 14px; color: #f0b8b8; font-weight: 600;
+}
+.mic-warning-banner.hidden { display: none; }
+
+#speed-volume-row {
+  display: flex; gap: 28px; margin-bottom: 12px; padding: 8px 12px;
+  background: var(--panel); border-radius: 6px; flex-wrap: wrap;
+}
+.slider-group { display: flex; align-items: center; gap: 8px; }
+.slider-group label { font-size: 13px; color: var(--dim); min-width: 44px; }
+.slider-group input[type="range"] {
+  width: 160px; height: 4px; -webkit-appearance: none; appearance: none;
+  background: #3a3a45; border-radius: 2px; outline: none;
+}
+.slider-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 16px; height: 16px;
+  border-radius: 50%; background: var(--accent); cursor: pointer;
+}
+.slider-group input[type="range"]::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%; background: var(--accent);
+  cursor: pointer; border: none;
+}
+.slider-readout { font-size: 13px; font-variant-numeric: tabular-nums; min-width: 60px; color: var(--text); }
+
+#courtroom-screen { max-width: none; padding: 0; }
+/* ROOM-AND-VOICE-001 -- MEASURED BUG: width:100% and height:46vh size the
+   canvas independently, with no shared aspect ratio. scene.js's own
+   _resize() correctly reads whatever clientWidth/clientHeight that produces
+   and sets camera.aspect to match, so the 3D content itself never renders
+   distorted -- but on a small window (founder's measured 846x522 client
+   area) 46vh is only ~240px tall against a ~846px-wide canvas, an
+   unintentional ~3.5:1 sliver that reads as "the screen is stretched" even
+   though nothing is technically warped. #scene-canvas-wrap centers the
+   canvas and lets it shrink to fit EITHER available dimension while
+   aspect-ratio holds it at a fixed, sane 8:5 (matching the Godot build's own
+   project.godot design resolution, 1280x800, for a consistent shape between
+   builds) -- width:auto/height:auto (not 100%) is what lets max-width/
+   max-height actually act as real caps instead of being overridden. */
+/* LIPSYNC-INVISIBLE-001 -- MEASURED BUG (two layered CSS defects, both
+   reproduced directly at a real 1280x800 window):
+   1) The old width:auto/height:auto left #scene-canvas at its HTML-spec
+      default intrinsic size (300x150 -- the hardcoded browser default for
+      any un-sized <canvas>) instead of filling the flex parent, because a
+      canvas has no other CSS intrinsic size to derive from and, as a flex
+      item with no flex-grow, never stretched past it. #scene-canvas-wrap
+      measured 1262px wide but the canvas itself measured exactly
+      300x187.5 (300 * 5/8) regardless of window size -- the ENTIRE
+      courtroom, all 12 avatars, always rendered into that same fixed tiny
+      frame. This alone explains "no moving faces": a full jawOpen 0->1
+      swing on a face occupying a handful of real pixels changed only
+      ~50 pixels in an 80x80 sample region (measured, see
+      reports/LIPSYNC_VISIBLE_001.md).
+   2) The first fix attempt (width:100% on the canvas, max-height:60vh on
+      both) grew the canvas correctly but broke the 8:5 ratio instead: with
+      width pinned to a definite 100% and only max-height capping the OTHER
+      axis, the browser clipped height without re-deriving width from the
+      aspect-ratio, reproducing the exact "screen is stretched" distortion
+      ROOM-AND-VOICE-001 already fixed once (ratio measured 3.2:1, not
+      1.6:1). A definite height on the WRAP (not max-height) lets the
+      canvas resolve height:100% to a real value, so aspect-ratio can derive
+      width from it, with max-width:100% only stepping in -- and correctly
+      re-deriving height to match, per CSS Sizing's aspect-ratio transferred-
+      size rules -- on a viewport too narrow for the full 8:5 width to fit. */
+#scene-canvas-wrap {
+  display: flex; justify-content: center; align-items: center;
+  width: 100%; height: 60vh; background: #0c0c10;
+  position: relative; /* CAMERA-AND-STAGING-001 -- lets the control overlays below anchor to the canvas area itself, not the whole page */
+}
+/* VIEWPORT-CONTAIN-001 Step 1(b) -- MEASURED BUG: `aspect-ratio: 8/5` here
+   made the CANVAS's own CSS width a function of its height (the transferred-
+   size algorithm this same rule's own prior comment describes and relies
+   on), not of the window/container -- a real, live fit-policy-in-CSS that
+   directly explains the founder's measured numbers (cssWidth pinned at
+   1024px across 75/100/125% zoom: 60vh of an unchanging window height never
+   moved, so 1024 = height*8/5 never moved either, regardless of zoom).
+   That is the research doc's own "three nested rectangles" problem, rule 1
+   ("CSS/the window owns the box") violated at the CSS layer itself: width
+   should be a definite, container-derived value, not DERIVED from height via
+   an authored ratio. Fixed by making width AND height both definite
+   percentages of #scene-canvas-wrap (itself sized by real viewport units,
+   see above) -- neither axis derives from the other, so the box always
+   tracks the window/container, at whatever shape that produces. This does
+   NOT reintroduce the pre-ROOM-AND-VOICE-001 distortion those comments
+   warn about: that bug was the canvas's INTERNAL drawing buffer staying at
+   a stale/default resolution while its CSS box changed shape underneath it.
+   Today _resize() (scene.js) reads this exact box's real clientWidth/
+   clientHeight and sets renderer.setSize() + camera.aspect from those SAME
+   numbers on every change, so the buffer's aspect and the CSS box's aspect
+   are always identical by construction -- there is no ratio for them to
+   diverge on. Whatever shape the box ends up (a portrait window, an
+   ultrawide fullscreen), the camera's OWN vfov is now solved by CONTAIN
+   (camera_controller.js) to keep the guarantee volume in frame at that
+   shape -- the room's "sane" appearance is the camera's job, not a CSS
+   aspect-ratio pin. See reports/VIEWPORT_CONTAIN_001.md Step 1/Step 2. */
+#scene-canvas {
+  display: block; width: 100%; height: 100%;
+  touch-action: none; /* pointer-drag free movement (Step 2) shouldn't also try to scroll/pan the page on touch */
+}
+
+/* CAMERA-AND-STAGING-001 Step 2 -- preset/zoom controls float over the top-left
+   of the canvas; window-size presets float top-right. Both stay small and
+   semi-transparent so they never compete with the room itself for attention,
+   but every control's current state stays legible (Rule 129) via the
+   pressed style below, not hidden in a menu. */
+#camera-controls {
+  position: absolute; top: 8px; left: 8px; z-index: 5;
+  background: rgba(12, 12, 16, 0.72); border-radius: 8px; padding: 8px 10px;
+  display: flex; flex-direction: column; gap: 6px; max-width: min(70%, 520px);
+}
+#camera-presets, #camera-zoom-row, #window-presets {
+  display: flex; flex-wrap: wrap; gap: 4px;
+}
+/* VIEWPORT-CONTAIN-001 Step 4 -- same slider-group idiom #speed-volume-row
+   already uses (style.css above), reused so the framing-margin/camera-
+   distance controls read as the same kind of thing, not a bolted-on extra. */
+#camera-framing-row {
+  display: flex; gap: 20px; margin-top: 6px; flex-wrap: wrap;
+}
+.cam-preset-btn, .win-preset-btn, #camera-zoom-row button {
+  font-size: 11px; padding: 4px 8px; border-radius: 5px; border: 1px solid #3a3a45;
+  background: #24242c; color: var(--text); cursor: pointer; line-height: 1.3;
+}
+.cam-preset-btn:hover, .win-preset-btn:hover, #camera-zoom-row button:hover { background: #33333e; }
+.cam-preset-btn[aria-pressed="true"] {
+  background: var(--accent); color: #10160f; border-color: var(--accent); font-weight: 600;
+}
+#zoom-in-mode-btn[aria-pressed="true"], #zoom-out-mode-btn[aria-pressed="true"] {
+  background: var(--recognizer); color: #0d1420; border-color: var(--recognizer); font-weight: 600;
+}
+/* FIELD-TEST-BUILD-002 -- FREE-ORBIT-001, same pressed-state legibility
+   (Rule 129) the zoom-mode buttons above already use, distinct accent
+   color so orbit mode and zoom mode never look the same at a glance. */
+#orbit-mode-btn[aria-pressed="true"] {
+  background: var(--accent); color: #10160f; border-color: var(--accent); font-weight: 600;
+}
+#camera-status { font-size: 11px; }
+#window-presets {
+  position: absolute; top: 8px; right: 8px; z-index: 5;
+  background: rgba(12, 12, 16, 0.72); border-radius: 8px; padding: 8px 10px;
+  max-width: 40%;
+}
+.win-preset-btn[aria-pressed="true"] {
+  background: var(--warn); color: #1a0f08; border-color: var(--warn); font-weight: 600;
+}
+#courtroom-overlay { padding: 16px 32px; max-width: 900px; margin: 0 auto; }
+
+/* FIELD-TEST-BUILD-003 Step 1 -- when #courtroom-screen is the real
+   Fullscreen API target (see initFullscreen() in main.js), the canvas
+   must become the WHOLE monitor, not stay capped at 60vh with a separate
+   scrollable panel below it -- that would just be the same "three nested
+   rectangles" complaint one layer further in. :fullscreen (and the
+   -webkit- prefix Safari still needs) is scoped to #courtroom-screen
+   itself, so none of this touches the normal, non-fullscreen layout at
+   all. The canvas wrap grows to fill the real screen; the controls that
+   used to sit BELOW it (sliders, transcript, Begin/Pause/Finish) become a
+   floating dock instead, so they stay reachable exactly as this job's own
+   instruction requires, without permanently shrinking the 3D view to make
+   room for them. */
+:fullscreen #courtroom-screen,
+:-webkit-full-screen #courtroom-screen {
+  display: flex; flex-direction: column; height: 100vh; width: 100vw;
+}
+:fullscreen #scene-canvas-wrap,
+:-webkit-full-screen #scene-canvas-wrap {
+  height: 100vh; flex: 1 1 auto;
+}
+:fullscreen #scene-canvas,
+:-webkit-full-screen #scene-canvas {
+  /* Explicit, not just inherited from the base rule -- the UA fullscreen
+     stylesheet's own width/height:100% !important is scoped to
+     #courtroom-screen ONLY, never to descendants (research §4.2/Step 8),
+     so the canvas must be told to fill its wrapper by OUR OWN cascade, not
+     borrow the UA's. Base rule already says width:100%;height:100% of the
+     wrap, which itself is 100vw x 100vh here -- restated for clarity. */
+  width: 100%; height: 100%;
+}
+:fullscreen #courtroom-overlay,
+:-webkit-full-screen #courtroom-overlay {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 10;
+  max-width: none; margin: 0;
+  /* VIEWPORT-CONTAIN-001 Step 4 -- safe-area inset (see :root above). This
+     overlay carries the transcript/captions text -- the "must be legible"
+     case -- so title-safe (5%, or the real notch/pill if larger) on the
+     sides; action-safe (3.5%) on the bottom edge, which is only "must be
+     on screen," not text-legibility-critical. Fullscreen is exactly the
+     research's own degenerate case: env() returns 0 on a normal monitor,
+     so this collapses to the plain 3.5%/5vw/5vh percentages, same as a
+     notched device with nothing actually occluding. */
+  padding: var(--safe-action-bottom) var(--safe-title-x) var(--safe-action-bottom);
+  background: rgba(12, 12, 16, 0.82); backdrop-filter: blur(4px);
+  max-height: 40vh; overflow-y: auto;
+}
+
+
+.caption { color: #e6dc8f; font-size: 14px; min-height: 20px; margin-bottom: 10px; }
+
+#mic-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; font-size: 13px; color: var(--dim); }
+#mic-meter-bg { width: 220px; height: 14px; background: #2a2a33; border-radius: 3px; overflow: hidden; }
+#mic-meter-fill { height: 100%; width: 0%; background: var(--dim); transition: width 0.08s linear, background 0.2s; }
+
+.transcript-label { font-size: 13px; margin-bottom: 6px; }
+#transcript-box {
+  min-height: 70px; max-height: 110px; overflow-y: auto; background: var(--panel);
+  border: 1px solid #2e2e38; border-radius: 6px; padding: 10px; font-size: 14px; line-height: 1.4;
+}
+#partial-label { font-size: 13px; color: var(--recognizer); min-height: 20px; margin-top: 6px; }
+#progress-label { font-size: 13px; color: var(--dim); margin-top: 10px; }
+
+.button-row { display: flex; gap: 12px; margin-top: 16px; }
+
+#results-box {
+  background: var(--panel); border: 1px solid #2e2e38; border-radius: 6px;
+  padding: 16px; white-space: pre-wrap; font-family: Consolas, monospace; font-size: 13px;
+  line-height: 1.5; max-height: 65vh; overflow-y: auto;
+}
+#play-again-btn { margin-top: 16px; }
+
+.error-block { margin: 14px 0; padding: 10px 12px; border-radius: 6px; background: #23232c; }
+.error-block.recognizer { border-left: 3px solid var(--recognizer); }
+.error-block.trainee { border-left: 3px solid var(--warn); }
+
+/* PLAY-PAUSE-001 -- one button, two icon states (glyph swapped by
+   main.js's updatePlayPauseUi(), not two separate buttons). */
+#play-pause-btn { font-size: 16px; padding: 8px 16px; line-height: 1; }
+#play-pause-btn[aria-pressed="true"] { background: var(--warn); border-color: var(--warn); color: #1a0f08; }
+
+#settings-gear-btn { font-size: 13px; padding: 8px 14px; align-self: center; }
+
+/* FIELD-TEST-BUILD-001 (web lane) -- reusable popup-window chrome
+   (popup_chrome.js): a title bar with minimize/maximize/close, consistent
+   with camera_controller.js's own aria-pressed-state discipline (Rule 129
+   -- current state legible on the control itself, not hidden). Any future
+   popup this build adds can reuse these same classes. */
+.popup-window {
+  position: fixed; top: 70px; right: 24px; z-index: 30;
+  width: 400px; max-height: 80vh;
+  background: var(--panel); border: 1px solid #3a3a45; border-radius: 8px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.popup-window.hidden { display: none; }
+/* Maximize: fill most of the viewport (not literally 100%, so it still
+   reads as a window, not a takeover screen). */
+.popup-window.maximized {
+  top: 4vh; left: 4vw; right: 4vw; bottom: 4vh;
+  width: auto; height: auto; max-height: none;
+}
+/* Minimize: collapse to just the title bar -- the body is hidden, not
+   just visually squeezed, so its own height genuinely changes (testable
+   via getBoundingClientRect(), not merely a CSS overflow clip). */
+.popup-window.minimized { max-height: none; }
+.popup-window.minimized .popup-body { display: none; }
+
+.popup-titlebar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 10px; background: #24242c; border-bottom: 1px solid #33333e;
+  flex: 0 0 auto;
+}
+.popup-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.popup-chrome-btns { display: flex; gap: 4px; }
+.popup-chrome-btns button {
+  width: 24px; height: 22px; padding: 0; font-size: 13px; line-height: 1;
+  border-radius: 4px; border: 1px solid #3a3a45; background: #2c2c36; color: var(--text);
+  cursor: pointer;
+}
+.popup-chrome-btns button:hover { background: #383844; }
+.popup-min-btn[aria-pressed="true"], .popup-max-btn[aria-pressed="true"] {
+  background: var(--accent); color: #10160f; border-color: var(--accent);
+}
+
+.popup-body { padding: 12px 14px; overflow-y: auto; flex: 1 1 auto; }
+.settings-section { margin-bottom: 16px; }
+.settings-section:last-child { margin-bottom: 0; }
+.settings-section-title {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--dim); margin: 0 0 6px;
+}
+.mode-row { display: flex; gap: 6px; margin-top: 4px; }
+.mode-btn, .specificity-btn, .toggle-btn, .audio-cond-btn {
+  font-size: 12px; padding: 6px 10px; border-radius: 5px; border: 1px solid #3a3a45;
+  background: #24242c; color: var(--text); cursor: pointer;
+}
+.mode-btn[aria-pressed="true"] { background: var(--warn); color: #1a0f08; border-color: var(--warn); font-weight: 600; }
+.specificity-btn[aria-pressed="true"] { background: var(--recognizer); color: #0d1420; border-color: var(--recognizer); font-weight: 600; }
+.toggle-btn[aria-pressed="true"], .audio-cond-btn[aria-pressed="true"] {
+  background: var(--accent); color: #10160f; border-color: var(--accent); font-weight: 600;
+}
+.settings-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 7px 0; border-bottom: 1px solid #2a2a33;
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-row-label { font-size: 13px; flex: 1; }
+.settings-row-note { font-size: 11px; color: var(--dim); display: block; margin-top: 2px; }
+.specificity-row { display: flex; flex-direction: column; gap: 6px; padding: 7px 0; border-bottom: 1px solid #2a2a33; }
+.specificity-options { display: flex; gap: 6px; flex-wrap: wrap; }
+.audio-cond-row { display: flex; gap: 6px; flex-wrap: wrap; padding: 6px 0; }
+
+/* FIELD-TEST-BUILD-003 Step 3 -- MEASURED BUG: at the founder's own real
+   client size (846x522), the canvas alone (60vh = ~313px) plus everything
+   the non-fullscreen overlay stacks below it (sliders, transcript, Begin/
+   Pause/Finish) added up to a real, measured page height of ~900px+ --
+   over 500px past a 522px-tall window, with no overlap (checked directly:
+   0 pairwise-overlapping controls) but Begin Proceeding/Play-Pause/Finish
+   and all three sliders pushed entirely below the visible viewport.
+   "The buttons are stacked... I can't even really access them all" is
+   exactly what that looks like from the outside -- not a layout collision,
+   an off-screen one requiring a scroll nothing tells him to make. Per this
+   job's own instruction ("group them... rather than letting them
+   overlap"), NOT a scroll-and-hope fix: on a short viewport the canvas
+   itself shrinks to make real room, since the controls -- not the 3D
+   view's own on-screen size -- are what he actually could not reach. */
+@media (max-height: 620px) {
+  #scene-canvas-wrap { height: 26vh; }
+  #courtroom-overlay { padding: 6px 16px; }
+  #speed-volume-row { gap: 8px; margin-bottom: 4px; }
+  .slider-group { gap: 4px; }
+  #transcript-box { min-height: 34px; max-height: 46px; padding: 5px 10px; }
+  .transcript-label { margin-bottom: 2px; }
+  #partial-label { min-height: 14px; margin-top: 2px; }
+  #progress-label { margin-top: 4px; }
+  #mic-row { margin: 2px 0; }
+  .button-row { margin-top: 6px; gap: 8px; }
+  .button-row button { padding: 6px 10px; }
+}
+@media (max-height: 480px) {
+  #scene-canvas-wrap { height: 20vh; }
+}

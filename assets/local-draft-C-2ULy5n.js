@@ -1,0 +1,1 @@
+const e=[];self.onmessage=t=>e.push(t);const{WebWorkerMLCEngineHandler:t}=await import(`https://esm.run/@mlc-ai/web-llm@0.2.83`),n=new t;self.onmessage=e=>n.onmessage(e);for(let t of e)n.onmessage(t);e.length=0;

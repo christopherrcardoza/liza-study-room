@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow">
+<title>CourtSim (Web)</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+<!-- ROCKETBOX-INTO-SCENE-001 -- GLTFLoader.js (examples/jsm) imports 'three'
+     as a bare module specifier internally; without this map the browser
+     can't resolve it ("Failed to resolve module specifier 'three'") even
+     though scene.js's own three.module.js import (a full URL) works fine. -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app">
+  <div style="padding:8px 16px;font:14px system-ui;background:#18212c;color:#d6e0e9">Personal browser practice · Large model downloads on first use · <a style="color:#9ed0ff" href="licenses/PROVENANCE.md" target="_blank" rel="noreferrer">Credits & licenses</a></div>
+  <div id="loading-screen" class="screen">
+    <h1>CourtSim</h1>
+    <p id="loading-status">Starting up...</p>
+    <div class="progress-bar"><div id="loading-progress" class="progress-fill"></div></div>
+    <p id="loading-detail" class="dim"></p>
+  </div>
+
+  <div id="selection-screen" class="screen hidden">
+    <h1>CourtSim -- Choose a Proceeding</h1>
+    <p class="dim">You are the court reporter. Pick a proceeding, then transcribe it as it's read aloud.</p>
+    <ul id="proceedings-list" class="proceedings-list"></ul>
+
+    <label class="field-label" for="venue-picker">Venue:</label>
+    <select id="venue-picker" class="venue-picker"></select>
+
+    <label class="field-label">Microphone (pick your USB stenomask if you have one -- otherwise leave on default):</label>
+    <div class="device-row">
+      <select id="device-picker"><option value="">System default microphone</option></select>
+      <button id="refresh-devices-btn">Refresh Devices</button>
+    </div>
+    <p id="device-hint" class="dim small"></p>
+
+    <p class="mic-permission-notice">
+      Clicking Begin Session will ask Chrome for microphone permission.
+      <strong>You must click "Allow"</strong> in that prompt, or your speech
+      will not be captured and you will score 0%.
+    </p>
+    <button id="start-session-btn" disabled>Begin Session</button>
+    <p id="d11-note" class="dim small"></p>
+  </div>
+
+  <div id="courtroom-screen" class="screen hidden">
+    <div id="scene-canvas-wrap">
+      <canvas id="scene-canvas"></canvas>
+      <!-- CAMERA-AND-STAGING-001 Step 2 -- discrete preset viewpoints,
+           the zoom tool (satellite-map click-a-point behaviour, plus a
+           plain +/- for people who want that instead), and a reset,
+           all as a click, not a menu dive (Rule 129: current state
+           stays legible via the pressed/aria-pressed styling below). -->
+      <div id="camera-controls">
+        <div id="camera-presets" role="group" aria-label="Camera viewpoint">
+          <button type="button" class="cam-preset-btn" data-preset="reporter">Reporter</button>
+          <button type="button" class="cam-preset-btn" data-preset="bench">The Bench</button>
+          <button type="button" class="cam-preset-btn" data-preset="witness">Witness Stand</button>
+          <button type="button" class="cam-preset-btn" data-preset="counselA">Counsel Table A</button>
+          <button type="button" class="cam-preset-btn" data-preset="counselB">Counsel Table B</button>
+          <button type="button" class="cam-preset-btn" data-preset="wide">Wide Shot</button>
+          <button type="button" class="cam-preset-btn" data-preset="speaker">Follow Speaker</button>
+        </div>
+        <div id="camera-zoom-row">
+          <!-- FIELD-TEST-BUILD-002 -- FREE-ORBIT-001. Same toggle-a-mode-
+               then-drag pattern as the zoom-in/out buttons beside it:
+               click to arm, then drag on the scene to look around (all
+               the way around -- "360, in all degrees"), instead of the
+               plain drag's own walk-the-viewpoint behavior. -->
+          <button type="button" id="orbit-mode-btn" aria-pressed="false" title="Drag the scene to look around in any direction (360 degrees)">Orbit (drag to look around)</button>
+          <button type="button" id="zoom-in-mode-btn" title="Click a point on the scene to zoom toward it">Zoom In (click scene)</button>
+          <button type="button" id="zoom-out-mode-btn" title="Click a point on the scene to zoom away from it">Zoom Out (click scene)</button>
+          <button type="button" id="zoom-plus-btn" title="Zoom in one step">+</button>
+          <button type="button" id="zoom-minus-btn" title="Zoom out one step">&minus;</button>
+          <button type="button" id="camera-reset-btn" title="Return to the reporter's seat">Reset View</button>
+        </div>
+        <div id="camera-status" class="dim small"></div>
+        <!-- VIEWPORT-CONTAIN-001 Step 4 -- values on a range get a real
+             control with a defended default, not a hardcoded constant
+             (Rule 111 as amended). Both persist (Rule 129) and visibly
+             change the room's own framing at two different settings. -->
+        <div id="camera-framing-row">
+          <div class="slider-group">
+            <label for="protection-slider" title="How much clearance the guarantee-volume solve leaves at the frame edge">Framing Margin</label>
+            <input type="range" id="protection-slider" min="3" max="10" step="1" value="5">
+            <span id="protection-readout" class="slider-readout">5%</span>
+          </div>
+          <div class="slider-group">
+            <label for="camera-distance-slider" title="How close the camera sits to the subject on close-up presets (Bench/Witness/Counsel/Follow Speaker)">Camera Distance</label>
+            <input type="range" id="camera-distance-slider" min="60" max="180" step="5" value="100">
+            <span id="camera-distance-readout" class="slider-readout">1.00x</span>
+          </div>
+        </div>
+      </div>
+      <!-- CAMERA-AND-STAGING-001 Step 3 -- window/aspect presets. -->
+      <div id="window-presets" role="group" aria-label="Window size">
+        <button type="button" id="fullscreen-btn" title="Real full screen -- the 3D view becomes the whole monitor, Esc to exit">FULLSCREEN</button>
+        <button type="button" class="win-preset-btn" data-winpreset="fill">Fill Screen</button>
+        <button type="button" class="win-preset-btn" data-winpreset="floor">846×522</button>
+        <button type="button" class="win-preset-btn" data-winpreset="hd720">1280×720</button>
+        <button type="button" class="win-preset-btn" data-winpreset="hd1080">1920×1080</button>
+        <button type="button" class="win-preset-btn" data-winpreset="ultrawide">21:9</button>
+        <button type="button" class="win-preset-btn" data-winpreset="portrait">Portrait</button>
+        <button type="button" class="win-preset-btn" data-winpreset="tv">TV (4K)</button>
+        <button type="button" class="win-preset-btn" data-winpreset="fit">Fit My Display</button>
+      </div>
+    </div>
+    <div id="courtroom-overlay">
+      <div id="mic-warning-banner" class="mic-warning-banner hidden"></div>
+      <div id="speed-volume-row">
+        <div class="slider-group">
+          <label for="wpm-slider">Speed</label>
+          <input type="range" id="wpm-slider" min="50" max="300" step="1" value="150">
+          <span id="wpm-readout" class="slider-readout">150 WPM</span>
+        </div>
+        <div class="slider-group">
+          <label for="volume-slider">Volume</label>
+          <input type="range" id="volume-slider" min="0" max="100" step="1" value="80">
+          <span id="volume-readout" class="slider-readout">80%</span>
+        </div>
+        <!-- FIELD-TEST-BUILD-002 -- MOTION-SPEED-001. "A toggle for how
+             fast the people move, from zero to not moving at all." 0% =
+             every avatar's idle motion (breathing/head-turn sway) and
+             head-turn-toward-speaker freezes completely; 100% ("full
+             speed") = today's normal, unmodified idle-motion rate. -->
+        <div class="slider-group">
+          <label for="motion-speed-slider">Motion</label>
+          <input type="range" id="motion-speed-slider" min="0" max="100" step="1" value="100">
+          <span id="motion-speed-readout" class="slider-readout">100%</span>
+        </div>
+        <!-- FIELD-TEST-BUILD-001 (web lane) -- opens #settings-popup below.
+             Same screen as the sliders above, per this job's own scope. -->
+        <button type="button" id="settings-gear-btn" title="Difficulty / Settings">&#9881; Settings</button>
+      </div>
+      <div id="caption" class="caption"></div>
+      <div id="mic-row">
+        <span id="mic-status">Microphone: not armed</span>
+        <div id="mic-meter-bg"><div id="mic-meter-fill"></div></div>
+      </div>
+      <div class="transcript-label">Your transcript (final text -- building live as you speak):</div>
+      <div id="transcript-box"></div>
+      <div id="partial-label"></div>
+      <div id="progress-label">Utterance 0 / 0</div>
+      <div class="button-row">
+        <button id="begin-proceeding-btn">Begin Proceeding (I'm ready)</button>
+        <!-- PLAY-PAUSE-001 (web lane) -- one button, two icon states,
+             switching as state.paused changes (see main.js's
+             updatePlayPauseUi()). Disabled until a proceeding actually
+             starts, matching begin/finish's own enable discipline. -->
+        <button type="button" id="play-pause-btn" aria-pressed="false" aria-label="Pause" disabled>&#9208;</button>
+        <button id="finish-btn">Finish &amp; Score</button>
+      </div>
+    </div>
+
+    <!-- FIELD-TEST-BUILD-001 (web lane) STEP 3/4 -- difficulty/settings
+         popup, built on the reusable popup-chrome component (popup_chrome.js).
+         Sits outside #courtroom-overlay's own max-width:900px box (this
+         element's parent, #courtroom-screen, is max-width:none) so
+         "maximize" can actually fill most of the viewport. -->
+    <div id="settings-popup" class="popup-window hidden" role="dialog" aria-label="Difficulty and Settings">
+      <div class="popup-titlebar">
+        <span class="popup-title">Difficulty / Settings</span>
+        <div class="popup-chrome-btns">
+          <button type="button" class="popup-min-btn" aria-pressed="false" aria-label="Minimize" title="Minimize">&#8722;</button>
+          <button type="button" class="popup-max-btn" aria-pressed="false" aria-label="Maximize" title="Maximize">&#9723;</button>
+          <button type="button" class="popup-close-btn" aria-label="Close" title="Close">&times;</button>
+        </div>
+      </div>
+      <div class="popup-body">
+        <div class="settings-section mode-section">
+          <p class="settings-section-title">Mode</p>
+          <div class="mode-row" role="group" aria-label="Difficulty mode">
+            <button type="button" class="mode-btn" data-mode="manual">Manual</button>
+            <button type="button" class="mode-btn" data-mode="adaptive">Adaptive</button>
+            <button type="button" class="mode-btn" data-mode="both">Both</button>
+          </div>
+          <p id="adaptive-note" class="dim small">Adaptive: not yet active -- no engine behind it yet. Selecting Adaptive or Both changes no gameplay behavior in this build.</p>
+        </div>
+
+        <div class="settings-section">
+          <p class="settings-section-title">Readback</p>
+          <div class="settings-row">
+            <span class="settings-row-label">Readback frequency</span>
+            <input type="range" id="readback-freq-slider" min="0" max="100" step="1" value="50">
+            <span id="readback-freq-readout" class="slider-readout">50%</span>
+          </div>
+          <div class="specificity-row">
+            <span class="settings-row-label">Readback specificity</span>
+            <div class="specificity-options" role="group" aria-label="Readback specificity">
+              <button type="button" class="specificity-btn" data-specificity="last-question">Last question (easier)</button>
+              <button type="button" class="specificity-btn" data-specificity="from-point">From where witness said X (harder)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <p class="settings-section-title">Speech behavior</p>
+          <div class="settings-row">
+            <span class="settings-row-label">People talking over each other<span class="settings-row-note">Overlapping speech from multiple speakers</span></span>
+            <button type="button" id="overlap-speech-toggle" class="toggle-btn" aria-pressed="false">Off</button>
+          </div>
+          <div class="settings-row">
+            <span class="settings-row-label">Vary speech rate by speaker<span class="settings-row-note">Scales the base WPM by a per-role multiplier (control only this pass)</span></span>
+            <button type="button" id="vary-rate-toggle" class="toggle-btn" aria-pressed="false">Off</button>
+          </div>
+          <div class="settings-row">
+            <span class="settings-row-label">Mumbling / trailing off<span class="settings-row-note">Reporter's "I'm sorry, I didn't catch that" is a scored SKILL, not a penalty</span></span>
+            <button type="button" id="mumbling-toggle" class="toggle-btn" aria-pressed="false">Off</button>
+          </div>
+          <div class="settings-row">
+            <span class="settings-row-label">Multiple speakers with similar voices</span>
+            <button type="button" id="similar-voices-toggle" class="toggle-btn" aria-pressed="false">Off</button>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <p class="settings-section-title">Proceeding events</p>
+          <div class="settings-row">
+            <span class="settings-row-label">Objections landing on top of answers</span>
+            <button type="button" id="objections-overlap-toggle" class="toggle-btn" aria-pressed="false">Off</button>
+          </div>
+          <div class="settings-row">
+            <span class="settings-row-label">Sidebar conferences / going off the record mid-sentence</span>
+            <button type="button" id="sidebar-conf-toggle" class="toggle-btn" aria-pressed="false">Off</button>
+          </div>
+          <div class="settings-row">
+            <span class="settings-row-label">Exhibit handling and marking colloquy</span>
+            <button type="button" id="exhibit-handling-toggle" class="toggle-btn" aria-pressed="false">Off</button>
+          </div>
+          <div class="settings-row">
+            <span class="settings-row-label">Spelling requests for proper names</span>
+            <button type="button" id="spelling-requests-toggle" class="toggle-btn" aria-pressed="false">Off</button>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <p class="settings-section-title">Vocabulary</p>
+          <div class="settings-row">
+            <span class="settings-row-label">Technical / medical vocabulary density<span class="settings-row-note">Separate from proper-name density (this build has no proper-noun-density control yet)</span></span>
+            <input type="range" id="tech-vocab-slider" min="0" max="100" step="1" value="0">
+            <span id="tech-vocab-readout" class="slider-readout">0%</span>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <p class="settings-section-title">Audio conditions</p>
+          <div class="audio-cond-row" role="group" aria-label="Audio conditions">
+            <button type="button" id="audio-room-echo-toggle" class="audio-cond-btn" aria-pressed="false">Room echo: Off</button>
+            <button type="button" id="audio-bad-speakerphone-toggle" class="audio-cond-btn" aria-pressed="false">Bad speakerphone: Off</button>
+            <button type="button" id="audio-hvac-noise-toggle" class="audio-cond-btn" aria-pressed="false">HVAC noise: Off</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="results-screen" class="screen hidden">
+    <h1>Results</h1>
+    <div id="results-box"></div>
+    <button id="play-again-btn">Choose Another Proceeding</button>
+  </div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
