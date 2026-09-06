@@ -1,5 +1,7 @@
 # SideBar — Liza's Study Workspace
 
+Mock Test update: a separate 100-question multiple-choice activity draws fresh 45/45/10 papers from a 1,569-question encrypted bank grounded in the 2023 study guide and its appendices. It retains Quiz Myself and the original 60-question Sample test. Questions and answer choices shuffle; some questions can recur. Finish to see scores, explanations and page references. Completed totals join the existing report-card sync; leaving or reloading an unfinished Mock Test starts a new paper. No separate addendum was supplied. This is independent practice, not an official or psychometrically validated NVRA exam. The existing study key and original encrypted guide pack are unchanged.
+
 Compiled static application and encrypted personal study pack. A separate private study link is required to open the content. This repository does not include a source PDF or the unlock key.
 
 The browser edition includes the original study activities, source lookup, reviewed document import/OCR, assignments, rule capture, reviewed question drafts, short-audio tools and selected games. Optional OCR, speech transcription and small-model drafts run on the visitor's device and require engine/model downloads.
