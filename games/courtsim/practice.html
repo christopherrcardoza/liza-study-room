@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="425b05759079"><head><meta charset="utf-8">
+<html lang="en" data-build="4cc9ecc1cdc5"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CourtSim — practice room</title>
 <!--
@@ -268,12 +268,12 @@
 </div>
 
 <script type="module">
-import { CourtroomScene, VENUES } from './js-425b05759079/scene.js';
-import { CameraController } from './js-425b05759079/camera_controller.js';
-import { PracticeSession } from './js-425b05759079/practice_session.js';
+import { CourtroomScene, VENUES } from './js-4cc9ecc1cdc5/scene.js';
+import { CameraController } from './js-4cc9ecc1cdc5/camera_controller.js';
+import { PracticeSession } from './js-4cc9ecc1cdc5/practice_session.js';
 // Side-effect import: mounts itself and binds K. Imported rather than added
 // as a second <script> so the build's module-graph walk reaches and copies it.
-import './js-425b05759079/licenses_ui.js';
+import './js-4cc9ecc1cdc5/licenses_ui.js';
 
 const $ = (id) => document.getElementById(id);
 const LS = 'courtsim_practice_068';
@@ -481,7 +481,33 @@ async function begin() {
       session.audioCtx = audioCtx;
       session.gain = gainNode;
     }
-    if (audioCtx.state === 'suspended') await audioCtx.resume();
+    // ===================================================================
+    // THE BUTTON MUST NEVER BE ABLE TO GO QUIET AND STAY QUIET.
+    //
+    // MEASURED ON THE PUBLISHED SITE, not reasoned about. With no user
+    // activation on the page yet, Chrome creates the AudioContext
+    // SUSPENDED and returns a resume() promise that simply never settles
+    // until a gesture arrives. This function had already disabled Begin on
+    // its first line, so the page sat on "Not started." with a dead button
+    // and no message, permanently. A student would press Begin, watch
+    // nothing happen, and close the tab.
+    //
+    // So the wait is bounded and the failure is spoken. Three seconds is
+    // far longer than a real resume (milliseconds) and far shorter than a
+    // person's patience.
+    // ===================================================================
+    if (audioCtx.state === 'suspended') {
+      await Promise.race([
+        audioCtx.resume(),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    }
+    if (audioCtx.state !== 'running') {
+      setStatus('Your browser is still holding the sound. Click anywhere on this '
+        + 'page, then press Begin again.');
+      $('begin-btn').disabled = false;
+      return;
+    }
     gainNode.gain.value = Number($('vol-slider').value) / 100;
 
     setStatus('downloading the voices — this happens once…');

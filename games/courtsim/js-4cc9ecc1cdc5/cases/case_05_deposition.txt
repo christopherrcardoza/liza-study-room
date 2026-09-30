@@ -1,0 +1,689 @@
+00:00:01 --> 00:00:10
+MS. ORTIZ: We are on the record. This is the deposition of Gerald Whitfield in the matter of Marsh versus Calloway Freight Lines, case 3947.
+
+00:00:11 --> 00:00:18
+MS. ORTIZ: We are at the offices of Ortiz and Associates, 1427 Kensington Avenue, and today is September 9, 2025.
+
+00:00:18 --> 00:00:26
+MR. BRENNAN: Douglas Brennan for the defendant, Calloway Freight Lines, and appearing today for the witness, Mr. Whitfield, in his individual capacity.
+
+00:00:26 --> 00:00:35
+MS. ORTIZ: The officer has sworn the witness. Mr. Whitfield, do you understand that you remain under oath for the whole of this deposition?
+
+00:00:36 --> 00:00:45
+THE WITNESS: I do understand that. The officer swore me a moment ago, and the oath carries the same force it would in a courtroom.
+
+00:00:45 --> 00:00:55
+MS. ORTIZ: Counsel, may we have the usual stipulations? All objections except those to the form of the question and to privilege are reserved until trial.
+
+00:00:55 --> 00:01:04
+MR. BRENNAN: Agreed, with the usual reservation. I will state my form objections on the record and the witness may answer subject to them.
+
+00:01:04 --> 00:01:11
+MS. ORTIZ: As to reading and signing, does your client wish to read and sign the transcript of this deposition?
+
+00:01:12 --> 00:01:20
+MR. BRENNAN: He does, and we are not waiving signature. We would like 30 days from receipt of the transcript to read and sign.
+
+00:01:21 --> 00:01:28
+MS. ORTIZ: That is acceptable to me. Mr. Whitfield, a few admonitions before we reach dispatch and the driver logs.
+
+00:01:28 --> 00:01:36
+MS. ORTIZ: Please answer out loud. The reporter cannot take down a nod of the head or a shrug of the shoulders.
+
+00:01:37 --> 00:01:43
+THE WITNESS: Understood. I will answer out loud every time, and I will try not to nod at you.
+
+00:01:44 --> 00:01:51
+MS. ORTIZ: Let me finish each question before you begin your answer, and I will give you the same courtesy.
+
+00:01:51 --> 00:02:00
+THE WITNESS: That is fair enough. I have a habit of jumping in, so you may have to remind me once or twice.
+
+00:02:00 --> 00:02:10
+MS. ORTIZ: If you do not understand a question, say so and I will rephrase it. If you answer it, I will assume you understood it.
+
+00:02:10 --> 00:02:16
+THE WITNESS: Very well. I will tell you when a question does not make sense to me.
+
+00:02:16 --> 00:02:24
+MS. ORTIZ: We will break whenever you like, so long as no question is pending. Is that agreeable to you?
+
+00:02:24 --> 00:02:30
+THE WITNESS: That is agreeable. I would like a break every hour or so, if it suits everyone.
+
+00:02:31 --> 00:02:45
+MS. ORTIZ: Today we will cover dispatch, the driver logs kept in Beacon, the maintenance file, the retention policy, and the hours Bergman was on duty. I will put an exhibit in front of you from time to time.
+
+00:02:46 --> 00:02:52
+MR. BRENNAN: Objection to the speech, counsel. Ask a question when you are ready to ask one.
+
+00:02:52 --> 00:02:59
+MS. ORTIZ: That was not a question. Mr. Whitfield, state your full name and spell your surname for the record.
+
+00:03:00 --> 00:03:05
+THE WITNESS: Gerald Whitfield. My name is on the notice of deposition in front of you.
+
+00:03:06 --> 00:03:09
+MS. ORTIZ: Where were you employed before this deposition was noticed?
+
+00:03:10 --> 00:03:18
+THE WITNESS: I was at Calloway Freight Lines for nine years, running dispatch and driver scheduling out of the Kensington Avenue terminal.
+
+00:03:18 --> 00:03:22
+MS. ORTIZ: What was your title on the day you left?
+
+00:03:22 --> 00:03:30
+THE WITNESS: Operations director. Before that I was a dispatch supervisor, and before that, uh, I drove a truck for about four years.
+
+00:03:31 --> 00:03:34
+MS. ORTIZ: When did your employment with Calloway end?
+
+00:03:34 --> 00:03:39
+THE WITNESS: March 2024. I gave my notice and then I worked out the month.
+
+00:03:40 --> 00:03:43
+MS. ORTIZ: Tell me what dispatch did on an ordinary day.
+
+00:03:44 --> 00:03:54
+THE WITNESS: We built the loads, assigned each driver, watched the hours in Beacon, and pulled a driver off a run if his logs showed he was tight.
+
+00:03:54 --> 00:03:56
+MS. ORTIZ: Describe what Beacon is.
+
+00:03:56 --> 00:04:07
+THE WITNESS: It is the dispatch software. Loads, driver assignments, and the electronic logs all sit inside it, and it flags a driver as he comes up on his limit.
+
+00:04:08 --> 00:04:11
+MS. ORTIZ: Who at Calloway could see those flags?
+
+00:04:11 --> 00:04:19
+THE WITNESS: Any dispatcher on shift, the terminal manager, and me. Safety had a read-only view of the same screens.
+
+00:04:19 --> 00:04:26
+MS. ORTIZ: Let us talk about the hours rules. What was the on-duty limit for a Calloway driver?
+
+00:04:26 --> 00:04:32
+MR. BRENNAN: Objection, form. It calls for the witness to interpret a federal regulation. You may answer.
+
+00:04:33 --> 00:04:41
+THE WITNESS: As I understood it, 14 hours on duty in a day, and inside that a separate driving limit that is shorter.
+
+00:04:41 --> 00:04:46
+MS. ORTIZ: Was that the rule you applied when you built a schedule?
+
+00:04:46 --> 00:04:54
+THE WITNESS: That was the rule. I built to 13 hours and left the rest as margin, because traffic eats margin.
+
+00:04:54 --> 00:04:58
+MS. ORTIZ: Did you ever schedule a driver past the on-duty limit?
+
+00:04:59 --> 00:05:04
+MR. BRENNAN: Objection, form, and it assumes the premise. Go ahead and answer if you can.
+
+00:05:05 --> 00:05:19
+THE WITNESS: Not knowingly. Strike that, let me start again. I did not knowingly build a schedule past the limit. A schedule is a plan, and what the day does to the plan is a different thing.
+
+00:05:19 --> 00:05:21
+MS. ORTIZ: Tell me about Bergman.
+
+00:05:21 --> 00:05:28
+THE WITNESS: He drove out of our terminal for, uh, about six years. City work and short regional runs, mostly.
+
+00:05:29 --> 00:05:31
+MS. ORTIZ: Spell the surname for the reporter, please.
+
+00:05:32 --> 00:05:35
+THE WITNESS: That is Bergman, and his first name is Peter.
+
+00:05:36 --> 00:05:39
+MS. ORTIZ: Who assigned Bergman his runs on October 18, 2023?
+
+00:05:40 --> 00:05:47
+THE WITNESS: Dispatch did. I could not tell you which dispatcher was on the board that afternoon without looking at Beacon.
+
+00:05:48 --> 00:05:56
+MS. ORTIZ: Madam reporter, I would like to mark this Beacon day sheet for October 18, 2023 as Exhibit 1.
+
+00:05:56 --> 00:06:00
+MR. BRENNAN: No objection to the marking. My objections to the document itself are reserved.
+
+00:06:00 --> 00:06:05
+MS. ORTIZ: I am handing you Exhibit 1 for identification. Tell me what it is.
+
+00:06:05 --> 00:06:13
+THE WITNESS: It looks like a Beacon day sheet for October 18, 2023, with Bergman's name printed at the top.
+
+00:06:01 --> 00:06:05
+MS. ORTIZ: What time did he go on duty that day?
+
+00:06:05 --> 00:06:11
+THE WITNESS: The sheet shows 5:45 in the morning for his pre-trip inspection at the yard.
+
+00:06:12 --> 00:06:17
+MS. ORTIZ: And what time does the sheet show the collision on Kensington Avenue?
+
+00:06:17 --> 00:06:23
+MR. BRENNAN: Objection, form. The document does not say collision anywhere on its face. Answer if you can.
+
+00:06:24 --> 00:06:31
+THE WITNESS: It shows a stop code at 6:52 in the evening. It does not use the word collision.
+
+00:06:31 --> 00:06:38
+MS. ORTIZ: Doing the arithmetic from the sheet, how long had Bergman been on duty at that stop code?
+
+00:06:38 --> 00:06:43
+MR. BRENNAN: Objection, form, calls for a calculation this witness has not made.
+
+00:06:43 --> 00:06:53
+THE WITNESS: I can do it in my head. From 5:45 in the morning to 6:52 in the evening is 13 hours and some minutes.
+
+00:06:54 --> 00:06:57
+MS. ORTIZ: That is inside the 14 hours, is it not?
+
+00:06:58 --> 00:07:05
+THE WITNESS: Inside the on-duty window, yes. Whether he was inside the driving limit I could not say from this sheet.
+
+00:07:06 --> 00:07:09
+MS. ORTIZ: Why can you not say that from this sheet?
+
+00:07:10 --> 00:07:18
+THE WITNESS: Because the day sheet lumps the on-duty time together. You need the logs themselves to separate driving from waiting.
+
+00:07:18 --> 00:07:25
+MS. ORTIZ: Madam reporter, please mark this Beacon log extract for that driver as Exhibit 2.
+
+00:07:25 --> 00:07:31
+MS. ORTIZ: Let me hand you Exhibit 2 for identification, a Beacon log extract for that driver.
+
+00:07:25 --> 00:07:33
+MR. BRENNAN: Counsel, is this the same production we received in July 2025? I want to be sure we are on the same document.
+
+00:07:34 --> 00:07:42
+MS. ORTIZ: It is, and the production range is printed at the foot of each page. Mr. Whitfield, do you recognize the format?
+
+00:07:42 --> 00:07:48
+THE WITNESS: I recognize the format, yes. That is how a Beacon log extract prints out.
+
+00:07:48 --> 00:07:53
+MS. ORTIZ: Read the entry for 4:10 in the afternoon aloud, please.
+
+00:07:53 --> 00:08:01
+THE WITNESS: It says "driving" and then a duty change to "on duty not driving" at 4:38 in the afternoon.
+
+00:08:01 --> 00:08:05
+MS. ORTIZ: What would a duty change like that ordinarily mean?
+
+00:08:05 --> 00:08:12
+THE WITNESS: A delivery stop. He is off the wheel and on a dock, working, but not driving.
+
+00:08:12 --> 00:08:15
+MS. ORTIZ: Does dock time count against the driving limit?
+
+00:08:16 --> 00:08:21
+THE WITNESS: It does not count against driving. It counts against the 14 hours on duty.
+
+00:08:22 --> 00:08:27
+MS. ORTIZ: So a driver could be near the driving limit and still be dispatched another run?
+
+00:08:28 --> 00:08:31
+MR. BRENNAN: Objection, form, incomplete hypothetical. You may answer.
+
+00:08:31 --> 00:08:38
+THE WITNESS: In theory. In practice Beacon would flag it and the dispatcher would have to override the flag.
+
+00:08:38 --> 00:08:41
+MS. ORTIZ: Were those overrides reviewed by anyone?
+
+00:08:41 --> 00:08:48
+THE WITNESS: I reviewed them weekly for a while. That fell off in the last year I was there.
+
+00:08:48 --> 00:08:51
+MS. ORTIZ: Why did the weekly review fall off?
+
+00:08:51 --> 00:09:00
+THE WITNESS: Well -- we were short in the office, and I was covering the board myself two days a week. Things fell off.
+
+00:09:00 --> 00:09:04
+MS. ORTIZ: Was there an override on Bergman's assignment that afternoon?
+
+00:09:04 --> 00:09:09
+MR. BRENNAN: Objection, form, assumes facts not in evidence. Answer if you know.
+
+00:09:09 --> 00:09:17
+THE WITNESS: I do not know. It is not on this extract, and I have not seen the override report for that day.
+
+00:09:18 --> 00:09:21
+MS. ORTIZ: Did you ask to see it after the collision?
+
+00:09:22 --> 00:09:27
+THE WITNESS: I asked somebody in safety for it. I do not recall ever getting it.
+
+00:09:28 --> 00:09:30
+MS. ORTIZ: Who in the safety department?
+
+00:09:30 --> 00:09:38
+THE WITNESS: I would be guessing. It was either the safety manager or his analyst, and I will not pick between them.
+
+00:09:39 --> 00:09:46
+MS. ORTIZ: Exhibit 3 is a personnel write-up dated June 30, 2022. Is that your signature at the bottom?
+
+00:09:46 --> 00:09:52
+THE WITNESS: That is my signature. I signed a great many of these over nine years at Calloway.
+
+00:09:53 --> 00:09:56
+MS. ORTIZ: What is the subject of that write-up?
+
+00:09:56 --> 00:10:03
+THE WITNESS: A preventable accident. Backing into a fixed object at a customer dock, as I read it.
+
+00:10:03 --> 00:10:09
+MS. ORTIZ: Exhibit 4 is a second write-up dated February 12, 2023. Same question to you.
+
+00:10:10 --> 00:10:17
+THE WITNESS: Also my signature, and also a preventable finding. Following too closely, I mean, that is what the box says.
+
+00:10:18 --> 00:10:22
+MS. ORTIZ: Two preventable accidents inside eight months. What does that trigger at Calloway?
+
+00:10:23 --> 00:10:28
+MR. BRENNAN: Objection, form, and it misstates the interval between those two documents. Go ahead.
+
+00:10:28 --> 00:10:35
+THE WITNESS: It should put a driver on the probationary period under the safety policy. Retraining first, then a review.
+
+00:10:36 --> 00:10:39
+MS. ORTIZ: Was Bergman put on the probationary period?
+
+00:10:39 --> 00:10:45
+THE WITNESS: I do not believe that he was. I do not know why he was not.
+
+00:10:45 --> 00:10:48
+MS. ORTIZ: How long is the probationary period?
+
+00:10:48 --> 00:10:56
+THE WITNESS: A 90-day period, as I remember the policy. He would ride with a trainer for part of it.
+
+00:10:56 --> 00:10:59
+MS. ORTIZ: Did you raise that with anyone?
+
+00:10:59 --> 00:11:06
+THE WITNESS: I raised it on the Monday safety call. I raised a great many things on that call.
+
+00:11:06 --> 00:11:09
+MS. ORTIZ: What was the response you got?
+
+00:11:09 --> 00:11:17
+MR. BRENNAN: Objection, Your Honor. That is hearsay and objection to the form. If you can answer without repeating a conversation --
+
+00:11:17 --> 00:11:24
+MS. ORTIZ: Counsel, that is a speaking objection and you are coaching the answer. State the ground and stop.
+
+00:11:24 --> 00:11:30
+MR. BRENNAN: I stated the ground. I am entitled to state the ground and to protect this witness.
+
+00:11:31 --> 00:11:37
+MS. ORTIZ: You stated the ground and then you kept talking. State it and stop talking, please.
+
+00:11:37 --> 00:11:45
+MR. BRENNAN: I will make my record as I see fit, counsel, and you may take that up with the judge.
+
+00:11:45 --> 00:11:49
+MS. ORTIZ: Let us go off the record for a moment.
+
+00:11:49 --> 00:11:57
+MS. ORTIZ: We are back on the record. Mr. Whitfield, what were you told on that call about the probationary period?
+
+00:11:57 --> 00:12:01
+MR. BRENNAN: Objection, Your Honor. That is hearsay. You may answer.
+
+00:12:01 --> 00:12:09
+THE WITNESS: I was told the terminal was short of drivers and that we would look at it after the peak period.
+
+00:12:10 --> 00:12:13
+MS. ORTIZ: Did anyone look at it after the peak period?
+
+00:12:14 --> 00:12:21
+THE WITNESS: I do not believe anyone did. Peak ran into the holidays and then it was a new year.
+
+00:12:21 --> 00:12:26
+MS. ORTIZ: Exhibit 5 is a maintenance log for unit 47. Do you recognize it?
+
+00:12:27 --> 00:12:34
+THE WITNESS: I recognize the form of it. Maintenance was not my department, but the log came across the dispatch board.
+
+00:12:35 --> 00:12:38
+MS. ORTIZ: Read the two entries I have flagged for you.
+
+00:12:39 --> 00:12:48
+THE WITNESS: "Brake inspection deferred, parts on order." That one is dated July 14, 2023. The second says the same thing, deferred, dated September 5, 2023.
+
+00:12:49 --> 00:12:53
+MS. ORTIZ: Was unit 47 the tractor Bergman was driving on October 18, 2023?
+
+00:12:54 --> 00:12:59
+MR. BRENNAN: Objection, form, lack of foundation, and outside the scope of this witness's knowledge.
+
+00:12:59 --> 00:13:06
+THE WITNESS: I would have to match it to the day sheet. Exhibit 1 carries a unit number on it.
+
+00:13:07 --> 00:13:11
+MS. ORTIZ: Look at Exhibit 1 and tell me the unit number.
+
+00:13:11 --> 00:13:15
+THE WITNESS: The unit number on the day sheet reads 47.
+
+00:13:15 --> 00:13:21
+MS. ORTIZ: So the tractor with the twice-deferred brake inspection was the tractor in the collision.
+
+00:13:22 --> 00:13:28
+MR. BRENNAN: Objection to the form of the question. That is argument, counsel, it is not a question.
+
+00:13:28 --> 00:13:35
+MS. ORTIZ: I will rephrase it. Do the unit numbers on Exhibit 1 and Exhibit 5 match each other?
+
+00:13:36 --> 00:13:42
+THE WITNESS: The numbers match. What that means about the brakes on that particular day I cannot tell you.
+
+00:13:43 --> 00:13:47
+MS. ORTIZ: After the collision, did anyone at Calloway instruct you to preserve documents?
+
+00:13:48 --> 00:13:55
+MR. BRENNAN: I am going to instruct the witness not to answer that question on the ground of attorney-client privilege.
+
+00:13:56 --> 00:14:03
+MS. ORTIZ: The question is whether he received an instruction, not what a lawyer said to him. That is not privileged.
+
+00:14:04 --> 00:14:10
+MR. BRENNAN: The instruction came through counsel, and its existence and its content are both privileged communications.
+
+00:14:10 --> 00:14:17
+MS. ORTIZ: The fact of a litigation hold is not a privileged communication, counsel, and you know that perfectly well.
+
+00:14:18 --> 00:14:23
+MR. BRENNAN: I have given my instruction. He is not answering that question here today.
+
+00:14:23 --> 00:14:30
+MS. ORTIZ: Then I am going to certify the question and we will take it to the judge.
+
+00:14:30 --> 00:14:36
+MR. BRENNAN: Certify it. Mark the page and the line and we will brief it for her.
+
+00:14:36 --> 00:14:43
+MS. ORTIZ: Madam reporter, please mark that question as certified. Mr. Whitfield, are you following your counsel's instruction?
+
+00:14:43 --> 00:14:48
+THE WITNESS: I am following my counsel's instruction and I am not answering that one.
+
+00:14:49 --> 00:14:56
+MS. ORTIZ: Let me ask it a different way. Did you personally take any steps to preserve the driver logs?
+
+00:14:56 --> 00:15:03
+MR. BRENNAN: Objection, form. To the extent your answer would reveal a communication with counsel, do not give it.
+
+00:15:03 --> 00:15:09
+MS. ORTIZ: There it is again, counsel. That is the third speaking objection in ten minutes --
+
+00:15:09 --> 00:15:16
+MR. BRENNAN: It is a privilege caution and I am obliged to give it to my own witness.
+
+00:15:16 --> 00:15:19
+MS. ORTIZ: Let us go off the record again.
+
+00:15:19 --> 00:15:27
+MS. ORTIZ: We are back on the record. Mr. Whitfield, the question is still pending. What steps did you take?
+
+00:15:27 --> 00:15:35
+THE WITNESS: I sent a note to the terminal asking that nothing be purged. I do not know what happened after that.
+
+00:15:35 --> 00:15:39
+MS. ORTIZ: Tell me about the records retention policy at Calloway.
+
+00:15:39 --> 00:15:48
+THE WITNESS: Electronic records purge after 18 months. Driver logs, Beacon day sheets, dispatch notes, all of it runs on the same clock.
+
+00:15:48 --> 00:15:52
+MS. ORTIZ: Is the retention period measured from the date of the record?
+
+00:15:53 --> 00:16:00
+THE WITNESS: From the date of the record, yes. The retention period runs 18 months and then the system deletes it.
+
+00:16:01 --> 00:16:03
+MS. ORTIZ: Does that deletion happen automatically?
+
+00:16:03 --> 00:16:07
+THE WITNESS: Automatically, unless somebody puts a hold on the account first.
+
+00:16:08 --> 00:16:14
+MS. ORTIZ: Were the October 18, 2023 logs still in Beacon when you left in March 2024?
+
+00:16:14 --> 00:16:21
+THE WITNESS: They would have been, on that arithmetic. Whether they actually were, I could not swear to it.
+
+00:16:21 --> 00:16:23
+MS. ORTIZ: Did you ever check?
+
+00:16:23 --> 00:16:32
+THE WITNESS: I did not check. It was not my job to check, and by then I was, um, I was already on my way --
+
+00:16:33 --> 00:16:35
+MS. ORTIZ: On your way where, Mr. Whitfield?
+
+00:16:36 --> 00:16:43
+THE WITNESS: On my way out the door. I had given notice by then and I was training my replacement.
+
+00:16:43 --> 00:16:48
+MS. ORTIZ: Describe for me how a load got assigned on a busy afternoon.
+
+00:16:48 --> 00:17:13
+THE WITNESS: Very well, so the board fills up around the middle of the afternoon, and you have a customer calling about a delivery window, and you have a driver sitting at a dock with no appointment, and Beacon is flashing at you because somebody is at 12 hours, and the terminal manager is standing behind your chair asking why that trailer has not moved.
+
+00:17:14 --> 00:17:33
+THE WITNESS: And you make a call, and the call is usually the right call, and sometimes you find out later that it was not, and that is dispatch, that is the whole job, and anybody who tells you it is a spreadsheet has never once sat on the board.
+
+00:17:33 --> 00:17:40
+MR. BRENNAN: Objection, non-responsive, and I move to strike everything after the words "that is dispatch" in that answer.
+
+00:17:41 --> 00:17:48
+MS. ORTIZ: Your motion is noted for the record. Mr. Whitfield, at 12 hours, what did the flag tell you?
+
+00:17:48 --> 00:17:58
+THE WITNESS: It told me the driver had two hours of on-duty time left and that I should not put him on a long run.
+
+00:17:58 --> 00:18:02
+MS. ORTIZ: Did you put Bergman on a long run that day?
+
+00:18:02 --> 00:18:10
+THE WITNESS: I did not put him on anything that day. I was not on the board on October 18, 2023.
+
+00:18:10 --> 00:18:18
+MS. ORTIZ: Between June 30, 2022 and October 18, 2023, how many times did you raise Bergman's hours with management?
+
+00:18:18 --> 00:18:22
+MR. BRENNAN: Objection, form, compound, and asked and answered in substance twice already.
+
+00:18:23 --> 00:18:28
+THE WITNESS: Could I have that question read back? There were several parts to it.
+
+00:18:28 --> 00:18:33
+MS. ORTIZ: Madam reporter, please read back the last question exactly as I put it.
+
+00:18:34 --> 00:18:41
+MS. ORTIZ: While she locates it, I will note for the record that the time is 2:40 in the afternoon.
+
+00:18:42 --> 00:18:51
+THE WITNESS: I have it now, and I do not need the read back after all. I raised it twice that I can remember.
+
+00:18:51 --> 00:18:53
+MS. ORTIZ: Twice in 16 months?
+
+00:18:53 --> 00:19:00
+THE WITNESS: Twice that I can put a date on. I complained more often than that in the hallway.
+
+00:19:00 --> 00:19:04
+MS. ORTIZ: Hallway complaints do not leave a record, do they?
+
+00:19:04 --> 00:19:08
+MR. BRENNAN: Objection, argumentative. You may answer it if you understand it.
+
+00:19:09 --> 00:19:13
+THE WITNESS: They do not leave a record. That much is fair.
+
+00:19:13 --> 00:19:20
+MS. ORTIZ: Exhibit 6 for identification is an email dated August 22, 2023. Is that your address in the from line?
+
+00:19:21 --> 00:19:26
+THE WITNESS: That is my Calloway address. That is my email, and I remember writing it.
+
+00:19:27 --> 00:19:33
+MS. ORTIZ: Read the body of it into the record, and read the punctuation aloud as you go.
+
+00:19:34 --> 00:19:39
+MR. BRENNAN: Objection to the form of that request. The document speaks for itself, counsel.
+
+00:19:39 --> 00:19:44
+MS. ORTIZ: The document does not speak. Go ahead and read it, Mr. Whitfield.
+
+00:19:44 --> 00:19:53
+THE WITNESS: New paragraph. We have four drivers running hot on hours this month comma and dispatch is covering it with overrides period
+
+00:19:53 --> 00:20:02
+THE WITNESS: I want a maintenance and hours review before somebody gets hurt comma and I want it before the peak period starts period
+
+00:20:02 --> 00:20:08
+MS. ORTIZ: You wrote the phrase "running hot on hours" in that email, did you not?
+
+00:20:08 --> 00:20:15
+THE WITNESS: I wrote it. It was a shorthand we used on the board and everybody there understood it.
+
+00:20:15 --> 00:20:18
+MS. ORTIZ: Was Bergman one of the four?
+
+00:20:18 --> 00:20:23
+MR. BRENNAN: Objection, form, assumes facts not in evidence, and it calls for speculation.
+
+00:20:23 --> 00:20:31
+THE WITNESS: I did not name the four in the email. I would be reconstructing it if I answered you.
+
+00:20:31 --> 00:20:36
+MS. ORTIZ: Do you have any present recollection of who those four drivers were?
+
+00:20:36 --> 00:20:45
+THE WITNESS: I have a recollection that Bergman was on my mind that month. I will not swear he was one of the four.
+
+00:20:45 --> 00:20:51
+MS. ORTIZ: Exhibit 7 is the Calloway records retention policy. Read the second paragraph, with the punctuation.
+
+00:20:52 --> 00:21:01
+THE WITNESS: New paragraph. Operating records including driver logs and dispatch assignments shall be retained for 18 months comma after which they are purged automatically period
+
+00:21:02 --> 00:21:05
+MS. ORTIZ: Does that policy say anything about a litigation hold?
+
+00:21:06 --> 00:21:08
+MR. BRENNAN: Objection, calls for a legal conclusion.
+
+00:21:08 --> 00:21:16
+THE WITNESS: There is a sentence at the bottom about suspending the retention period when the company is notified of a claim.
+
+00:21:17 --> 00:21:20
+MS. ORTIZ: Read that sentence into the record, please.
+
+00:21:20 --> 00:21:26
+THE WITNESS: "Retention shall be suspended upon notice of a claim or of reasonably anticipated litigation."
+
+00:21:26 --> 00:21:29
+MS. ORTIZ: Who at Calloway was responsible for suspending retention?
+
+00:21:30 --> 00:21:35
+MR. BRENNAN: Objection, calls for a legal conclusion, and outside the scope of this witness's duties.
+
+00:21:36 --> 00:21:43
+THE WITNESS: It was not dispatch. I would have said legal or the safety department, but I am guessing at it.
+
+00:21:44 --> 00:21:51
+MS. ORTIZ: Exhibit 8 is a printout of the Beacon log index for October 2023. Do you see a gap in it?
+
+00:21:52 --> 00:21:59
+THE WITNESS: There is a gap. The index runs through October 17, 2023 and picks up again on October 19, 2023.
+
+00:22:00 --> 00:22:02
+MS. ORTIZ: Can you explain that gap?
+
+00:22:02 --> 00:22:09
+THE WITNESS: I cannot explain it. I left in March 2024 and I have no access to Beacon now.
+
+00:22:09 --> 00:22:17
+MR. BRENNAN: Objection, asked and answered. He has told you three times he cannot speak to that system after he left.
+
+00:22:17 --> 00:22:25
+MS. ORTIZ: He has not been asked about this exhibit three times, counsel. He has not been asked about it once.
+
+00:22:25 --> 00:22:31
+MR. BRENNAN: Then ask him about the exhibit and stop arguing with me across the table.
+
+00:22:31 --> 00:22:39
+MS. ORTIZ: Mr. Whitfield, in nine years at Calloway, did you ever see a one-day gap in a Beacon log index?
+
+00:22:40 --> 00:22:47
+THE WITNESS: I do not recall ever seeing one. That does not mean it never happened while I was there.
+
+00:22:47 --> 00:22:55
+MS. ORTIZ: Let me put a few things together before we finish. You ran dispatch at Calloway Freight Lines for nine years.
+
+00:22:56 --> 00:23:02
+THE WITNESS: I ran dispatch and driver scheduling for nine years, yes, and I am not running from that.
+
+00:23:03 --> 00:23:07
+MS. ORTIZ: You knew Bergman had two preventable write-ups in his driver file.
+
+00:23:08 --> 00:23:13
+THE WITNESS: I signed both of them myself. I have already said so twice this afternoon.
+
+00:23:14 --> 00:23:19
+MS. ORTIZ: You knew the maintenance log on unit 47 showed a brake inspection deferred twice.
+
+00:23:20 --> 00:23:26
+MR. BRENNAN: Objection, form, and it misstates his testimony about the maintenance log and what he reviewed.
+
+00:23:26 --> 00:23:34
+THE WITNESS: I knew what was on the log when it came across the board. I did not chase it down.
+
+00:23:34 --> 00:23:39
+MS. ORTIZ: And in August 2023 you wrote that drivers were running hot on hours.
+
+00:23:40 --> 00:23:46
+THE WITNESS: I wrote that. I wrote it because it was true and because I wanted it on paper.
+
+00:23:47 --> 00:23:54
+MS. ORTIZ: On October 18, 2023, Bergman had been on duty 13 hours when the collision happened on Kensington Avenue.
+
+00:23:54 --> 00:24:00
+MR. BRENNAN: Objection, form, assumes facts not in evidence as to the driving limit and the cause.
+
+00:24:01 --> 00:24:09
+THE WITNESS: 13 hours is what the day sheet arithmetic gives you. Inside the 14 hours, and I cannot speak to the driving limit.
+
+00:24:10 --> 00:24:17
+MS. ORTIZ: And the Beacon logs that would answer that question fall under a retention period of 18 months.
+
+00:24:17 --> 00:24:23
+THE WITNESS: That is the retention policy as I understood it during the years I was there.
+
+00:24:23 --> 00:24:31
+MS. ORTIZ: I have no further questions at this time. I am leaving this deposition open pending the certified question.
+
+00:24:31 --> 00:24:39
+MR. BRENNAN: I have no questions for this witness. We will take up the certified question with the judge on the papers.
+
+00:24:39 --> 00:24:48
+MS. ORTIZ: Mr. Whitfield, you have the right to read and sign this transcript, and your counsel has asked that you do so.
+
+00:24:48 --> 00:24:56
+THE WITNESS: I will read and sign it. I would like a copy of the exhibit set as well, if that is permitted.
+
+00:24:57 --> 00:25:04
+MR. BRENNAN: We will order a copy for him, and the original exhibits stay with the reporter in the usual way.
+
+00:25:05 --> 00:25:14
+MS. ORTIZ: Then the deposition of Gerald Whitfield is suspended rather than concluded, and we are off the record at 4:12 in the afternoon.
