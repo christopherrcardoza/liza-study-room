@@ -1,0 +1,471 @@
+{
+  "job": "COURTSIM-SHIP-068",
+  "built_utc": "2026-09-30T07:06:22.082Z",
+  "build_id": "425b05759079",
+  "module_dir": "js-425b05759079",
+  "entry": "practice.html",
+  "source_commit": "cb7cc8618bc2d4d8d0ac07fdb6f42759aa1440a0",
+  "files": [
+    {
+      "path": "/practice.html",
+      "bytes": 27382,
+      "sha256": "d3ef8b482bd6f526"
+    },
+    {
+      "path": "/js-425b05759079/camera_controller.js",
+      "bytes": 35593,
+      "sha256": "53be48eae0b3a583"
+    },
+    {
+      "path": "/js-425b05759079/camera_input.js",
+      "bytes": 30917,
+      "sha256": "e85f322ed53d0aee"
+    },
+    {
+      "path": "/js-425b05759079/case_text.js",
+      "bytes": 3309,
+      "sha256": "f5bfb7e3c1f0368f"
+    },
+    {
+      "path": "/js-425b05759079/contain.js",
+      "bytes": 151,
+      "sha256": "38a7a22e5585c5dd"
+    },
+    {
+      "path": "/js-425b05759079/licenses_ui.js",
+      "bytes": 12776,
+      "sha256": "910b20abac85cc96"
+    },
+    {
+      "path": "/js-425b05759079/lipsync.js",
+      "bytes": 12266,
+      "sha256": "48de30d81389d612"
+    },
+    {
+      "path": "/js-425b05759079/practice_session.js",
+      "bytes": 13572,
+      "sha256": "798d70c4455abf43"
+    },
+    {
+      "path": "/js-425b05759079/proceedings.js",
+      "bytes": 18521,
+      "sha256": "f4cad423bd39937e"
+    },
+    {
+      "path": "/js-425b05759079/scene.js",
+      "bytes": 409630,
+      "sha256": "d20460bd7bb9668c"
+    },
+    {
+      "path": "/js-425b05759079/speaker_titles.js",
+      "bytes": 8524,
+      "sha256": "6c5b7e6fb5eac8ae"
+    },
+    {
+      "path": "/js-425b05759079/tts.js",
+      "bytes": 11054,
+      "sha256": "b6693511687424c9"
+    },
+    {
+      "path": "/js-425b05759079/voice_cast.js",
+      "bytes": 13974,
+      "sha256": "9d1d258fde38a49f"
+    },
+    {
+      "path": "/js-425b05759079/cases/case_01_contract_dispute.txt",
+      "bytes": 28421,
+      "sha256": "6631f60976d3698e"
+    },
+    {
+      "path": "/js-425b05759079/cases/case_02_traffic_hearing.txt",
+      "bytes": 28261,
+      "sha256": "3739e5f8f61ba2ae"
+    },
+    {
+      "path": "/js-425b05759079/cases/case_03_small_claims.txt",
+      "bytes": 24914,
+      "sha256": "74f2112fda7ea6c0"
+    },
+    {
+      "path": "/js-425b05759079/cases/case_04_expert_witness.txt",
+      "bytes": 29645,
+      "sha256": "21b9eb11ed4d9e09"
+    },
+    {
+      "path": "/js-425b05759079/cases/case_05_deposition.txt",
+      "bytes": 27577,
+      "sha256": "e346f177c7075198"
+    },
+    {
+      "path": "/licenses/index.html",
+      "bytes": 9989,
+      "sha256": "e00112e7b80c5734"
+    },
+    {
+      "path": "/licenses/LICENSE-Apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd3"
+    },
+    {
+      "path": "/licenses/LICENSE-BasisUniversal.txt",
+      "bytes": 3343,
+      "sha256": "ee1cd329744d33db"
+    },
+    {
+      "path": "/licenses/LICENSE-NVIDIA-Open-Model.txt",
+      "bytes": 10296,
+      "sha256": "e7cc276f0ca47880"
+    },
+    {
+      "path": "/licenses/LICENSE-onnxruntime.txt",
+      "bytes": 2451,
+      "sha256": "4e8458e3d5dccb3e"
+    },
+    {
+      "path": "/licenses/LICENSE-Pyodide-MPL-2.0.txt",
+      "bytes": 17242,
+      "sha256": "56a46808c8448082"
+    },
+    {
+      "path": "/licenses/LICENSE-Rocketbox.txt",
+      "bytes": 1066,
+      "sha256": "17474e386e0b9e1a"
+    },
+    {
+      "path": "/licenses/LICENSE-three.js.txt",
+      "bytes": 1081,
+      "sha256": "4c40a1ef62450b85"
+    },
+    {
+      "path": "/licenses/Notice",
+      "bytes": 67,
+      "sha256": "5fc60716a9ba57f3"
+    },
+    {
+      "path": "/licenses/NVIDIA-Trustworthy-AI-Terms.txt",
+      "bytes": 1020,
+      "sha256": "2ddf987a54171e18"
+    },
+    {
+      "path": "/licenses/PROVENANCE.md",
+      "bytes": 7582,
+      "sha256": "6d8629a4a9969a2e"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/bailiff.glb",
+      "bytes": 9120920,
+      "sha256": "e43ac50816b20d91"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/clerk.glb",
+      "bytes": 8538268,
+      "sha256": "18749b5219001c8b"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/counsel_a.glb",
+      "bytes": 6961104,
+      "sha256": "7c9a19a46d776bf1"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/counsel_b.glb",
+      "bytes": 9128332,
+      "sha256": "faa68636090c6e0f"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/judge.glb",
+      "bytes": 7143444,
+      "sha256": "e8aabf96e70cd338"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/juror_1.glb",
+      "bytes": 7088824,
+      "sha256": "1c95709ffeab7397"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/juror_2.glb",
+      "bytes": 9541008,
+      "sha256": "c4fd739815ce868e"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/juror_3.glb",
+      "bytes": 7310628,
+      "sha256": "8be0da82de9860d3"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/juror_4.glb",
+      "bytes": 9146508,
+      "sha256": "1e6c87ccf3fe020a"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/juror_5.glb",
+      "bytes": 8606780,
+      "sha256": "c9b395309a8ddf0d"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/juror_6.glb",
+      "bytes": 8482248,
+      "sha256": "632ad1857ba25088"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/spectator_1.glb",
+      "bytes": 6088960,
+      "sha256": "0e71fa22aa46babf"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/spectator_2.glb",
+      "bytes": 7119072,
+      "sha256": "ea41658427a40f70"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/spectator_3.glb",
+      "bytes": 6660272,
+      "sha256": "722e6adcb41fc866"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/spectator_4.glb",
+      "bytes": 6491628,
+      "sha256": "8b4f649acae9d061"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/spectator_5.glb",
+      "bytes": 7118052,
+      "sha256": "9dc1d59613c97577"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/spectator_6.glb",
+      "bytes": 7435920,
+      "sha256": "2e6c7530f4d3e68e"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/spectator_7.glb",
+      "bytes": 8757368,
+      "sha256": "68c55288c08b093e"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/spectator_8.glb",
+      "bytes": 8608768,
+      "sha256": "f819f3a1ad064eb1"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/spectator_9.glb",
+      "bytes": 9026348,
+      "sha256": "58e545066fff33f2"
+    },
+    {
+      "path": "/assets/avatars_optimized_L2_keepnormals/witness.glb",
+      "bytes": 8499248,
+      "sha256": "1fda73a5a5a5ccfe"
+    },
+    {
+      "path": "/assets/avatars_cast/_mask_seat0_body.png",
+      "bytes": 13037,
+      "sha256": "61ba39e8fc60bf3e"
+    },
+    {
+      "path": "/assets/avatars_cast/_mask_seat0_head.png",
+      "bytes": 27803,
+      "sha256": "4d7855487fdc6a69"
+    },
+    {
+      "path": "/assets/avatars_cast/_mask_seat1_body.png",
+      "bytes": 15884,
+      "sha256": "bbb0ea1e2a2282f1"
+    },
+    {
+      "path": "/assets/avatars_cast/_mask_seat1_head.png",
+      "bytes": 20168,
+      "sha256": "2fc9e53e7911c187"
+    },
+    {
+      "path": "/assets/avatars_cast/_mask_seat2_body.png",
+      "bytes": 16226,
+      "sha256": "24ada1398b42ad27"
+    },
+    {
+      "path": "/assets/avatars_cast/_mask_seat2_head.png",
+      "bytes": 18241,
+      "sha256": "0de11fe885ed447b"
+    },
+    {
+      "path": "/assets/avatars_cast/_mask_seat3_body.png",
+      "bytes": 7731,
+      "sha256": "b149db8772ae4fc3"
+    },
+    {
+      "path": "/assets/avatars_cast/_mask_seat3_head.png",
+      "bytes": 14869,
+      "sha256": "38dcde29748780ac"
+    },
+    {
+      "path": "/assets/avatars_cast/cast_variants.json",
+      "bytes": 4366,
+      "sha256": "ed95175ef29c1d9b"
+    },
+    {
+      "path": "/assets/avatars_cast/redhead_spectator_7_body.png",
+      "bytes": 316283,
+      "sha256": "3ae89e57a4ce5ad2"
+    },
+    {
+      "path": "/assets/avatars_cast/redhead_spectator_7_head.png",
+      "bytes": 332540,
+      "sha256": "18c0cc59d50a14bf"
+    },
+    {
+      "path": "/assets/avatars_cast/redhead_spectator_7_opacity.png",
+      "bytes": 297640,
+      "sha256": "9e7d848bf1648856"
+    },
+    {
+      "path": "/assets/avatars_cast/seat0_juror_2_body.png",
+      "bytes": 283581,
+      "sha256": "4660b9d1c61360fb"
+    },
+    {
+      "path": "/assets/avatars_cast/seat0_juror_2_head.png",
+      "bytes": 334345,
+      "sha256": "b47e89070434afd4"
+    },
+    {
+      "path": "/assets/avatars_cast/seat0_juror_2_opacity.png",
+      "bytes": 393300,
+      "sha256": "30dc740a42e4f209"
+    },
+    {
+      "path": "/assets/avatars_cast/seat1_counsel_b_body.png",
+      "bytes": 286966,
+      "sha256": "0712d62112fa9eb2"
+    },
+    {
+      "path": "/assets/avatars_cast/seat1_counsel_b_head.png",
+      "bytes": 399317,
+      "sha256": "a44e9164065ccb81"
+    },
+    {
+      "path": "/assets/avatars_cast/seat1_counsel_b_opacity.png",
+      "bytes": 350234,
+      "sha256": "b6a5e1b4d58062e5"
+    },
+    {
+      "path": "/assets/avatars_cast/seat2_juror_5_body.png",
+      "bytes": 325388,
+      "sha256": "a1a6c5fc69d35b44"
+    },
+    {
+      "path": "/assets/avatars_cast/seat2_juror_5_head.png",
+      "bytes": 327443,
+      "sha256": "3a94cf7e3f7aa2d2"
+    },
+    {
+      "path": "/assets/avatars_cast/seat2_juror_5_opacity.png",
+      "bytes": 404905,
+      "sha256": "3474fe0ae8bfa671"
+    },
+    {
+      "path": "/assets/avatars_cast/seat3_clerk_body.png",
+      "bytes": 286781,
+      "sha256": "efc0e5e74da49981"
+    },
+    {
+      "path": "/assets/avatars_cast/seat3_clerk_head.png",
+      "bytes": 335040,
+      "sha256": "1b1711b1a642361d"
+    },
+    {
+      "path": "/assets/avatars_cast/seat3_clerk_opacity.png",
+      "bytes": 192086,
+      "sha256": "71008bec17d6f150"
+    },
+    {
+      "path": "/assets/avatars_cast/spectator_cast.json",
+      "bytes": 4186,
+      "sha256": "71dd5d12bea8ca09"
+    },
+    {
+      "path": "/assets/textures/flag_blue_sb.png",
+      "bytes": 110323,
+      "sha256": "51ff3b89a685d2f5"
+    },
+    {
+      "path": "/assets/textures/flag_blue_sb_A.png",
+      "bytes": 110323,
+      "sha256": "51ff3b89a685d2f5"
+    },
+    {
+      "path": "/assets/textures/flag_blue_sb_B.png",
+      "bytes": 107097,
+      "sha256": "a03c09d9c007e804"
+    },
+    {
+      "path": "/assets/textures/flag_blue_sb_C.png",
+      "bytes": 106924,
+      "sha256": "0c05282835eb1bf4"
+    },
+    {
+      "path": "/assets/textures/flag_red_sb.png",
+      "bytes": 108692,
+      "sha256": "4645edda131855c5"
+    },
+    {
+      "path": "/assets/textures/flag_red_sb_A.png",
+      "bytes": 109245,
+      "sha256": "bf0214830e4ad210"
+    },
+    {
+      "path": "/assets/textures/flag_red_sb_B.png",
+      "bytes": 108692,
+      "sha256": "4645edda131855c5"
+    },
+    {
+      "path": "/assets/textures/flag_red_sb_C.png",
+      "bytes": 107936,
+      "sha256": "e93ec146de48c2a3"
+    }
+  ],
+  "licenses": {
+    "copied": 11,
+    "required_present": [
+      {
+        "file": "index.html",
+        "present": true,
+        "bytes": 9989
+      },
+      {
+        "file": "PROVENANCE.md",
+        "present": true,
+        "bytes": 7582
+      },
+      {
+        "file": "LICENSE-Rocketbox.txt",
+        "present": true,
+        "bytes": 1066
+      },
+      {
+        "file": "LICENSE-NVIDIA-Open-Model.txt",
+        "present": true,
+        "bytes": 10296
+      },
+      {
+        "file": "Notice",
+        "present": true,
+        "bytes": 67
+      },
+      {
+        "file": "LICENSE-Apache-2.0.txt",
+        "present": true,
+        "bytes": 11358
+      }
+    ]
+  },
+  "assets": {
+    "tier": "assets/avatars_optimized_L2_keepnormals/",
+    "dirs": [
+      "assets/avatars_optimized_L2_keepnormals/",
+      "assets/avatars_cast/",
+      "assets/textures/"
+    ],
+    "file_count": 54,
+    "total_bytes": 172751292
+  },
+  "note": "Identity and integrity of this build. Every served file, its size and the first 16 hex of its SHA-256, so \"is this the new one\" is answerable without devtools."
+}

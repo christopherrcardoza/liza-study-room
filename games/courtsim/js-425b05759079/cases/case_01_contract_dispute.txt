@@ -1,0 +1,707 @@
+00:00:01 --> 00:00:08
+THE CLERK: All rise. This court is now in session. Please remain standing until the court has taken the bench.
+
+00:00:09 --> 00:00:17
+THE COURT: Thank you. Be seated. We are on the record in the matter of Bramwell Roofing Supply versus Calder Hardware, case 1462.
+
+00:00:17 --> 00:00:24
+THE CLERK: Calling case 1462, a civil action for breach of contract, set this morning for a bench trial.
+
+00:00:24 --> 00:00:26
+THE COURT: Appearances, please. Plaintiff first.
+
+00:00:26 --> 00:00:34
+MS. OKONKWO: Good morning, Your Honor. Adaeze Okonkwo for the plaintiff, Bramwell Roofing Supply. My client is the supplier in this matter.
+
+00:00:35 --> 00:00:43
+MR. DELACROIX: Good morning. Julien Delacroix for the defendant, Calder Hardware, and with me at counsel table is the store manager, Thomas Calder.
+
+00:00:44 --> 00:00:50
+THE COURT: Thank you both. I have read the pretrial statements. Are there preliminary matters before we begin?
+
+00:00:50 --> 00:01:01
+MS. OKONKWO: One, Your Honor. We have five exhibits premarked: the purchase order, the delivery receipt, the terms and conditions page, an email chain, and a replacement invoice.
+
+00:01:01 --> 00:01:04
+THE COURT: Any objection to the premarking, Mr. Delacroix?
+
+00:01:04 --> 00:01:14
+MR. DELACROIX: We have no objection to the marking itself, Your Honor. I reserve my objections to admission, particularly as to the terms and conditions page.
+
+00:01:14 --> 00:01:21
+THE COURT: Understood. The exhibits are marked for identification only. Admission will be taken up as each one is offered.
+
+00:01:22 --> 00:01:26
+MS. OKONKWO: Thank you, Your Honor. That is agreeable to the plaintiff.
+
+00:01:26 --> 00:01:32
+THE COURT: Ms. Okonkwo, give me the shape of your case in a paragraph. I want the numbers.
+
+00:01:33 --> 00:01:58
+MS. OKONKWO: Yes, Your Honor. On March 14, 2023, Calder Hardware signed a purchase order with Bramwell Roofing Supply for 400 bundles of architectural grade shingles at $34 per bundle. Bramwell delivered 280 bundles. It held the balance of that order under the credit hold provision in its terms and conditions, because Calder Hardware carried an unpaid balance of $6,240 on an earlier invoice.
+
+00:01:58 --> 00:02:00
+THE COURT: And your theory of recovery?
+
+00:02:01 --> 00:02:10
+MS. OKONKWO: Breach, Your Honor. Calder Hardware has not paid for the 280 bundles it accepted, and it has not paid the prior balance either.
+
+00:02:10 --> 00:02:13
+THE COURT: Mr. Delacroix, the same exercise, please. Briefly.
+
+00:02:13 --> 00:02:34
+MR. DELACROIX: Your Honor, my client ordered 400 bundles of architectural shingles and received 280. Nobody at Bramwell told him about a credit hold. He lost a roofing contract worth $14,310 and had to buy replacement shingles at $41 per bundle. The short delivery is the breach, and the counterclaim follows from it.
+
+00:02:34 --> 00:02:37
+THE COURT: Understood. Ms. Okonkwo, call your first witness.
+
+00:02:38 --> 00:02:43
+MS. OKONKWO: Your Honor, the plaintiff calls Thomas Calder as an adverse witness under the rule.
+
+00:02:44 --> 00:02:51
+MR. DELACROIX: We have no objection to the form of the call, Your Honor. My client is present and prepared to testify.
+
+00:02:52 --> 00:02:57
+THE COURT: Mr. Calder, step forward to the witness stand. The clerk will swear you.
+
+00:02:57 --> 00:03:11
+THE CLERK: Please raise your right hand. Do you solemnly swear or affirm that the testimony you are about to give in this matter will be the truth, the whole truth, and nothing but the truth?
+
+00:03:11 --> 00:03:13
+THE WITNESS: I do so swear.
+
+00:03:13 --> 00:03:18
+THE CLERK: Please state your full name for the record and spell your surname.
+
+00:03:19 --> 00:03:25
+THE WITNESS: Thomas Calder. I have given the clerk the spelling, and I live at 1427 Kensington Avenue.
+
+00:03:25 --> 00:03:29
+THE CLERK: You may be seated. The witness is sworn, Your Honor.
+
+00:03:30 --> 00:03:34
+THE COURT: Proceed, Ms. Okonkwo. Keep your questions short with an adverse witness.
+
+00:03:35 --> 00:03:38
+MS. OKONKWO: Mr. Calder, what is your position at Calder Hardware?
+
+00:03:39 --> 00:03:47
+THE WITNESS: I am the store manager. I have held that position for six years, and before that I ran the lumber counter.
+
+00:03:47 --> 00:03:52
+MS. OKONKWO: Who has authority to sign a purchase order on behalf of the store?
+
+00:03:53 --> 00:03:58
+THE WITNESS: I do, and the owner does. In practice it is almost always me.
+
+00:03:58 --> 00:04:03
+MS. OKONKWO: I am showing you Exhibit 1 for identification. Do you recognize it?
+
+00:04:04 --> 00:04:08
+THE WITNESS: Yes. That is our purchase order to Bramwell, dated March 14, 2023.
+
+00:04:09 --> 00:04:14
+MS. OKONKWO: Is that your signature on the bottom line of that purchase order?
+
+00:04:14 --> 00:04:19
+THE WITNESS: It is. I signed it at the counter that afternoon, um, after lunch.
+
+00:04:20 --> 00:04:22
+MS. OKONKWO: What did the order call for?
+
+00:04:22 --> 00:04:28
+THE WITNESS: 400 bundles of architectural grade shingles, weathered slate color, at $34 per bundle.
+
+00:04:28 --> 00:04:31
+MS. OKONKWO: Your Honor, plaintiff moves Exhibit 1 into evidence.
+
+00:04:32 --> 00:04:35
+MR. DELACROIX: We have no objection to Exhibit 1, Your Honor.
+
+00:04:36 --> 00:04:38
+THE COURT: Exhibit 1 is admitted. Go on.
+
+00:04:38 --> 00:04:44
+THE CLERK: Exhibit 1 is received and entered in the record as the plaintiff's purchase order.
+
+00:04:44 --> 00:04:48
+MS. OKONKWO: Mr. Calder, when did the delivery arrive at your store?
+
+00:04:49 --> 00:04:58
+THE WITNESS: The truck came on March 22, 2023. It backed into the loading dock on Kensington Avenue just after 7:15 in the morning.
+
+00:04:58 --> 00:05:00
+MS. OKONKWO: Who received the shipment?
+
+00:05:00 --> 00:05:08
+THE WITNESS: I did, with our receiving clerk. The driver was the regular man on that route, a man named Bergman.
+
+00:05:08 --> 00:05:11
+MS. OKONKWO: How many bundles came off that truck?
+
+00:05:11 --> 00:05:19
+THE WITNESS: 280. I counted them twice, once on the pallets and once after we stacked them in the back.
+
+00:05:19 --> 00:05:25
+MS. OKONKWO: I show you Exhibit 2 for identification, the delivery receipt. Is that your handwriting?
+
+00:05:25 --> 00:05:32
+THE WITNESS: The printed part is theirs. The number in the margin is mine, where I wrote down the count.
+
+00:05:33 --> 00:05:35
+MS. OKONKWO: Did you sign the delivery receipt?
+
+00:05:35 --> 00:05:41
+THE WITNESS: I signed it, yes, but I wrote "short 120 bundles" underneath before handing it back.
+
+00:05:42 --> 00:05:45
+MS. OKONKWO: Plaintiff moves Exhibit 2 into evidence, Your Honor.
+
+00:05:45 --> 00:05:49
+MR. DELACROIX: The defense has no objection to the delivery receipt.
+
+00:05:49 --> 00:05:52
+THE COURT: Exhibit 2 is admitted into evidence. Continue.
+
+00:05:53 --> 00:05:58
+THE CLERK: Exhibit 2 is received and entered as the delivery receipt for March 22, 2023.
+
+00:05:59 --> 00:06:04
+MS. OKONKWO: Mr. Calder, before March 14, 2023, did Calder Hardware owe Bramwell any money?
+
+00:06:04 --> 00:06:11
+THE WITNESS: There was an open balance from an order the previous fall. I thought it was being worked out.
+
+00:06:12 --> 00:06:14
+MS. OKONKWO: What was the amount of that balance?
+
+00:06:15 --> 00:06:21
+THE WITNESS: I believe it was $6,240. That was for roofing felt and drip edge, not shingles.
+
+00:06:22 --> 00:06:26
+MS. OKONKWO: Had that balance been paid as of the delivery date?
+
+00:06:26 --> 00:06:32
+THE WITNESS: No, it had not. We were disputing part of it with their office on Birch Street.
+
+00:06:33 --> 00:06:40
+MS. OKONKWO: I show you Exhibit 3 for identification, the terms and conditions page attached to the purchase order.
+
+00:06:40 --> 00:06:48
+MR. DELACROIX: Objection, lack of foundation. Counsel is describing that document as attached before the witness has said it was attached to anything.
+
+00:06:49 --> 00:06:51
+THE COURT: Sustained. Lay your foundation, Ms. Okonkwo.
+
+00:06:52 --> 00:06:57
+MS. OKONKWO: Mr. Calder, have you seen the document now in front of you before today?
+
+00:06:58 --> 00:07:06
+THE WITNESS: I have seen a page like it. Whether it came with our copy of the purchase order, uh, I could not say.
+
+00:07:07 --> 00:07:09
+MS. OKONKWO: Does your store keep the supplier paperwork?
+
+00:07:10 --> 00:07:18
+THE WITNESS: We keep the front page in a binder. The back pages, um, I mean the fine print, go in the recycling.
+
+00:07:19 --> 00:07:22
+MS. OKONKWO: Read the third paragraph of that page aloud, please.
+
+00:07:23 --> 00:07:32
+THE WITNESS: "Seller may place any account carrying an outstanding balance on credit hold and may withhold undelivered goods until the account is brought current."
+
+00:07:32 --> 00:07:35
+MS. OKONKWO: Plaintiff moves Exhibit 3 into evidence, Your Honor.
+
+00:07:36 --> 00:07:43
+MR. DELACROIX: Objection, lack of foundation. The witness has just testified he cannot say that page ever reached his store.
+
+00:07:43 --> 00:07:52
+THE COURT: I'll allow it, subject to weight. The witness read from it, and its weight is a separate question from its admission.
+
+00:07:52 --> 00:07:57
+THE CLERK: Exhibit 3 is received and entered as the seller's terms and conditions page.
+
+00:07:58 --> 00:08:04
+MS. OKONKWO: Mr. Calder, did anyone from Bramwell tell you the account had been placed on a credit hold?
+
+00:08:05 --> 00:08:10
+THE WITNESS: Not before the truck came. Nobody said one word to me about a hold.
+
+00:08:11 --> 00:08:14
+MS. OKONKWO: When did you first learn of it?
+
+00:08:14 --> 00:08:21
+THE WITNESS: When I called their office and a woman in accounts said the rest of the order was frozen.
+
+00:08:22 --> 00:08:27
+MS. OKONKWO: I show you Exhibit 4 for identification, an email chain between the parties.
+
+00:08:27 --> 00:08:34
+THE WITNESS: Yes, that is the chain. My message is at the bottom and their reply is at the top.
+
+00:08:35 --> 00:08:39
+MS. OKONKWO: Read the first line of their reply into the record.
+
+00:08:39 --> 00:08:46
+THE WITNESS: "Your account is presently on credit hold and the balance of the order will ship upon payment."
+
+00:08:46 --> 00:08:52
+MS. OKONKWO: Plaintiff moves Exhibit 4, and I would note the reply is dated March 29, 2023.
+
+00:08:53 --> 00:08:57
+MR. DELACROIX: There is no objection to Exhibit 4 coming into evidence.
+
+00:08:57 --> 00:09:01
+THE COURT: Exhibit 4 is admitted. Ms. Okonkwo, how much longer on direct?
+
+00:09:02 --> 00:09:04
+MS. OKONKWO: Ten minutes, Your Honor, perhaps less.
+
+00:09:05 --> 00:09:10
+THE COURT: Carry on then. I would like to finish this witness before the recess.
+
+00:09:10 --> 00:09:15
+MS. OKONKWO: Mr. Calder, has Calder Hardware paid for the 280 bundles it received?
+
+00:09:15 --> 00:09:21
+THE WITNESS: We have not, no. We held our payment because they held our shingles.
+
+00:09:21 --> 00:09:26
+MS. OKONKWO: So the invoice for the delivered bundles remains unpaid to this day?
+
+00:09:26 --> 00:09:31
+THE WITNESS: It does, and their invoice for the earlier order remains unpaid as well.
+
+00:09:32 --> 00:09:35
+MS. OKONKWO: Nothing further at this time, Your Honor.
+
+00:09:35 --> 00:09:37
+THE COURT: Cross-examination, Mr. Delacroix. Your witness.
+
+00:09:38 --> 00:09:44
+MR. DELACROIX: Thank you, Your Honor. Mr. Calder, let us go back to the morning of the delivery.
+
+00:09:45 --> 00:09:47
+THE WITNESS: Very well, I remember it well.
+
+00:09:47 --> 00:09:54
+MR. DELACROIX: When Bergman backed the truck in, did he hand you any paperwork about a credit hold?
+
+00:09:54 --> 00:10:01
+THE WITNESS: He handed me the delivery receipt and a packing slip. Nothing about a hold on either one.
+
+00:10:01 --> 00:10:05
+MR. DELACROIX: Did you ask him where the other 120 bundles were?
+
+00:10:06 --> 00:10:13
+THE WITNESS: I did. He said the warehouse on Birch Street loaded what they gave him and he only drives.
+
+00:10:13 --> 00:10:22
+MS. OKONKWO: Objection, Your Honor. That is hearsay. The witness is repeating an out-of-court statement by the driver for its truth.
+
+00:10:22 --> 00:10:26
+MR. DELACROIX: Your Honor, it is offered for notice, not for its truth.
+
+00:10:27 --> 00:10:35
+THE COURT: The objection is overruled. It comes in for notice only, and I will treat it that way in my findings.
+
+00:10:35 --> 00:10:39
+MR. DELACROIX: Mr. Calder, what did you do after the truck left?
+
+00:10:40 --> 00:11:11
+THE WITNESS: I called Bramwell twice that same day and left a message, then I sent an email that night at 9:40 in the evening, and the next morning I called again and got put on hold for a long time, and then somebody in accounts told me there was a credit hold, which was the first I ever heard of any such thing, and by then I had a crew scheduled and a customer waiting and no shingles to give them.
+
+00:11:12 --> 00:11:18
+MS. OKONKWO: Objection, narrative and non-responsive. The question asked what he did, not what he was told.
+
+00:11:19 --> 00:11:24
+THE COURT: The answer stands as to his conduct. Mr. Calder, answer the question asked.
+
+00:11:24 --> 00:11:26
+THE WITNESS: Yes, Your Honor. I apologize.
+
+00:11:27 --> 00:11:31
+MR. DELACROIX: Tell the court about the roofing job you had scheduled that week.
+
+00:11:32 --> 00:11:40
+THE WITNESS: It was a roof replacement on a two-story house, about 38 squares, contracted at $14,310 including labor and disposal.
+
+00:11:41 --> 00:11:47
+MR. DELACROIX: When did you call the homeowner, and what did you tell her about the delay?
+
+00:11:47 --> 00:11:52
+MS. OKONKWO: Objection, compound. Counsel has asked two separate questions in a single breath.
+
+00:11:52 --> 00:11:55
+THE COURT: Sustained. Break it up, Mr. Delacroix.
+
+00:11:55 --> 00:11:58
+MR. DELACROIX: When did you first telephone the homeowner?
+
+00:11:58 --> 00:12:04
+THE WITNESS: The same afternoon, as soon as I knew the shingles were not coming on schedule.
+
+00:12:05 --> 00:12:08
+MR. DELACROIX: What happened to that job in the end?
+
+00:12:08 --> 00:12:12
+THE WITNESS: The homeowner canceled after we missed the start date twice.
+
+00:12:13 --> 00:12:16
+MR. DELACROIX: Did you try to source the shingles elsewhere?
+
+00:12:16 --> 00:12:24
+THE WITNESS: I did. A yard three towns over had the same architectural grade in stock, but at $41 per bundle.
+
+00:12:24 --> 00:12:29
+MR. DELACROIX: I show you Exhibit 5 for identification. Is that the replacement invoice?
+
+00:12:29 --> 00:12:37
+THE WITNESS: That is the one. I bought 120 bundles at $41 each, plus a delivery charge and a fuel surcharge.
+
+00:12:37 --> 00:12:40
+MR. DELACROIX: Defendant moves Exhibit 5 into evidence, Your Honor.
+
+00:12:41 --> 00:12:46
+MS. OKONKWO: Objection, relevance. Damages on the counterclaim assume a breach that has not been established.
+
+00:12:47 --> 00:12:54
+THE COURT: The objection is overruled. Relevance is conditional, and I will hear the proof in the order counsel chooses.
+
+00:12:54 --> 00:12:59
+THE CLERK: Exhibit 5 is received and entered as the defendant's replacement invoice.
+
+00:12:59 --> 00:13:06
+MS. OKONKWO: Your Honor, may we approach? I have an objection I would rather not make before the witness.
+
+00:13:06 --> 00:13:10
+THE COURT: Come up. We will be at sidebar for a moment.
+
+00:13:11 --> 00:13:17
+MS. OKONKWO: Your Honor, counsel is examining his own client and leading him through every single answer.
+
+00:13:17 --> 00:13:24
+MR. DELACROIX: He was called adverse by the plaintiff, Your Honor. The scope rule cuts the other way here.
+
+00:13:24 --> 00:13:35
+THE COURT: He was called adverse, so you may lead within the scope of direct. On the counterclaim damages you are on direct, and you will not lead.
+
+00:13:35 --> 00:13:38
+MS. OKONKWO: Thank you, Your Honor. The objection is preserved.
+
+00:13:39 --> 00:13:45
+MR. DELACROIX: Mr. Calder, describe for the court what a credit hold period would have meant for your ordering.
+
+00:13:46 --> 00:13:55
+THE WITNESS: If I had known, I would have paid the $6,240 that week and kept the order moving. It is not money we lacked.
+
+00:13:56 --> 00:13:59
+MR. DELACROIX: Why had the earlier balance not been paid?
+
+00:13:59 --> 00:14:09
+THE WITNESS: Part of it was in dispute. They billed us for roofing felt we sent back in October, and their office kept promising a credit.
+
+00:14:09 --> 00:14:16
+MS. OKONKWO: Objection, Your Honor. That is hearsay and it assumes facts not in evidence about a promised credit.
+
+00:14:16 --> 00:14:22
+THE COURT: Sustained as to what their office said. The fact of the dispute may stand.
+
+00:14:22 --> 00:14:28
+MR. DELACROIX: Without telling me what anyone said, was the balance in dispute on March 14, 2023?
+
+00:14:29 --> 00:14:36
+THE WITNESS: It was in dispute, yes, and it stayed in dispute through a two-week period after the delivery.
+
+00:14:36 --> 00:14:40
+MR. DELACROIX: Did your account carry a grace period of any kind?
+
+00:14:41 --> 00:14:49
+THE WITNESS: Their statements said net 30, which I understood to be a grace period of 30 days from the invoice date.
+
+00:14:49 --> 00:14:53
+MR. DELACROIX: And were you inside that window on the delivery date?
+
+00:14:53 --> 00:15:00
+THE WITNESS: On the second invoice, yes. On the older one from the fall, no, I was outside it.
+
+00:15:01 --> 00:15:04
+MR. DELACROIX: Nothing further on cross at this time, Your Honor.
+
+00:15:05 --> 00:15:10
+THE COURT: Before redirect we will take a 15 minute recess. The witness remains under oath.
+
+00:15:11 --> 00:15:19
+THE CLERK: All rise. This court is in recess for 15 minutes. The witness remains under oath and should not discuss his testimony.
+
+00:15:19 --> 00:15:25
+THE CLERK: All rise. Court is back in session. Please be seated and come to order.
+
+00:15:25 --> 00:15:30
+THE COURT: We are back on the record in case 1462. Ms. Okonkwo, your redirect.
+
+00:15:31 --> 00:15:38
+MS. OKONKWO: Mr. Calder, you told this court nobody warned you about the credit hold. Is that still your testimony?
+
+00:15:38 --> 00:15:42
+THE WITNESS: That is my testimony. Nobody warned me at all.
+
+00:15:42 --> 00:15:46
+MS. OKONKWO: You signed the purchase order at the counter, correct?
+
+00:15:46 --> 00:15:50
+THE WITNESS: I did, yes, at the front counter of the store.
+
+00:15:51 --> 00:15:54
+MS. OKONKWO: Did you read the document before you signed it?
+
+00:15:55 --> 00:16:01
+THE WITNESS: I read the front. I read the quantity, the grade, and the price per bundle.
+
+00:16:01 --> 00:16:05
+MS. OKONKWO: You did not read the back of the purchase order?
+
+00:16:06 --> 00:16:12
+THE WITNESS: Well -- I skimmed it. Strike that. Let me start again. I did not read it closely.
+
+00:16:12 --> 00:16:18
+MS. OKONKWO: You would agree the credit hold provision was printed on the page you signed?
+
+00:16:18 --> 00:16:24
+MR. DELACROIX: Objection, leading. Counsel is putting her own words in the witness's mouth on redirect.
+
+00:16:24 --> 00:16:27
+THE COURT: Sustained. Rephrase the question, Ms. Okonkwo.
+
+00:16:27 --> 00:16:33
+MS. OKONKWO: Can you tell this court that the credit hold provision was absent from what you signed?
+
+00:16:34 --> 00:16:38
+MR. DELACROIX: Objection, argumentative, and it asks the witness to prove a negative.
+
+00:16:39 --> 00:16:45
+THE COURT: The objection is overruled. The question is within the scope of what he opened on cross.
+
+00:16:45 --> 00:16:53
+THE WITNESS: I cannot tell you it was there and I cannot tell you it was not. I was not --
+
+00:16:53 --> 00:16:55
+MS. OKONKWO: You were not what, Mr. Calder?
+
+00:16:56 --> 00:17:03
+THE WITNESS: I was not looking for it. You do not read the fine print on a shingle order every time.
+
+00:17:04 --> 00:17:11
+MS. OKONKWO: Your Honor, I ask for a read back of the witness's answer about the count at the dock.
+
+00:17:11 --> 00:17:14
+THE COURT: Which answer? Identify it by the question.
+
+00:17:15 --> 00:17:20
+MS. OKONKWO: The answer to how many bundles came off the truck, early in my direct examination.
+
+00:17:21 --> 00:17:23
+THE COURT: Read that back, please.
+
+00:17:23 --> 00:17:34
+THE CLERK: Reading back. Question: How many bundles came off that truck? Answer: 280. I counted them twice, once on the pallets and once after we stacked them in the back.
+
+00:17:35 --> 00:17:41
+MS. OKONKWO: Thank you. Mr. Calder, you counted 280, and you wrote the shortage on the receipt yourself.
+
+00:17:42 --> 00:17:48
+THE WITNESS: I did, because I wanted a record of it. I have been burned on counts before.
+
+00:17:48 --> 00:17:54
+MS. OKONKWO: I direct your attention to Exhibit 4, the email chain, at the second page.
+
+00:17:54 --> 00:17:56
+THE WITNESS: I see the page.
+
+00:17:56 --> 00:18:02
+MS. OKONKWO: Read the letter from the credit manager at Bramwell into the record, including the punctuation.
+
+00:18:03 --> 00:18:16
+THE WITNESS: New paragraph. Dear Mr. Calder comma we have reviewed your account period The balance of $6,240 remains unpaid comma and the remainder of your order for architectural shingles is on credit hold period
+
+00:18:17 --> 00:18:21
+MS. OKONKWO: Is that the letter attached to the email of March 29, 2023?
+
+00:18:22 --> 00:18:27
+THE WITNESS: It is the same letter, yes. It came as an attachment to that message.
+
+00:18:28 --> 00:18:30
+MS. OKONKWO: Nothing further on redirect, Your Honor.
+
+00:18:31 --> 00:18:34
+THE COURT: Recross, Mr. Delacroix, limited to the scope of redirect.
+
+00:18:35 --> 00:18:41
+MR. DELACROIX: Mr. Calder, the letter you just read was sent on March 29, 2023, was it not?
+
+00:18:41 --> 00:18:46
+THE WITNESS: Yes, a full week after the truck came to the dock.
+
+00:18:46 --> 00:18:52
+MR. DELACROIX: So the first written notice of the credit hold came after the short delivery?
+
+00:18:52 --> 00:18:55
+THE WITNESS: After. Everything I got in writing came after.
+
+00:18:56 --> 00:19:00
+MS. OKONKWO: Objection, asked and answered. He covered this twice already on cross.
+
+00:19:01 --> 00:19:06
+THE COURT: The objection is overruled. It is squarely within the redirect I just permitted.
+
+00:19:06 --> 00:19:12
+MR. DELACROIX: Mr. Calder, read the closing line of your own reply into the record with its punctuation.
+
+00:19:13 --> 00:19:25
+THE WITNESS: New paragraph. I am prepared to pay the older balance today comma but I need the remaining 120 bundles on the dock by Friday comma or the job is gone period
+
+00:19:26 --> 00:19:29
+MR. DELACROIX: Did you receive any answer to that message?
+
+00:19:29 --> 00:19:36
+THE WITNESS: Nothing for a long while. By the time they wrote back, the homeowner had already canceled.
+
+00:19:36 --> 00:19:40
+MS. OKONKWO: Objection, speculation as to what the homeowner had done and when.
+
+00:19:41 --> 00:19:46
+THE COURT: Sustained as to the timing of the cancellation. Rephrase or move on.
+
+00:19:46 --> 00:19:51
+MR. DELACROIX: Did Calder Hardware ever refuse to pay for the 280 bundles it received?
+
+00:19:52 --> 00:19:57
+THE WITNESS: We never refused. We said we would set off our loss against their invoice.
+
+00:19:58 --> 00:20:02
+MR. DELACROIX: Nothing further, Your Honor. The defense has finished with this witness.
+
+00:20:02 --> 00:20:06
+THE COURT: Any further questions from either side for this witness?
+
+00:20:06 --> 00:20:09
+MS. OKONKWO: None from the plaintiff, Your Honor.
+
+00:20:09 --> 00:20:13
+THE COURT: Mr. Calder, you are excused. Return to counsel table, please.
+
+00:20:14 --> 00:20:18
+MS. OKONKWO: Your Honor, the plaintiff rests, subject to the exhibits already received.
+
+00:20:18 --> 00:20:24
+MR. DELACROIX: The defense rests as well, Your Honor. We have no further witnesses to call.
+
+00:20:24 --> 00:20:30
+THE COURT: Counsel, approach for a moment. I want to narrow the argument before you give it.
+
+00:20:31 --> 00:20:34
+MS. OKONKWO: Yes, Your Honor. What would the court like addressed?
+
+00:20:35 --> 00:20:43
+THE COURT: Two things. Whether the terms and conditions page was part of the contract, and whether notice was required before a credit hold.
+
+00:20:44 --> 00:20:49
+MR. DELACROIX: We are prepared to argue both, Your Honor, and the damages figure as well.
+
+00:20:50 --> 00:20:55
+THE COURT: Keep it to five minutes each. Step back and we will proceed with argument.
+
+00:20:56 --> 00:21:08
+MS. OKONKWO: Your Honor, the purchase order incorporates the terms and conditions by reference on its face. The credit hold provision is not hidden and it is not unusual in this trade.
+
+00:21:08 --> 00:21:18
+MS. OKONKWO: Calder Hardware accepted 280 bundles of architectural shingles and has never paid one dollar on that invoice, nor on the earlier balance of $6,240.
+
+00:21:18 --> 00:21:27
+MS. OKONKWO: Bramwell asks for the contract price on the delivered bundles, the prior balance, and interest from the date each invoice came due.
+
+00:21:27 --> 00:21:37
+THE COURT: What is your answer on notice, counsel? The contract says the seller may hold. It does not say the seller may hold silently.
+
+00:21:37 --> 00:21:44
+MS. OKONKWO: The provision imposes no notice requirement, Your Honor, and the buyer knew its own account was past due.
+
+00:21:45 --> 00:21:46
+THE COURT: Mr. Delacroix, your argument.
+
+00:21:47 --> 00:21:57
+MR. DELACROIX: Your Honor, a supplier that ships 280 of 400 bundles and says nothing has not exercised a credit hold. It has simply made a short delivery.
+
+00:21:57 --> 00:22:08
+MR. DELACROIX: Mr. Calder had the $6,240 available. Had anyone at Bramwell picked up a telephone, the balance would have been cleared and the shingles would have shipped.
+
+00:22:08 --> 00:22:18
+MR. DELACROIX: Instead my client lost a $14,310 contract and paid $41 per bundle for replacement architectural shingles he had already purchased at $34.
+
+00:22:18 --> 00:22:20
+THE COURT: Your counterclaim figure, precisely?
+
+00:22:20 --> 00:22:29
+MR. DELACROIX: The lost profit on the job, plus $840 in excess cost on the replacement invoice, which is 120 bundles at the $7 difference.
+
+00:22:30 --> 00:22:35
+THE COURT: Thank you both. I am prepared to rule from the bench. Counsel, remain seated.
+
+00:22:35 --> 00:22:45
+THE COURT: This is case 1462, Bramwell Roofing Supply against Calder Hardware, tried to the bench on a written purchase order signed March 14, 2023.
+
+00:22:45 --> 00:22:56
+THE COURT: I find the purchase order called for 400 bundles of architectural grade shingles at $34 per bundle, and that 280 bundles were delivered on March 22, 2023.
+
+00:22:56 --> 00:23:06
+THE COURT: I find the terms and conditions page was incorporated into that order, and that it permitted Bramwell to place the account on credit hold.
+
+00:23:06 --> 00:23:10
+MR. DELACROIX: Your Honor, may I be heard on that finding?
+
+00:23:10 --> 00:23:18
+THE COURT: You may not interrupt a ruling, counsel. You will have your exception on the record when I have finished.
+
+00:23:18 --> 00:23:29
+THE COURT: I find, however, that Bramwell gave Calder Hardware no notice of the hold before the delivery, and that the first written notice came on March 29, 2023.
+
+00:23:29 --> 00:23:38
+THE COURT: A credit hold exercised without notice, against a buyer standing ready to pay, is not a good faith exercise of that provision.
+
+00:23:38 --> 00:23:49
+THE COURT: On the complaint, judgment for Bramwell for the 280 bundles actually delivered at the contract price, and for the prior balance of $6,240 on the earlier invoice.
+
+00:23:50 --> 00:23:59
+THE COURT: On the counterclaim, judgment for Calder Hardware for the excess cost of the replacement shingles, being 120 bundles at the $7 per bundle difference.
+
+00:24:00 --> 00:24:08
+THE COURT: The lost roofing contract of $14,310 I disallow, because the profit on that job was never established by competent proof.
+
+00:24:08 --> 00:24:17
+THE COURT: The two awards will be set off against one another, and the clerk will enter a net judgment for Bramwell Roofing Supply.
+
+00:24:18 --> 00:24:23
+MS. OKONKWO: Thank you, Your Honor. Will the court require a proposed form of judgment?
+
+00:24:23 --> 00:24:30
+THE COURT: Submit one within a two-week period, with the interest calculation shown on the face of it.
+
+00:24:30 --> 00:24:37
+MR. DELACROIX: Your Honor, the defense notes its exception to the finding on incorporation of the terms page.
+
+00:24:37 --> 00:24:41
+THE COURT: Your exception is noted and preserved. Anything further from either side?
+
+00:24:42 --> 00:24:47
+MS. OKONKWO: Nothing further from the plaintiff, Your Honor. Thank you for the court's time.
+
+00:24:47 --> 00:24:50
+MR. DELACROIX: Nothing further from the defense, Your Honor.
+
+00:24:51 --> 00:24:57
+THE COURT: Exhibits 1 through 5 will remain with the clerk. We are adjourned in case 1462.
+
+00:24:57 --> 00:25:08
+THE CLERK: All rise. This court stands adjourned. The purchase order, the delivery receipt, the terms page, the email chain, and the replacement invoice will be held in the clerk's custody.

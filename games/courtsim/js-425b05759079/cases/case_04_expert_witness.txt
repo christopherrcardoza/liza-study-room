@@ -1,0 +1,677 @@
+00:00:01 --> 00:00:08
+THE CLERK: All rise. This court is now in session. Please remain standing until the court has taken the bench.
+
+00:00:09 --> 00:00:16
+THE COURT: Be seated. We are on the record in the matter of Delia Marsh versus Calloway Freight Lines, case 3947.
+
+00:00:17 --> 00:00:23
+THE CLERK: Calling case 3947, a civil action for personal injury, set this morning for the plaintiff's medical evidence.
+
+00:00:24 --> 00:00:26
+THE COURT: Appearances for the record, please. Plaintiff first.
+
+00:00:27 --> 00:00:34
+MS. WHITFIELD: Good morning, Your Honor. Helena Whitfield for the plaintiff, Delia Marsh, who is seated at counsel table with me.
+
+00:00:35 --> 00:00:40
+MR. KESSLER: Good morning, Your Honor. Aaron Kessler for the defendant, Calloway Freight Lines.
+
+00:00:40 --> 00:00:46
+THE COURT: Ms. Whitfield, who is your witness this morning and how long will she take?
+
+00:00:46 --> 00:00:53
+MS. WHITFIELD: Our only witness today is Dr. Aurelia Navarro, an orthopedic surgeon. Her direct examination will run about an hour.
+
+00:00:54 --> 00:01:02
+THE COURT: Give me the shape of the medical case in a paragraph. I want the opinion and I want the numbers.
+
+00:01:02 --> 00:01:27
+MS. WHITFIELD: Yes, Your Honor. Dr. Navarro will testify to a reasonable degree of medical certainty that Ms. Marsh sustained a herniated disc in the lumbar spine at L4 and L5 with nerve root compression, together with a comminuted fracture of the distal radius. She will give an opinion of permanent partial impairment, future surgery at $62,500, and future care at $18,400.
+
+00:01:27 --> 00:01:30
+THE COURT: And the basis of that opinion?
+
+00:01:30 --> 00:01:41
+MS. WHITFIELD: A physical examination on February 12, 2024, a review of 340 pages of medical records, the radiology films, and the treatment history including each epidural steroid injection.
+
+00:01:41 --> 00:01:45
+THE COURT: Mr. Kessler, the same exercise. Your position on this witness, briefly.
+
+00:01:46 --> 00:02:07
+MR. KESSLER: Your Honor, Dr. Navarro is a retained expert. She never treated Ms. Marsh, she never saw a film of the lumbar spine taken before this collision, and her impairment opinion rests on what the plaintiff told her about her pain. The degenerative changes on that radiology study are consistent with a woman of 44.
+
+00:02:08 --> 00:02:10
+THE COURT: Understood. Ms. Whitfield, call your witness.
+
+00:02:11 --> 00:02:14
+MS. WHITFIELD: The plaintiff calls Dr. Aurelia Navarro to the stand.
+
+00:02:15 --> 00:02:19
+THE COURT: Doctor, come forward. The clerk will swear you before you sit down.
+
+00:02:20 --> 00:02:33
+THE CLERK: Please raise your right hand. Do you solemnly swear or affirm that the testimony you are about to give in this matter will be the truth, the whole truth, and nothing but the truth?
+
+00:02:34 --> 00:02:35
+THE WITNESS: I do so swear.
+
+00:02:36 --> 00:02:40
+THE CLERK: Please state your full name for the record and spell your surname.
+
+00:02:41 --> 00:02:48
+THE WITNESS: Aurelia Navarro. My curriculum vitae carries the spelling, and I practice at the orthopedic institute on Kensington Avenue.
+
+00:02:48 --> 00:02:52
+THE CLERK: You may be seated. The witness is sworn, Your Honor.
+
+00:02:53 --> 00:02:56
+THE COURT: Proceed with qualifications, Ms. Whitfield, and do it efficiently.
+
+00:02:57 --> 00:03:00
+MS. WHITFIELD: Doctor, describe your training and your certification.
+
+00:03:00 --> 00:03:11
+THE WITNESS: A five-year residency in orthopedic surgery and a fellowship in spine reconstruction. I am board certified in orthopedic surgery with a subspecialty certificate in spine surgery.
+
+00:03:11 --> 00:03:14
+MS. WHITFIELD: How long have you been in practice?
+
+00:03:14 --> 00:03:23
+THE WITNESS: 22 years, the last 16 of them here. I have performed, uh, something on the order of 1,900 spine procedures.
+
+00:03:23 --> 00:03:26
+MS. WHITFIELD: Does that figure include the microdiscectomy procedure?
+
+00:03:26 --> 00:03:35
+THE WITNESS: It does. A microdiscectomy removes the herniated fragment pressing on the nerve root, and it is the operation I have recommended here.
+
+00:03:35 --> 00:03:40
+MS. WHITFIELD: I show you Exhibit 1 for identification. What is that document?
+
+00:03:40 --> 00:03:47
+THE WITNESS: My curriculum vitae, current as of last month. It lists my training, my hospital appointments, and my publications.
+
+00:03:48 --> 00:03:54
+MS. WHITFIELD: Your Honor, I tender Dr. Navarro as an expert in orthopedic surgery and spine injury.
+
+00:03:54 --> 00:04:00
+MR. KESSLER: Before the tender is accepted, Your Honor, I ask leave to voir dire on qualifications.
+
+00:04:00 --> 00:04:05
+THE COURT: You may. Go ahead, Mr. Kessler, and confine yourself to qualifications.
+
+00:04:05 --> 00:04:10
+MR. KESSLER: Doctor, you are an orthopedic surgeon and not a radiologist. Correct?
+
+00:04:10 --> 00:04:16
+THE WITNESS: Correct. I am not board certified in radiology and I have never claimed to be.
+
+00:04:16 --> 00:04:22
+MR. KESSLER: Yet you intend to tell this jury what an MRI of the lumbar spine shows?
+
+00:04:23 --> 00:04:33
+THE WITNESS: I intend to tell the jury what I saw on the films and how it correlates with my physical examination. Surgeons read their own imaging daily.
+
+00:04:33 --> 00:04:39
+MR. KESSLER: You are not a neurologist either, and nerve root compression is a neurological finding.
+
+00:04:39 --> 00:04:46
+THE WITNESS: It is an anatomic finding with neurological consequences. Spine surgeons diagnose it and operate on it constantly.
+
+00:04:47 --> 00:04:57
+MR. KESSLER: Objection to the tender, Your Honor. A surgeon who never treated this plaintiff and does not read films for a living should not give radiology opinions.
+
+00:04:57 --> 00:05:06
+THE COURT: The objection is overruled. That goes to weight, not admissibility. Dr. Navarro is accepted as an expert in orthopedic surgery and spine injury.
+
+00:05:07 --> 00:05:11
+MS. WHITFIELD: Thank you. Plaintiff moves Exhibit 1, the curriculum vitae, into evidence.
+
+00:05:12 --> 00:05:15
+MR. KESSLER: No objection to the curriculum vitae, Your Honor.
+
+00:05:15 --> 00:05:19
+THE COURT: Exhibit 1 is admitted. Proceed with your direct examination.
+
+00:05:19 --> 00:05:23
+MS. WHITFIELD: Doctor, describe the materials you were asked to review.
+
+00:05:23 --> 00:05:34
+THE WITNESS: 340 pages of records. Emergency department notes from October 18, 2023, the radiology reports, the physical therapy notes, the pain management chart, and the billing records.
+
+00:05:34 --> 00:05:40
+MS. WHITFIELD: You examined Ms. Marsh on February 12, 2024. Walk the jury through that examination.
+
+00:05:40 --> 00:05:53
+THE WITNESS: I took a history, assessed range of motion in the cervical and lumbar spine, tested reflexes and sensation in both lower extremities, and performed a straight leg raise test on each side.
+
+00:05:53 --> 00:05:56
+MS. WHITFIELD: What did the straight leg raise test show?
+
+00:05:57 --> 00:06:06
+THE WITNESS: Positive on the right at about 40 degrees, with pain radiating below the knee. That pattern is consistent with radiculopathy at the L5 root.
+
+00:06:07 --> 00:06:12
+MS. WHITFIELD: Turn to the wrist and its range of motion. What did you find?
+
+00:06:12 --> 00:06:24
+THE WITNESS: The distal radius had healed with a mild dorsal angulation. Supination was limited after a long immobilization period, and she has early post-traumatic osteoarthritis at the joint surface.
+
+00:06:24 --> 00:06:27
+MS. WHITFIELD: Did you examine the shoulder as well?
+
+00:06:27 --> 00:06:38
+THE WITNESS: I did. There was rotator cuff tendinopathy on the right, which I attribute to the bracing mechanism and to guarding during the acute period after the collision.
+
+00:06:38 --> 00:06:47
+MS. WHITFIELD: I show you Exhibit 2, the MRI films of the lumbar spine taken October 30, 2023. Tell the jury what they show.
+
+00:06:48 --> 00:07:01
+THE WITNESS: A large herniated disc at L4 and L5 extending into the lateral recess, with nerve root compression of the traversing root. There is an annular tear with contrast enhancement at the posterior margin.
+
+00:07:01 --> 00:07:08
+MR. KESSLER: Objection, lack of foundation. This witness has conceded she is not a radiologist and did not perform the study.
+
+00:07:09 --> 00:07:16
+THE COURT: The objection is overruled. An examining orthopedic surgeon may read imaging within her own field. Go ahead, Doctor.
+
+00:07:16 --> 00:07:20
+MS. WHITFIELD: Plaintiff moves Exhibit 2, the MRI films, into evidence.
+
+00:07:21 --> 00:07:25
+MR. KESSLER: Objection, and I renew the foundation point as to the films themselves.
+
+00:07:26 --> 00:07:31
+THE COURT: The objection is overruled. Exhibit 2 is admitted and your objection is preserved.
+
+00:07:31 --> 00:07:37
+THE CLERK: Exhibit 2 is received and entered as the MRI films of the lumbar spine.
+
+00:07:37 --> 00:07:42
+MS. WHITFIELD: I show you Exhibit 3, the radiologist's report of that same study.
+
+00:07:42 --> 00:07:53
+THE WITNESS: That is the report. It describes a broad-based herniation at L4 and L5 with foraminal stenosis and an annular tear. It agrees with my own reading.
+
+00:07:54 --> 00:07:56
+MS. WHITFIELD: Your Honor, the plaintiff offers Exhibit 3.
+
+00:07:57 --> 00:08:05
+MR. KESSLER: Objection, Your Honor. That is hearsay. The radiologist is not in this courtroom and the report is offered for its truth.
+
+00:08:05 --> 00:08:11
+MS. WHITFIELD: Your Honor, it is a record relied upon by the expert in forming her opinion.
+
+00:08:12 --> 00:08:21
+THE COURT: I'll allow it on the limited basis that an expert may disclose the facts she relied on. It is not substantive proof.
+
+00:08:21 --> 00:08:26
+THE CLERK: Exhibit 3 is received on a limited basis as the radiologist's report.
+
+00:08:26 --> 00:08:31
+MS. WHITFIELD: Describe the treatment Ms. Marsh had before you ever saw her.
+
+00:08:31 --> 00:08:40
+THE WITNESS: Physical therapy for 16 weeks, three times a week at first. Then two epidural steroid injections, one in December and one in January.
+
+00:08:41 --> 00:08:42
+MS. WHITFIELD: Did they help her?
+
+00:08:43 --> 00:08:54
+THE WITNESS: The first epidural steroid injection gave her relief for about a three-week period. The second gave her less. That declining pattern is informative about the size of the fragment.
+
+00:08:55 --> 00:08:58
+MS. WHITFIELD: Explain your differential diagnosis for the jury.
+
+00:08:58 --> 00:09:09
+THE WITNESS: I considered spondylosis, ordinary degenerative disc disease, facet arthropathy, and sacroiliac dysfunction. I excluded each as the primary pain generator because the radicular pattern follows the L5 distribution exactly.
+
+00:09:10 --> 00:09:14
+MS. WHITFIELD: What is the etiology of the herniation, in your opinion?
+
+00:09:14 --> 00:09:24
+THE WITNESS: The rear-end collision on Kensington Avenue on October 18, 2023. A flexion and extension load on a disc produces exactly this annular failure.
+
+00:09:24 --> 00:09:31
+MR. KESSLER: Objection, lack of foundation and speculation. She was not there and she has no biomechanical training.
+
+00:09:31 --> 00:09:37
+THE COURT: The objection is overruled. Causation from a described mechanism is within an orthopedic surgeon's competence.
+
+00:09:37 --> 00:09:42
+MS. WHITFIELD: Do you hold that opinion to a reasonable degree of medical certainty?
+
+00:09:43 --> 00:09:46
+THE WITNESS: I do, to a reasonable degree of medical certainty.
+
+00:09:47 --> 00:09:49
+MS. WHITFIELD: What is her prognosis without further intervention?
+
+00:09:50 --> 00:09:59
+THE WITNESS: Guarded. Without a microdiscectomy she will continue to have radiculopathy, and the sequela of an untreated compression is progressive weakness in the extensor group.
+
+00:10:00 --> 00:10:02
+MS. WHITFIELD: Have you assigned an impairment rating?
+
+00:10:03 --> 00:10:12
+THE WITNESS: I have. Using the standard guides I rate her impairment at 18 points of whole person impairment, which is a permanent partial impairment.
+
+00:10:12 --> 00:10:23
+MS. WHITFIELD: I show you Exhibit 4 for identification, your report of March 4, 2024. Read the concluding paragraph into the record with the punctuation as you dictated it.
+
+00:10:23 --> 00:10:39
+THE WITNESS: New paragraph. Ms. Marsh sustained a herniated disc at L4 and L5 with nerve root compression comma together with a comminuted fracture of the distal radius period Her impairment is permanent comma and a microdiscectomy is medically necessary period
+
+00:10:39 --> 00:10:42
+MS. WHITFIELD: Plaintiff moves Exhibit 4 into evidence, Your Honor.
+
+00:10:43 --> 00:10:50
+MR. KESSLER: Objection, Your Honor. That is hearsay. An expert's written report is not admissible merely because she wrote it.
+
+00:10:50 --> 00:10:59
+THE COURT: Sustained as to admission. The witness may testify from it and refresh her recollection with it, but the report itself stays out.
+
+00:10:59 --> 00:11:04
+THE CLERK: Exhibit 4 is marked for identification only and is not received.
+
+00:11:04 --> 00:11:07
+MS. WHITFIELD: Understood. Doctor, what will the microdiscectomy cost?
+
+00:11:07 --> 00:11:14
+THE WITNESS: The surgeon's fee, the facility fee, anesthesia and the imaging come to $62,500 in this region.
+
+00:11:14 --> 00:11:17
+MS. WHITFIELD: And future care beyond the surgery?
+
+00:11:17 --> 00:11:27
+THE WITNESS: $18,400 over her lifetime. That covers therapy during the post-operative period, imaging at intervals, and one further injection if the radiculopathy recurs.
+
+00:11:27 --> 00:11:32
+MS. WHITFIELD: I show you Exhibit 5, a treatment timeline chart prepared from the records.
+
+00:11:33 --> 00:11:40
+THE WITNESS: I checked it against the records this morning. It reflects the dates of treatment and both injections.
+
+00:11:40 --> 00:11:44
+MS. WHITFIELD: Plaintiff offers Exhibit 5 as a demonstrative aid only.
+
+00:11:44 --> 00:11:51
+MR. KESSLER: Objection, argumentative as drawn. The chart prints the word permanent across the last six months of that timeline.
+
+00:11:52 --> 00:12:00
+THE COURT: Sustained in part. Strike the word permanent from the chart and it may be used as a demonstrative, not as evidence.
+
+00:12:00 --> 00:12:05
+MS. WHITFIELD: We will redraw it over the recess. Nothing further on direct examination.
+
+00:12:05 --> 00:12:11
+THE COURT: We will take a 15 minute recess. During that period the witness remains under oath.
+
+00:12:12 --> 00:12:20
+THE CLERK: All rise. This court is in recess for 15 minutes. The witness remains under oath and should not discuss her testimony.
+
+00:12:21 --> 00:12:26
+THE CLERK: All rise. Court is back in session. Please be seated and come to order.
+
+00:12:27 --> 00:12:32
+THE COURT: We are back on the record in case 3947. Mr. Kessler, cross-examination.
+
+00:12:32 --> 00:12:37
+MR. KESSLER: Dr. Navarro, you are being paid to sit in that chair today. Correct?
+
+00:12:38 --> 00:12:42
+THE WITNESS: I am compensated for my time, as any professional would be.
+
+00:12:42 --> 00:12:46
+MR. KESSLER: Your rate is $850 an hour, is it not?
+
+00:12:46 --> 00:12:51
+THE WITNESS: That is my rate for records review and for testimony, yes.
+
+00:12:51 --> 00:12:58
+MR. KESSLER: I show you Exhibit 6, your own billing records. How many hours have you billed in this case?
+
+00:12:59 --> 00:13:04
+THE WITNESS: 27 hours through the end of February, plus my time here today.
+
+00:13:04 --> 00:13:08
+MR. KESSLER: Defendant offers Exhibit 6 on the issue of bias, Your Honor.
+
+00:13:09 --> 00:13:13
+MS. WHITFIELD: Objection, relevance as to the total sum billed in this matter.
+
+00:13:14 --> 00:13:19
+THE COURT: The objection is overruled. Bias is always relevant on cross. Exhibit 6 is admitted.
+
+00:13:20 --> 00:13:24
+THE CLERK: Exhibit 6 is received and entered as the witness's billing records.
+
+00:13:24 --> 00:13:28
+MR. KESSLER: How much of your income comes from litigation work?
+
+00:13:28 --> 00:13:34
+THE WITNESS: It varies year to year. Perhaps two fifths of it, give or take.
+
+00:13:34 --> 00:13:39
+MR. KESSLER: So two fifths of your professional income depends on lawyers telephoning you.
+
+00:13:39 --> 00:13:43
+MS. WHITFIELD: Objection, argumentative. Counsel is testifying rather than asking a question.
+
+00:13:44 --> 00:13:46
+THE COURT: Sustained. Put a question, Mr. Kessler.
+
+00:13:46 --> 00:13:55
+MR. KESSLER: Let us turn to what you did not see. You reviewed no imaging of this lumbar spine from before October 18, 2023.
+
+00:13:56 --> 00:13:59
+THE WITNESS: There was none in the records I was given.
+
+00:14:00 --> 00:14:07
+MR. KESSLER: So you cannot tell this jury whether that herniation at L4 and L5 existed on October 17, 2023.
+
+00:14:07 --> 00:14:12
+THE WITNESS: Not from a film, no. I can tell you from the clinical history --
+
+00:14:13 --> 00:14:16
+MR. KESSLER: The clinical history you took from the plaintiff herself.
+
+00:14:17 --> 00:14:21
+MS. WHITFIELD: Objection, counsel is interrupting the witness in the middle of her answer.
+
+00:14:22 --> 00:14:26
+THE COURT: Sustained. Let her finish, Mr. Kessler. Doctor, complete your answer.
+
+00:14:26 --> 00:14:37
+THE WITNESS: A disc which herniates acutely produces an inflammatory response, and the contrast enhancement at that annular tear is more consistent with a recent injury than an old one.
+
+00:14:38 --> 00:14:44
+MR. KESSLER: Ms. Marsh is 44 years old. You found osteoarthritis in her wrist and spondylosis in her spine.
+
+00:14:45 --> 00:14:52
+THE WITNESS: I found post-traumatic changes in the wrist and mild spondylosis at the levels above the herniation.
+
+00:14:52 --> 00:14:56
+MR. KESSLER: Degenerative changes entirely consistent with a woman of her age.
+
+00:14:56 --> 00:15:03
+THE WITNESS: Some of them, yes. The herniated fragment at L4 and L5 is not a degenerative finding.
+
+00:15:03 --> 00:15:15
+MR. KESSLER: Let me put a hypothetical to you. Assume a woman of 44 with pre-existing spondylosis and foraminal stenosis who lifts a heavy box a week before a collision --
+
+00:15:15 --> 00:15:21
+MS. WHITFIELD: Objection, assumes facts not in evidence. There is no testimony anywhere about lifting a box.
+
+00:15:21 --> 00:15:26
+THE COURT: Sustained. A hypothetical must rest on facts in this record, Mr. Kessler.
+
+00:15:27 --> 00:15:34
+MR. KESSLER: Then assume only the spondylosis and the foraminal stenosis you found yourself. Could those account for radiating leg pain?
+
+00:15:35 --> 00:15:44
+THE WITNESS: They could produce some radicular symptoms over time. They would not produce the acute onset she described on the day of the collision.
+
+00:15:44 --> 00:15:50
+MR. KESSLER: The onset she described to you, and how long after the fact, and from memory?
+
+00:15:51 --> 00:15:54
+MS. WHITFIELD: Objection, compound. There are three questions inside that one breath.
+
+00:15:55 --> 00:15:58
+THE COURT: Sustained. One question at a time, counsel.
+
+00:15:58 --> 00:16:03
+MR. KESSLER: How long after the collision did she describe that onset to you?
+
+00:16:03 --> 00:16:10
+THE WITNESS: Nearly 16 months after. But the emergency department note from October 18, 2023 documents the same complaint.
+
+00:16:10 --> 00:16:17
+MR. KESSLER: Doctor, how much of your opinion rests on what Ms. Marsh told you about her pain?
+
+00:16:17 --> 00:16:47
+THE WITNESS: Pain is a reported symptom and there is no laboratory test for it, but the straight leg raise test is an objective sign, the reflex asymmetry is an objective sign, the atrophy I measured in the calf is an objective sign, and all of them agree with what she reported, so the self-report is the smallest part of the foundation and I would have reached the same conclusion about that L5 root without it.
+
+00:16:47 --> 00:16:50
+MS. WHITFIELD: Objection, non-responsive and narrative, Your Honor.
+
+00:16:51 --> 00:16:57
+THE COURT: The objection is overruled. Counsel asked how much, and she has told him how much. Move along.
+
+00:16:58 --> 00:17:02
+MR. KESSLER: Are you familiar with the text on lumbar disc pathology by Bergman?
+
+00:17:03 --> 00:17:09
+THE WITNESS: I am. That is the Bergman text, and it is well regarded in the field.
+
+00:17:09 --> 00:17:12
+MR. KESSLER: Do you accept that text as authoritative?
+
+00:17:12 --> 00:17:20
+THE WITNESS: As authoritative on surgical technique, yes. On questions of etiology it is more cautious than I would be.
+
+00:17:20 --> 00:17:25
+MR. KESSLER: Bergman writes that annular enhancement cannot date a herniation. Do you disagree?
+
+00:17:25 --> 00:17:32
+MS. WHITFIELD: Objection, improper use of a learned treatise. The passage has not been read into this record.
+
+00:17:32 --> 00:17:40
+THE COURT: The learned treatise exception permits the passage to be read once she accepts the text as authoritative. Read it, counsel.
+
+00:17:40 --> 00:17:50
+MR. KESSLER: "Contrast enhancement at an annular tear may persist for many months and should not be used alone to establish the age of a herniation."
+
+00:17:50 --> 00:17:59
+THE WITNESS: I agree with that sentence as written. I did not use enhancement alone. I used it with the examination and the history.
+
+00:17:59 --> 00:18:02
+MR. KESSLER: Your Honor, may we approach the bench?
+
+00:18:03 --> 00:18:07
+THE COURT: Come up. We will be at sidebar for a moment.
+
+00:18:07 --> 00:18:14
+MR. KESSLER: Your Honor, she is giving causation opinions that appear nowhere in her written report of March 4, 2024.
+
+00:18:15 --> 00:18:20
+MS. WHITFIELD: The report states causation in its second conclusion. Counsel has held that report since March.
+
+00:18:21 --> 00:18:30
+THE COURT: Show me the page over the break. The answer stands for now, and I will strike it if it is beyond the scope.
+
+00:18:30 --> 00:18:34
+MR. KESSLER: Thank you, Your Honor. The objection is preserved.
+
+00:18:34 --> 00:18:38
+THE COURT: Step back. Continue your cross-examination, and watch the clock.
+
+00:18:38 --> 00:18:42
+MR. KESSLER: You recommended a microdiscectomy. Has Ms. Marsh scheduled that surgery?
+
+00:18:43 --> 00:18:48
+THE WITNESS: Not that I am aware of. She told me she was waiting on --
+
+00:18:48 --> 00:18:53
+MR. KESSLER: And your figure of $62,500 assumes that she has it.
+
+00:18:53 --> 00:19:00
+THE WITNESS: It is the cost if she has it. That is how a future surgical cost is stated.
+
+00:19:00 --> 00:19:04
+MR. KESSLER: And the $18,400, over what span of years?
+
+00:19:04 --> 00:19:09
+THE WITNESS: Her remaining life expectancy, discounted as the economist will explain to you.
+
+00:19:10 --> 00:19:13
+MS. WHITFIELD: Objection, that answer goes well beyond this witness's field.
+
+00:19:14 --> 00:19:21
+THE COURT: Sustained on an objection to your own witness, which is unusual but correct. The economist reference is stricken.
+
+00:19:21 --> 00:19:24
+MR. KESSLER: Nothing further at this time, Your Honor.
+
+00:19:24 --> 00:19:26
+THE COURT: Redirect examination, Ms. Whitfield.
+
+00:19:26 --> 00:19:33
+MS. WHITFIELD: Doctor, you were asked about your rate of $850 an hour. Does that rate change with your conclusion?
+
+00:19:34 --> 00:19:40
+THE WITNESS: It does not. I am paid for the examination and the records review whatever I find.
+
+00:19:41 --> 00:19:46
+MS. WHITFIELD: Doctor, did the records contain any complaint of back pain before October 18, 2023?
+
+00:19:47 --> 00:19:55
+THE WITNESS: None at all. Her primary care records run back six years with no entry for back pain, sciatica, or radiculopathy.
+
+00:19:55 --> 00:20:02
+MR. KESSLER: Objection, beyond the scope of the report. Her written report does not discuss the primary care chart.
+
+00:20:02 --> 00:20:10
+THE COURT: The objection is overruled. He opened the subject on cross, and she may answer from the records she reviewed.
+
+00:20:10 --> 00:20:17
+MS. WHITFIELD: Read from your report the sentence on the cervical complaints, with the punctuation as you dictated it.
+
+00:20:17 --> 00:20:28
+THE WITNESS: New paragraph. The cervical findings resolved during a six-month period of conservative care comma and I therefore assign no permanent impairment to the cervical spine period
+
+00:20:28 --> 00:20:34
+MS. WHITFIELD: So you did not inflate the rating by adding the neck into it.
+
+00:20:34 --> 00:20:37
+MR. KESSLER: Objection, leading and argumentative on redirect examination.
+
+00:20:37 --> 00:20:39
+THE COURT: Sustained. Rephrase the question, counsel.
+
+00:20:40 --> 00:20:44
+MS. WHITFIELD: What did you do with the cervical findings in your impairment calculation?
+
+00:20:45 --> 00:20:51
+THE WITNESS: I excluded them entirely. The 18 points rest on the lumbar spine and on the distal radius.
+
+00:20:52 --> 00:21:01
+MS. WHITFIELD: Your Honor, I ask for a read back of the answer about the straight leg raise test, early in the direct examination.
+
+00:21:01 --> 00:21:03
+THE COURT: Read that answer back, please.
+
+00:21:03 --> 00:21:18
+THE CLERK: Reading back. Question: What did the straight leg raise test show? Answer: Positive on the right at about 40 degrees, with pain radiating below the knee. That pattern is consistent with radiculopathy at the L5 root.
+
+00:21:18 --> 00:21:21
+MS. WHITFIELD: Nothing further on redirect, Your Honor.
+
+00:21:21 --> 00:21:25
+THE COURT: Recross, Mr. Kessler, limited to the scope of the redirect.
+
+00:21:25 --> 00:21:32
+MR. KESSLER: A straight leg raise test requires the patient to tell you when it hurts, does it not?
+
+00:21:33 --> 00:21:41
+THE WITNESS: She tells me when. I watch for the guarding, the pelvic rotation, and the reflex. Well -- I mean, I use both together.
+
+00:21:42 --> 00:21:46
+MR. KESSLER: So your objective sign has a subjective trigger inside it.
+
+00:21:46 --> 00:21:51
+MS. WHITFIELD: Objection, asked and answered. This was covered twice already on cross-examination.
+
+00:21:51 --> 00:21:57
+THE COURT: The objection is overruled. It is within the redirect I permitted. Answer it, Doctor.
+
+00:21:57 --> 00:22:03
+THE WITNESS: Every clinical sign has a patient inside it. That does not make the examination worthless.
+
+00:22:04 --> 00:22:12
+MR. KESSLER: You told Ms. Whitfield the primary care records show no back pain. You did not attach those records to your report.
+
+00:22:12 --> 00:22:19
+THE WITNESS: I listed them in the materials reviewed. I did not attach the chart itself. I was not --
+
+00:22:19 --> 00:22:23
+MR. KESSLER: You were not what, Doctor? Finish the answer.
+
+00:22:23 --> 00:22:35
+THE WITNESS: I was not asked to attach the underlying records. Strike that. Let me start again. The practice in my office is to list what I reviewed, um, not to reproduce it.
+
+00:22:36 --> 00:22:40
+MR. KESSLER: Nothing further, Your Honor. The defense is finished with this witness.
+
+00:22:41 --> 00:22:46
+THE COURT: Counsel, approach once more. I want the exhibits settled before this jury hears argument.
+
+00:22:47 --> 00:22:51
+MR. KESSLER: Your Honor, I renew the scope objection as to the causation testimony.
+
+00:22:52 --> 00:22:58
+MS. WHITFIELD: I direct the court to page nine of the report, second conclusion, which states causation in terms.
+
+00:22:59 --> 00:23:08
+THE COURT: I read it over the break. The causation opinion sits within the four corners of that report, and the objection is overruled.
+
+00:23:08 --> 00:23:12
+MR. KESSLER: Understood, Your Honor. My exception is noted on the record.
+
+00:23:12 --> 00:23:19
+THE COURT: Step back, both of you. I will instruct the jury before we recess for the day.
+
+00:23:19 --> 00:23:28
+THE COURT: Members of the jury, you have heard testimony from Dr. Aurelia Navarro, an orthopedic surgeon retained by the plaintiff in case 3947.
+
+00:23:28 --> 00:23:37
+THE COURT: She has been accepted as an expert. That means she may give an opinion, which an ordinary witness may not do.
+
+00:23:37 --> 00:23:47
+THE COURT: In weighing that opinion you may consider her qualifications, her examination of Ms. Marsh on February 12, 2024, and the 340 pages of records she reviewed.
+
+00:23:48 --> 00:23:56
+THE COURT: You may also consider that she is compensated at $850 an hour, and that a portion of her practice is litigation work.
+
+00:23:57 --> 00:24:05
+THE COURT: Exhibit 1, the curriculum vitae, is in evidence. Exhibit 2, the MRI films of the lumbar spine, is in evidence.
+
+00:24:05 --> 00:24:14
+THE COURT: Exhibit 3, the radiology report, came in on a limited basis. You may consider it only as a document this doctor relied upon.
+
+00:24:15 --> 00:24:21
+THE COURT: Exhibit 4, her written report, is not in evidence. Your recollection of her spoken testimony governs.
+
+00:24:22 --> 00:24:28
+THE COURT: Exhibit 6, the billing records, is received on the question of bias and for no other purpose.
+
+00:24:29 --> 00:24:39
+THE COURT: The opinion of permanent partial impairment, the recommended surgery at $62,500, and the future care figure of $18,400 are claims and not findings.
+
+00:24:39 --> 00:24:47
+THE COURT: Whether Ms. Marsh had a herniated disc at L4 and L5 before this collision is a question of fact for you.
+
+00:24:48 --> 00:24:55
+THE COURT: Whether the epidural steroid injection history supports her account of her pain is likewise a question for you.
+
+00:24:55 --> 00:25:03
+THE COURT: The phrase to a reasonable degree of medical certainty means more likely than not. It does not mean absolute certainty.
+
+00:25:04 --> 00:25:08
+MS. WHITFIELD: Your Honor, the plaintiff has no objection to that instruction as given.
+
+00:25:09 --> 00:25:14
+MR. KESSLER: The defense notes one exception, Your Honor, to the instruction on the radiology report.
+
+00:25:15 --> 00:25:22
+THE COURT: Your exception is noted and preserved. Dr. Navarro, you are excused with the thanks of the court.
+
+00:25:22 --> 00:25:24
+THE WITNESS: Thank you, Your Honor.
+
+00:25:24 --> 00:25:31
+THE COURT: We will resume at 9:30 in the morning with the plaintiff's economist. We stand in recess.
+
+00:25:31 --> 00:25:44
+THE CLERK: All rise. This court stands in recess until tomorrow morning. The MRI films, the radiology report, the curriculum vitae, the billing records, and the timeline chart will remain in the clerk's custody.

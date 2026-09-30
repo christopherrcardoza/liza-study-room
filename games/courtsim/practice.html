@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en" data-build="425b05759079"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CourtSim — practice room</title>
+<!--
+  COURTSIM-SHIP-068 -- THE PRACTICE ENTRY POINT.
+
+  COURTSIM-SHIP-059 published courtroom.html and it works: the room renders,
+  the cast loads, the head tracker is wired. COURTSIM-FIELDTEST-067 then
+  measured what that page actually IS, and it is a viewer. Eleven controls.
+  No session, because no main.js. Liza cannot practise on it, and nobody had
+  ever ruled on what the public address was for.
+
+  THIS PAGE IS THE RULING: the public address is a DICTATION PRACTICE ROOM.
+
+  WHY NOT JUST PUBLISH THE APP. Measured, in section 2 of
+  reports/COURTSIM_SHIP_068.md, not assumed:
+    * main.js STATICALLY imports nine modules this build must not carry.
+      A static import cannot be turned off by a flag; removing it is surgery
+      on another lane's 9,579-line file, and every call site it feeds would
+      then throw somewhere that is not guarded.
+    * FIFTEEN modules in main.js's own closure name the registered mechanics
+      in LIVE CODE -- not in comments, which the build already strips, but in
+      running code and in several cases in ENGLISH SENTENCES SHOWN ON SCREEN.
+      Redaction cannot reach those without changing behaviour, and the build
+      refuses (correctly) rather than trying.
+  So the app cannot be published today without another lane editing live code
+  in files this lane does not own. That is stated as a handoff, with the exact
+  lines, rather than worked around here.
+
+  WHAT A PRACTISING STUDENT ACTUALLY NEEDS, which is what this delivers:
+  a real proceeding, read aloud by the right voices at a rate she chooses,
+  in a room she can look around, with somewhere to write and the official
+  transcript to check herself against afterwards. That is how dictation
+  practice has always worked, and none of it requires a scorer.
+
+  WHAT IS ABSENT, AND IT IS SAID ON THE PAGE RATHER THAN LEFT AS A MYSTERY:
+    * NO SCORING. The three modules that grade a take are registered and
+      unfiled. Nothing here grades anything.
+    * NO MICROPHONE. There is no speech recogniser in this bundle at all.
+      That absence is load-bearing twice over: it is why nothing can be
+      scored, and it is what makes the head tracker safe to ship, because
+      the registered combination is head tracking ALONGSIDE speech and there
+      is no speech here for it to be alongside.
+
+  HEAD TRACKING IS ONE FLAG. tools/build_practice_bundle.mjs takes
+  --head-tracking=on|off. ON is what is built by default and the trade is one
+  sentence: with it on he gets the webcam feature he asked to test, and this
+  page must never gain a microphone; with it off a microphone becomes a
+  future option and the webcam is localhost-only. He cannot have both on one
+  public address while the filing is open.
+
+  ELEMENTS THAT ARE LOAD-BEARING RATHER THAN DECORATIVE, same list as
+  courtroom.html's and for the same measured reasons:
+    #courtroom-screen, not .hidden  -> or camera_controller's H key is dead
+    #look-head-mode (a <select>)    -> the ONLY path to getUserMedia
+    #look-webcam-centre, #look-webcam-note, #look-mode-btn, #camera-status,
+    #look-rate-slider, #look-rate-readout, #look-toast -> where the words go
+    when the camera refuses or the model is still downloading.
+
+  OWNERSHIP: this file and everything it imports from ./lib/ is tools/.
+  Nothing under web/js, web/css or web/index.html was edited by this job.
+-->
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
+</script>
+<style>
+  :root { --ink:#e8e8ec; --dim:#8d8d99; --panel:#16161c; --line:#2a2a34;
+          --go:#3fa46a; --warn:#d8a13a; --bad:#c8503f; }
+  html,body { margin:0; height:100%; background:#08080b; color:var(--ink);
+              font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; overflow:hidden; }
+  #courtroom-screen { position:fixed; inset:0; }
+  #scene-canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; }
+  .panel { position:fixed; background:rgba(18,18,24,.93); border:1px solid var(--line);
+           border-radius:8px; padding:12px 14px; backdrop-filter:blur(6px); z-index:10; }
+  button, select, input[type=text] { background:#232330; color:var(--ink);
+           border:1px solid var(--line); border-radius:5px; padding:7px 12px;
+           font:inherit; cursor:pointer; margin:3px 3px 0 0 }
+  button.on { background:#3a3a4c; border-color:#55556e }
+  button:disabled { opacity:.45; cursor:default }
+  button.go { background:#24603f; border-color:#3fa46a }
+  #left { left:12px; top:12px; width:330px; max-height:92vh; overflow:auto }
+  #right { right:12px; top:12px; width:400px; max-height:92vh; overflow:auto;
+           display:flex; flex-direction:column }
+  #bottom { left:360px; right:428px; bottom:12px; display:flex; gap:6px;
+            align-items:center; flex-wrap:wrap }
+  h1 { font-size:16px; margin:0 0 6px }
+  h2 { font-size:13px; margin:14px 0 4px; color:#c9c9d6;
+       border-top:1px solid var(--line); padding-top:10px }
+  .sub { color:var(--dim); font-size:12px; margin:4px 0 8px }
+  label { display:block; font-size:12px; color:var(--dim); margin:10px 0 3px }
+  input[type=range] { width:100% }
+  textarea { width:100%; box-sizing:border-box; min-height:210px; resize:vertical;
+             background:#0d0d12; color:var(--ink); border:1px solid var(--line);
+             border-radius:6px; padding:10px; font:13px/1.5 ui-monospace,Consolas,monospace }
+  #look-webcam-note { font-size:12px; color:var(--warn); margin-top:6px; min-height:1.2em }
+  #camera-status { font-size:12px; color:var(--dim); margin-top:6px }
+  #look-toast { position:fixed; left:50%; transform:translateX(-50%); top:14px;
+                z-index:30; padding:8px 16px; display:none }
+  #boot { position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+          z-index:20; text-align:center; max-width:600px }
+  #room-warning { right:12px; bottom:12px; width:360px; display:none; z-index:25;
+                  border-color:var(--bad); background:rgba(200,80,63,.95) }
+  #buildline { color:var(--dim); font-size:11px; margin-top:10px;
+               font-family:ui-monospace,Consolas,monospace }
+  #caption { position:fixed; left:360px; right:428px; bottom:58px; z-index:9;
+             text-align:center; font-size:15px; text-shadow:0 2px 8px #000;
+             pointer-events:none; min-height:1.4em }
+  #whatitdoes { border-left:3px solid var(--warn); padding-left:10px; margin:10px 0 0;
+                font-size:12px; color:#cfcfda }
+  #whatitdoes b { color:var(--warn) }
+  #official { display:none; white-space:pre-wrap; background:#0d0d12;
+              border:1px solid var(--line); border-radius:6px; padding:10px;
+              max-height:260px; overflow:auto; font:12px/1.5 ui-monospace,Consolas,monospace }
+  .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+  .stat { font-family:ui-monospace,Consolas,monospace; font-size:12px; color:var(--dim) }
+  a { color:#7fe3a5 }
+</style></head>
+<body>
+
+<!-- NOT class="hidden". camera_controller.js:_bindViewKeys() bails out unless
+     this element exists and is visible, and H is the head-tracking toggle. -->
+<div id="courtroom-screen">
+  <canvas id="scene-canvas"></canvas>
+</div>
+
+<div id="boot" class="panel">
+  <h1>Building the courtroom…</h1>
+  <div class="sub" id="bootmsg">Loading the room and its people.
+    The first load fetches about 160&nbsp;MB of characters, so give it a moment.</div>
+</div>
+
+<div id="look-toast" class="panel"></div>
+
+<div id="room-warning" class="panel">
+  <b>Some characters did not load.</b>
+  <div class="sub" id="room-warning-detail" style="color:#fff"></div>
+</div>
+
+<div id="left" class="panel">
+  <h1>Practice room</h1>
+  <div class="sub">Pick a case, pick a speed, press Begin. The room reads the
+    case aloud and you write it in the panel on the right.</div>
+
+  <label for="case-picker">Case</label>
+  <select id="case-picker"><option>loading…</option></select>
+  <div class="sub" id="case-detail">&nbsp;</div>
+
+  <label for="venue-picker">Room</label>
+  <select id="venue-picker"></select>
+
+  <label for="wpm-slider">Speed — <span id="wpm-readout">150 wpm</span></label>
+  <input type="range" id="wpm-slider" min="50" max="300" step="5" value="150">
+  <div class="sub" id="wpm-note">&nbsp;</div>
+
+  <label for="vol-slider">Volume — <span id="vol-readout">80%</span></label>
+  <input type="range" id="vol-slider" min="0" max="100" step="1" value="80">
+
+  <label style="display:flex;align-items:center;gap:7px;margin-top:12px;cursor:pointer">
+    <input type="checkbox" id="show-words" style="width:auto;margin:0">
+    <span>Show the words as they are spoken</span>
+  </label>
+  <div class="sub" style="margin-top:2px">Off is the real exercise — you write
+    what you hear. Turn it on only to check a line you could not catch.</div>
+
+  <div class="row" style="margin-top:12px">
+    <button type="button" id="begin-btn" class="go">Begin</button>
+    <button type="button" id="pause-btn" disabled>Pause</button>
+    <button type="button" id="stop-btn" disabled>Stop</button>
+  </div>
+  <div class="sub" id="session-status">Not started.</div>
+  <!-- MEASURED ON A REAL RUN, NOT ESTIMATED: the cast is about 160 MB and
+       the voice model reported 326 MB on its own progress callback. That is
+       most of half a gigabyte before a word is spoken, once, and a student
+       who is not told will conclude at the four-minute mark that it is
+       broken. So it is said before she presses the button, not after. -->
+  <div class="sub" id="first-run-note">The first time only, this downloads
+    about <b>160&nbsp;MB</b> of characters and <b>326&nbsp;MB</b> of voices.
+    On a home connection that is several minutes. After that it is cached and
+    Begin is quick.</div>
+
+  <!-- HEAD-TRACKING-BLOCK-START -- tools/build_practice_bundle.mjs deletes
+       everything between these two markers when built with
+       --head-tracking=off, and then ASSERTS that no element id containing
+       "look-head-mode" survives into the output. That select's change event
+       is the only path to getUserMedia in camera_input.js, so removing it
+       removes the webcam entirely rather than merely hiding a control. -->
+  <h2>Head tracking</h2>
+  <div class="sub">Your webcam moves the view when you move your head.
+    Nothing is recorded and nothing leaves this machine.</div>
+
+  <button type="button" id="look-mode-btn">Look Around (H)</button>
+
+  <label for="look-head-mode">Head tracking</label>
+  <select id="look-head-mode">
+    <option value="off" selected>Off (mouse only)</option>
+    <option value="lean">Lean (no download)</option>
+    <option value="precise">Turn my head (needs internet)</option>
+  </select>
+
+  <button type="button" id="look-webcam-centre" disabled
+          title="Sit how you mean to sit, then press this. Also Shift+H.">Centre my head (Shift+H)</button>
+  <div id="look-webcam-note"></div>
+  <div id="camera-status"></div>
+
+  <label for="look-rate-slider">Edge turn rate</label>
+  <input type="range" id="look-rate-slider">
+  <span id="look-rate-readout" class="sub"></span>
+
+  <div class="sub" style="margin-top:10px">
+    <b>H</b> turns Look Around on and off. <b>Shift+H</b> re-centres your head.
+    Pick <i>Turn my head</i> above and allow the camera when the browser asks.
+  </div>
+  <!-- HEAD-TRACKING-BLOCK-END -->
+
+  <div id="whatitdoes">
+    <b>What this build does and does not do.</b>
+    It plays a real proceeding at the speed you choose, in a room you can look
+    around, and gives you somewhere to write. <b>It does not score you</b> and
+    <b>it never opens your microphone</b> — there is no speech recognition in
+    this build at all. Check your own work against the official transcript,
+    which the Finish button reveals. If a button you expected is missing, this
+    is why, and it is deliberate rather than broken.
+  </div>
+
+  <div class="sub" style="margin-top:10px">
+    <a href="licenses/index.html" target="_blank" rel="noopener">Credits &amp; licences</a>
+    — also on the <b>K</b> key.
+    &nbsp;·&nbsp;<a href="courtroom.html">Room-only view</a>
+  </div>
+  <div id="buildline">build: <span id="buildid">…</span></div>
+</div>
+
+<div id="right" class="panel">
+  <h1>Your transcript</h1>
+  <div class="sub">Write here as you listen. It is saved in this browser as
+    you type — closing the tab does not lose it.</div>
+  <textarea id="transcript" spellcheck="false"
+            placeholder="Start writing when the room starts speaking…"></textarea>
+  <div class="row" style="margin-top:8px">
+    <span class="stat" id="wordcount">0 words</span>
+    <span class="stat" id="elapsed">00:00</span>
+    <span class="stat" id="progress">—</span>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <button type="button" id="reveal-btn" disabled>Show the official transcript</button>
+    <button type="button" id="download-btn">Download mine</button>
+    <button type="button" id="download-official-btn">Download the official one</button>
+    <button type="button" id="clear-btn">Clear mine</button>
+  </div>
+  <div class="sub" id="reveal-note">&nbsp;</div>
+  <div id="official"></div>
+</div>
+
+<div id="caption"></div>
+
+<div id="bottom" class="panel">
+  <span class="sub" style="margin:0">View:</span>
+  <span id="camrow">
+    <button data-p="reporter">Reporter's seat</button>
+    <button data-p="wide">Wide</button>
+    <button data-p="bench">Bench</button>
+    <button data-p="witness">Witness</button>
+    <button data-p="counselA">Counsel A</button>
+    <button data-p="counselB">Counsel B</button>
+    <button data-p="speaker">Follow the speaker</button>
+  </span>
+</div>
+
+<script type="module">
+import { CourtroomScene, VENUES } from './js-425b05759079/scene.js';
+import { CameraController } from './js-425b05759079/camera_controller.js';
+import { PracticeSession } from './js-425b05759079/practice_session.js';
+// Side-effect import: mounts itself and binds K. Imported rather than added
+// as a second <script> so the build's module-graph walk reaches and copies it.
+import './js-425b05759079/licenses_ui.js';
+
+const $ = (id) => document.getElementById(id);
+const LS = 'courtsim_practice_068';
+
+let scene = null;
+let camera = null;
+let session = null;
+let audioCtx = null;
+let gainNode = null;
+let selectedCase = null;
+let elapsedTimer = null;
+let sessionStartedAt = null;
+// Read from the DOM at each line rather than captured once, so toggling it
+// mid-session takes effect on the next line instead of the next session.
+const showingWords = () => !!($('show-words') && $('show-words').checked);
+
+// SAY IT IN WORDS RATHER THAN FAILING QUIETLY. getUserMedia needs a secure
+// context. Pages is HTTPS so this should never fire -- but if it ever does,
+// she gets a sentence instead of a select box that refuses for no reason.
+function secureContextNote() {
+  if (window.isSecureContext) return '';
+  return 'This page is not on a secure connection, so the browser will not give '
+       + 'any site the camera. Head tracking cannot start here. Open the https:// '
+       + 'address instead.';
+}
+
+function fmtTime(ms) {
+  const s = Math.max(0, Math.round(ms / 1000));
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+
+function countWords(s) { return (String(s || '').match(/\S+/g) || []).length; }
+
+function officialText(proceeding) {
+  return proceeding.utterances.map((u) => `${u.speaker}: ${u.text}`).join('\n\n');
+}
+
+function download(name, text) {
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+}
+
+async function boot() {
+  try {
+    scene = new CourtroomScene($('scene-canvas'));
+    camera = new CameraController(scene, $('scene-canvas'));
+    scene.cameraController = camera;
+    scene.handleBecameVisible();
+    window.__courtsimScene = scene;
+    window.__courtsimCamera = camera;
+    // COURTSIM-SHIP-059 section 8.2 -- the default camera pose is the
+    // reporter's seat, which on a cold load looks straight down at the
+    // carpet: a perfect courtroom renders as a brown rectangle. It opens on
+    // Wide, which is the shot that shows the room is real.
+    try {
+      camera.setPreset('wide');
+      const wideBtn = document.querySelector('#camrow button[data-p="wide"]');
+      if (wideBtn) wideBtn.classList.add('on');
+    } catch (e) { /* the room is still usable without it */ }
+    const nudge = () => window.dispatchEvent(new Event('resize'));
+    requestAnimationFrame(nudge);
+    setTimeout(nudge, 1200);
+  } catch (err) {
+    $('bootmsg').textContent = 'The courtroom could not start: ' + (err && err.message);
+    return;
+  }
+
+  const note = secureContextNote();
+  if (note) $('look-webcam-note').textContent = note;
+
+  // The venue picker, built from scene.js's own table so it can never list a
+  // room that does not exist.
+  const vp = $('venue-picker');
+  vp.innerHTML = '';
+  for (const v of VENUES) {
+    const o = document.createElement('option');
+    o.value = v.key;
+    o.textContent = `${v.label} — ${v.subtitle || v.type}`;
+    vp.appendChild(o);
+  }
+  vp.value = (scene.venue && scene.venue.key) || VENUES[0].key;
+
+  session = new PracticeSession({ scene, camera, ui: { status: (m) => setStatus(m) } });
+  window.__courtsimPractice = session;
+
+  try {
+    const { cases, problems } = await session.loadCases((m) => { $('bootmsg').textContent = m; });
+    const cp = $('case-picker');
+    cp.innerHTML = '';
+    for (const c of cases) {
+      const o = document.createElement('option');
+      o.value = c.id;
+      o.textContent = c.title;
+      cp.appendChild(o);
+    }
+    selectCase(cases[0].id);
+    if (problems.length) {
+      // Reported, never swallowed. A case that silently vanished from the
+      // picker is a case she never finds out she cannot practise.
+      console.error('[practice] cases that could not be read:', problems);
+      $('case-detail').textContent = problems.length + ' case(s) could not be read — '
+        + 'see the console. The rest are listed above.';
+    }
+  } catch (err) {
+    $('case-detail').textContent = 'The cases could not be read: ' + (err && err.message);
+    $('begin-btn').disabled = true;
+  }
+
+  // ---------------------------------------------------------------------
+  // THE EMPTY-COURTROOM INSTRUMENT, inherited from courtroom.html with its
+  // measured floor of 12. It counts what has ARRIVED off the browser's own
+  // resource timings and keeps counting for four minutes, because on the
+  // published site the cast is 159 MB and a check that declares success
+  // while the thing it checks has not happened yet is the exact failure
+  // this project keeps paying for.
+  // ---------------------------------------------------------------------
+  const EXPECTED = 12;
+  const t0 = Date.now();
+  const tick = setInterval(() => {
+    let arrived = 0;
+    try {
+      arrived = performance.getEntriesByType('resource')
+        .filter((r) => r.name.indexOf('.glb') >= 0 && r.responseEnd > 0).length;
+    } catch (e) { arrived = 0; }
+    let fails = 0;
+    try {
+      const f = scene.getAvatarLoadFailures();
+      fails = (f && (f.length != null ? f.length : f.count)) || 0;
+    } catch (e) { fails = 0; }
+    const waited = Date.now() - t0;
+    if (arrived < 1) {
+      $('bootmsg').textContent = 'Downloading the cast — about 160 MB the first time, '
+        + 'then it is cached. ' + Math.round(waited / 1000) + 's so far.';
+      return;
+    }
+    $('boot').style.display = 'none';
+    if (fails > 0 || (waited > 240000 && arrived < EXPECTED)) {
+      $('room-warning').style.display = 'block';
+      $('room-warning-detail').textContent =
+        arrived + ' of ' + EXPECTED + ' characters arrived'
+        + (fails ? ', ' + fails + ' failed outright' : '')
+        + '. The room is NOT complete. This is what an empty courtroom looks like '
+        + 'from the inside, and it is being said out loud rather than left for you '
+        + 'to count heads.';
+    }
+    if (waited > 300000) clearInterval(tick);
+  }, 1000);
+}
+
+function setStatus(msg) { $('session-status').textContent = msg; }
+
+function selectCase(id) {
+  selectedCase = session.cases.find((c) => c.id === id) || null;
+  if (!selectedCase) return;
+  $('case-detail').textContent = `${selectedCase.utterances.length} lines, `
+    + `${selectedCase.speakerCount} speakers.`;
+  $('official').style.display = 'none';
+  $('reveal-btn').disabled = true;
+  $('reveal-note').innerHTML = '&nbsp;';
+  restoreTranscript();
+}
+
+function transcriptKey() {
+  return `${LS}:${selectedCase ? selectedCase.id : 'none'}`;
+}
+function restoreTranscript() {
+  try { $('transcript').value = localStorage.getItem(transcriptKey()) || ''; }
+  catch (e) { /* private mode; typing still works, it just is not kept */ }
+  refreshCounts();
+}
+function refreshCounts() {
+  $('wordcount').textContent = countWords($('transcript').value) + ' words';
+}
+
+function paintWpm() {
+  const wpm = Number($('wpm-slider').value);
+  $('wpm-readout').textContent = wpm + ' wpm';
+  if (!session) return;
+  const n = session.rateNote(wpm);
+  // Above the measured content-safe ceiling the synthesiser starts dropping
+  // words. A dictation tool that silently drops words is worse than a slow
+  // one, so it says so rather than letting her practise against a gap.
+  $('wpm-note').textContent = n.safe
+    ? `The room will deliver about ${n.delivered} wpm.`
+    : `Above ${n.ceiling} wpm the voices start dropping words. `
+      + `Practise at or below ${n.ceiling} wpm if you want every word to be there.`;
+  $('wpm-note').style.color = n.safe ? '' : 'var(--warn)';
+}
+
+async function begin() {
+  if (!selectedCase) return;
+  $('begin-btn').disabled = true;
+  try {
+    if (!audioCtx) {
+      // Created from inside the click, which is what keeps Chrome's autoplay
+      // policy satisfied.
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      gainNode = audioCtx.createGain();
+      gainNode.connect(audioCtx.destination);
+      session.audioCtx = audioCtx;
+      session.gain = gainNode;
+    }
+    if (audioCtx.state === 'suspended') await audioCtx.resume();
+    gainNode.gain.value = Number($('vol-slider').value) / 100;
+
+    setStatus('downloading the voices — this happens once…');
+    await session.initVoice((m) => setStatus(m));
+
+    setStatus('casting the room…');
+    await session.castFor(selectedCase, $('venue-picker').value);
+
+    $('pause-btn').disabled = false;
+    $('stop-btn').disabled = false;
+    $('case-picker').disabled = true;
+    $('venue-picker').disabled = true;
+    sessionStartedAt = performance.now();
+    elapsedTimer = setInterval(() => {
+      $('elapsed').textContent = fmtTime(performance.now() - sessionStartedAt);
+    }, 500);
+    setStatus('in session.');
+    $('transcript').focus();
+
+    await session.run(selectedCase, {
+      wpm: Number($('wpm-slider').value),
+      onLine: (l) => {
+        $('progress').textContent = `line ${l.index + 1} / ${l.total}`;
+        // ===============================================================
+        // THE WORDS ARE OFF BY DEFAULT, AND THIS WAS A REAL DEFECT CAUGHT
+        // BY USING IT RATHER THAN BY READING IT.
+        //
+        // The first version of this page printed the full line under the
+        // room as it was spoken. It looked helpful. It is the single
+        // worst thing a dictation tool can do: the entire exercise is
+        // writing down what you HEAR, and a caption hands her the answer.
+        // She would have practised reading, scored herself as perfect,
+        // and learned nothing.
+        //
+        // So the caption names the SPEAKER, which is what she would see
+        // in a real room, and the words are behind a switch that is off
+        // until she asks for it.
+        // ===============================================================
+        $('caption').textContent = showingWords()
+          ? `${l.speaker}: ${l.text}` : l.speaker;
+      },
+      onEnd: (e) => finish(`the case finished — ${fmtTime(e.elapsedMs)}, of which `
+        + `${fmtTime(e.silentMs)} was waiting rather than speaking`),
+    });
+  } catch (err) {
+    console.error('[practice] the session could not start:', err);
+    setStatus('it could not start: ' + (err && err.message));
+    $('begin-btn').disabled = false;
+  }
+}
+
+function finish(why) {
+  if (elapsedTimer) { clearInterval(elapsedTimer); elapsedTimer = null; }
+  $('begin-btn').disabled = false;
+  $('pause-btn').disabled = true;
+  $('stop-btn').disabled = true;
+  $('case-picker').disabled = false;
+  $('venue-picker').disabled = false;
+  $('caption').textContent = '';
+  $('reveal-btn').disabled = false;
+  $('reveal-note').textContent = 'Compare yours against the official one. '
+    + 'This build does not mark it for you.';
+  setStatus(why);
+}
+
+$('camrow').addEventListener('click', (e) => {
+  const p = e.target.getAttribute('data-p');
+  if (!p || !camera) return;
+  [...$('camrow').children].forEach((b) => b.classList.remove('on'));
+  e.target.classList.add('on');
+  camera.setPreset(p);
+});
+
+$('case-picker').addEventListener('change', (e) => selectCase(e.target.value));
+$('wpm-slider').addEventListener('input', paintWpm);
+$('vol-slider').addEventListener('input', () => {
+  $('vol-readout').textContent = $('vol-slider').value + '%';
+  if (gainNode) gainNode.gain.value = Number($('vol-slider').value) / 100;
+});
+$('begin-btn').addEventListener('click', begin);
+$('pause-btn').addEventListener('click', () => {
+  const now = !session.paused;
+  session.setPaused(now);
+  $('pause-btn').textContent = now ? 'Resume' : 'Pause';
+  setStatus(now ? 'paused.' : 'in session.');
+});
+$('stop-btn').addEventListener('click', () => {
+  session.stop();
+  finish('stopped.');
+});
+$('transcript').addEventListener('input', () => {
+  refreshCounts();
+  try { localStorage.setItem(transcriptKey(), $('transcript').value); }
+  catch (e) { /* private mode */ }
+});
+$('reveal-btn').addEventListener('click', () => {
+  if (!selectedCase) return;
+  const box = $('official');
+  const showing = box.style.display === 'block';
+  box.style.display = showing ? 'none' : 'block';
+  if (!showing) box.textContent = officialText(selectedCase);
+  $('reveal-btn').textContent = showing
+    ? 'Show the official transcript' : 'Hide the official transcript';
+});
+$('download-btn').addEventListener('click', () => {
+  download(`${selectedCase ? selectedCase.id : 'practice'}-mine.txt`, $('transcript').value);
+});
+$('download-official-btn').addEventListener('click', () => {
+  if (selectedCase) download(`${selectedCase.id}-official.txt`, officialText(selectedCase));
+});
+$('clear-btn').addEventListener('click', () => {
+  $('transcript').value = '';
+  try { localStorage.removeItem(transcriptKey()); } catch (e) { /* private mode */ }
+  refreshCounts();
+});
+
+// Stamped by tools/build_practice_bundle.mjs. It is on screen so that "is this
+// the new one" is answerable by looking, on her laptop, without devtools.
+$('buildid').textContent = document.documentElement.dataset.build || 'unstamped';
+
+boot().then(paintWpm);
+</script>
+</body></html>

@@ -1,0 +1,701 @@
+00:00:01 --> 00:00:08
+THE CLERK: All rise. The Municipal Court of the City of Willowbrook is now in session, Judge Marchetti presiding.
+
+00:00:08 --> 00:00:13
+THE COURT: Be seated, everyone. Let's call the first matter on this afternoon's criminal calendar.
+
+00:00:14 --> 00:00:21
+THE CLERK: Calling case 4471, City of Willowbrook versus Petra Vance, set for bench trial on one count of reckless driving.
+
+00:00:22 --> 00:00:24
+THE COURT: Appearances, please, for the record.
+
+00:00:24 --> 00:00:31
+MS. NAVARRO: Good afternoon, Your Honor. Adele Navarro for the City of Willowbrook, and the City is ready to proceed.
+
+00:00:32 --> 00:00:39
+MR. BRENNAN: Thomas Brennan for the defendant. Ms. Vance is present in court and seated beside me at counsel table.
+
+00:00:39 --> 00:00:46
+THE COURT: The record will reflect that the defendant, Petra Vance, is present and represented by counsel of her choosing.
+
+00:00:47 --> 00:00:54
+THE COURT: Ms. Vance, you are charged with reckless driving, a misdemeanor, arising from a traffic stop on August 22, 2024.
+
+00:00:55 --> 00:01:02
+THE COURT: Mr. Brennan, has your client been advised that she has an absolute right not to testify in this trial?
+
+00:01:03 --> 00:01:10
+MR. BRENNAN: She has, Your Honor. We have discussed it more than once, and the choice belongs to her alone.
+
+00:01:10 --> 00:01:18
+THE COURT: Good. Ms. Navarro, this is a criminal matter, so the City bears the burden of proof beyond a reasonable doubt.
+
+00:01:19 --> 00:01:26
+MS. NAVARRO: Understood, Your Honor. The City accepts that burden and intends to meet it through the officer's testimony and the exhibits.
+
+00:01:27 --> 00:01:30
+THE COURT: How many witnesses does the City intend to call?
+
+00:01:31 --> 00:01:38
+MS. NAVARRO: One, Your Honor. Officer Daniel Reyes, who made the stop at the intersection of Birch Street and Nolan Avenue.
+
+00:01:39 --> 00:01:46
+MS. NAVARRO: The City will offer the citation, the radar calibration log, the officer's certification, and the body camera footage.
+
+00:01:46 --> 00:01:54
+MS. NAVARRO: We will also offer a scene photograph showing the stop sign and the position of the vehicle after the stop.
+
+00:01:55 --> 00:01:59
+THE COURT: Mr. Brennan, any preliminary motions before we swear the witness?
+
+00:01:59 --> 00:02:07
+MR. BRENNAN: Two, Your Honor. We move to exclude the radar reading for lack of foundation as to calibration and certification.
+
+00:02:07 --> 00:02:14
+MR. BRENNAN: And we object to the footage until the City establishes a chain of custody for that recording.
+
+00:02:14 --> 00:02:23
+THE COURT: I will hear both objections when the evidence is offered, not in the abstract. Ms. Navarro, a brief opening if you want one.
+
+00:02:24 --> 00:02:31
+MS. NAVARRO: Briefly. On the evening of August 22, 2024, Officer Reyes sat in a marked unit on Nolan Avenue.
+
+00:02:31 --> 00:02:39
+MS. NAVARRO: He watched a gray sedan run the stop sign at Birch Street and then accelerate away to the east.
+
+00:02:39 --> 00:02:47
+MS. NAVARRO: He clocked that vehicle on radar at 62 miles per hour in a posted 30 mile per hour zone.
+
+00:02:47 --> 00:02:54
+MS. NAVARRO: The unit had been calibrated that morning, and the calibration log is before the court as an exhibit.
+
+00:02:55 --> 00:03:02
+MS. NAVARRO: His operator certification was renewed June 30, 2024, and we will lay that foundation before the reading comes in.
+
+00:03:03 --> 00:03:10
+MR. BRENNAN: Short, Your Honor. That stop sign is partly obscured by a mature oak that nobody has trimmed in years.
+
+00:03:11 --> 00:03:18
+MR. BRENNAN: The radar was pointed down a corridor carrying other traffic, and the officer wrote his report three days later.
+
+00:03:19 --> 00:03:22
+THE COURT: Thank you both. Ms. Navarro, call your witness.
+
+00:03:22 --> 00:03:26
+MS. NAVARRO: The City calls Officer Daniel Reyes to the stand.
+
+00:03:26 --> 00:03:30
+THE CLERK: Officer, please remain standing and raise your right hand.
+
+00:03:30 --> 00:03:41
+THE CLERK: Do you solemnly swear that the testimony you are about to give in this proceeding will be the truth, the whole truth, and nothing but the truth?
+
+00:03:41 --> 00:03:43
+THE WITNESS: I do so swear.
+
+00:03:43 --> 00:03:49
+THE CLERK: Be seated, and state your full name and badge number for the record.
+
+00:03:49 --> 00:03:55
+THE WITNESS: Daniel Reyes, badge number 2318, assigned to the traffic enforcement unit of the Willowbrook Police Department.
+
+00:03:56 --> 00:03:59
+THE CLERK: And the spelling of your surname, Officer?
+
+00:03:59 --> 00:04:04
+THE WITNESS: Daniel Reyes. The clerk has my badge card with the spelling on it.
+
+00:04:05 --> 00:04:08
+THE COURT: Go ahead, Ms. Navarro. Let's keep this moving.
+
+00:04:08 --> 00:04:13
+MS. NAVARRO: What training have you had in the operation of speed measuring equipment?
+
+00:04:13 --> 00:04:21
+THE WITNESS: I completed the state basic radar operator course, which runs 40 hours, and I have taken the refresher twice since.
+
+00:04:22 --> 00:04:25
+MS. NAVARRO: Was your certification current on August 22, 2024?
+
+00:04:25 --> 00:04:32
+THE WITNESS: Yes. It was renewed June 30, 2024, so it was current that night by roughly eight weeks.
+
+00:04:32 --> 00:04:40
+MR. BRENNAN: Objection, foundation. The witness has not produced the certification, and he is testifying from recollection about its terms.
+
+00:04:40 --> 00:04:44
+THE COURT: Ms. Navarro, do you intend to offer the certificate itself?
+
+00:04:44 --> 00:04:51
+MS. NAVARRO: I do, Your Honor, as Exhibit 3, and I will take it out of order right now.
+
+00:04:52 --> 00:04:59
+THE COURT: I'll allow the answer subject to that offer. If the document does not come in, the answer goes out.
+
+00:05:00 --> 00:05:05
+MS. NAVARRO: May the clerk mark the radar operator certification as Exhibit 3 for identification?
+
+00:05:05 --> 00:05:13
+THE CLERK: Exhibit 3 is marked for identification, a one-page radar operator certification bearing a renewal date of June 30, 2024.
+
+00:05:13 --> 00:05:16
+MS. NAVARRO: Officer, whose signature appears on that certification?
+
+00:05:17 --> 00:05:23
+THE WITNESS: The name is Sergeant Dunleavy, and he signs every operator certification the traffic unit carries.
+
+00:05:23 --> 00:05:26
+MS. NAVARRO: The City moves Exhibit 3 into evidence.
+
+00:05:26 --> 00:05:33
+MR. BRENNAN: No objection to Exhibit 3 as a document, subject to my point about the underlying training records.
+
+00:05:33 --> 00:05:41
+THE COURT: Exhibit 3 is admitted. The foundation objection is overruled as moot now that the certification is in evidence.
+
+00:05:41 --> 00:05:47
+MS. NAVARRO: Officer, take us to the evening of August 22, 2024. Where were you stationed?
+
+00:05:47 --> 00:05:54
+THE WITNESS: Parked in a marked unit on the shoulder of Nolan Avenue, about 80 feet north of the intersection.
+
+00:05:55 --> 00:05:57
+MS. NAVARRO: What time did you take that position?
+
+00:05:58 --> 00:06:06
+THE WITNESS: Around 9:15 in the evening. It was a directed patrol assignment because of complaints from residents on that block.
+
+00:06:06 --> 00:06:13
+MR. BRENNAN: Objection, Your Honor. That is hearsay. Complaints from residents are out of court statements offered for their truth.
+
+00:06:14 --> 00:06:21
+MS. NAVARRO: Not for their truth, Your Honor. Only to explain why the officer was sitting where he was sitting.
+
+00:06:21 --> 00:06:27
+THE COURT: Overruled on that basis. The answer stands for the limited purpose of explaining the officer's position.
+
+00:06:28 --> 00:06:32
+MS. NAVARRO: What did you observe at about 9:40 in the evening?
+
+00:06:33 --> 00:06:41
+THE WITNESS: A gray sedan came at the intersection from the west on Birch Street and never slowed for the stop sign.
+
+00:06:41 --> 00:06:43
+MS. NAVARRO: And what did you do then?
+
+00:06:44 --> 00:06:52
+THE WITNESS: I brought the radar up, tracked the vehicle east through the crossing, and got a reading of 62 miles per hour.
+
+00:06:53 --> 00:06:55
+MS. NAVARRO: Over what distance did you track it?
+
+00:06:56 --> 00:07:03
+THE WITNESS: Roughly 400 yards, from the near side of the intersection to the crest just past the hardware store.
+
+00:07:03 --> 00:07:08
+MS. NAVARRO: What is the posted limit on that stretch of Birch Street?
+
+00:07:08 --> 00:07:15
+THE WITNESS: 30 miles per hour, posted twice in that corridor, once at each end of the block.
+
+00:07:15 --> 00:07:18
+MS. NAVARRO: How is the radar unit checked for accuracy?
+
+00:07:19 --> 00:07:26
+THE WITNESS: Two tuning forks, a low fork and a high fork, plus an internal circuit test at the start of shift.
+
+00:07:27 --> 00:07:30
+MS. NAVARRO: Did you run that check on August 22, 2024?
+
+00:07:31 --> 00:07:39
+THE WITNESS: I did, at the start of shift, and the unit had been bench calibrated that same morning by the shop.
+
+00:07:39 --> 00:07:44
+MS. NAVARRO: May the clerk mark the calibration log as Exhibit 4 for identification?
+
+00:07:44 --> 00:07:52
+THE CLERK: Exhibit 4 is marked for identification, a two-page calibration log for the K band unit, serial number 4736.
+
+00:07:52 --> 00:07:58
+MS. NAVARRO: Does Exhibit 4 fairly reflect the calibration of that unit on that date?
+
+00:07:58 --> 00:08:05
+THE WITNESS: It does. The shop entry is dated August 22, 2024, and the technician initialed both fork results.
+
+00:08:05 --> 00:08:11
+MR. BRENNAN: Objection, lack of foundation and hearsay. This witness is not the technician who made that entry.
+
+00:08:12 --> 00:08:16
+THE COURT: Counsel, approach. We will take this one at the bench.
+
+00:08:16 --> 00:08:23
+THE COURT: Ms. Navarro, I am not going to admit a calibration log through a witness who never handled it.
+
+00:08:24 --> 00:08:31
+MS. NAVARRO: He relied on it operationally, Your Honor. He read the entry before he deployed the unit that evening.
+
+00:08:31 --> 00:08:38
+MR. BRENNAN: Reliance is not authentication. The entry is the technician's statement, offered to prove the unit was accurate.
+
+00:08:39 --> 00:08:46
+THE COURT: I agree with Mr. Brennan in part. Exhibit 4 comes in only to show the officer's state of mind.
+
+00:08:47 --> 00:08:53
+THE COURT: It is not admitted for the truth of the technician's entry. Proceed on that basis, Ms. Navarro.
+
+00:08:54 --> 00:09:00
+MS. NAVARRO: Thank you, Your Honor. Officer, what did you do after you obtained the radar reading?
+
+00:09:00 --> 00:09:08
+THE WITNESS: I pulled out, closed the distance, and turned on my overhead lights about two blocks east of the intersection.
+
+00:09:08 --> 00:09:15
+MS. NAVARRO: Officer, your body camera was running. What happens to that footage at the end of a shift?
+
+00:09:15 --> 00:09:25
+THE WITNESS: It uploads from the dock in the sally port to the evidence server, which assigns the file a hash value and write protects it.
+
+00:09:25 --> 00:09:30
+MS. NAVARRO: May the clerk mark the body camera recording as Exhibit 5 for identification?
+
+00:09:31 --> 00:09:37
+THE CLERK: Exhibit 5 is marked for identification, a body camera recording running 14 minutes and 22 seconds.
+
+00:09:37 --> 00:09:41
+MS. NAVARRO: And the dash camera recording as Exhibit 6 for identification?
+
+00:09:42 --> 00:09:49
+THE CLERK: Exhibit 6 is marked for identification, a dash camera recording from the same marked unit that evening.
+
+00:09:49 --> 00:09:51
+MS. NAVARRO: Officer, have you reviewed both recordings?
+
+00:09:52 --> 00:09:59
+THE WITNESS: I have, twice before today, and they fairly and accurately show the stop as I remember it.
+
+00:09:59 --> 00:10:03
+MS. NAVARRO: The City moves Exhibit 5 and Exhibit 6 into evidence.
+
+00:10:03 --> 00:10:09
+MR. BRENNAN: Objection, chain of custody. Nobody has testified about who handled these files after the upload.
+
+00:10:10 --> 00:10:16
+THE COURT: Officer, did the recordings you watched differ in any way from what you saw that night?
+
+00:10:17 --> 00:10:23
+THE WITNESS: No, Your Honor. Same footage, same time stamps, same audio from the moment I opened my door.
+
+00:10:24 --> 00:10:31
+THE COURT: The objection is overruled. The witness has personal knowledge of the scene depicted. Exhibits 5 and 6 are admitted.
+
+00:10:32 --> 00:10:35
+MS. NAVARRO: Officer, did you issue a citation at the scene?
+
+00:10:36 --> 00:10:42
+THE WITNESS: I did. A citation for reckless driving, and a separate notice for the stop sign violation.
+
+00:10:42 --> 00:10:46
+MS. NAVARRO: May the citation be marked as Exhibit 7 for identification?
+
+00:10:47 --> 00:10:52
+THE CLERK: Exhibit 7 is marked for identification, a carbon copy citation bearing case 4471.
+
+00:10:52 --> 00:10:57
+MS. NAVARRO: Is Exhibit 7 the citation you handed to Ms. Vance that evening?
+
+00:10:58 --> 00:11:04
+THE WITNESS: It is. My handwriting, my badge number, and the address from her license, 1427 Kensington Avenue.
+
+00:11:04 --> 00:11:09
+MS. NAVARRO: The City moves Exhibit 7, and offers Exhibit 2, the scene photograph.
+
+00:11:10 --> 00:11:17
+MR. BRENNAN: No objection to the citation. I do object to the photograph, which was taken weeks after the stop.
+
+00:11:17 --> 00:11:20
+THE COURT: When was that photograph taken, Ms. Navarro?
+
+00:11:20 --> 00:11:27
+MS. NAVARRO: September 12, 2024, Your Honor. Three weeks later, and the officer will say the scene was unchanged.
+
+00:11:27 --> 00:11:34
+MR. BRENNAN: Objection, assumes facts not in evidence. Nobody has established the tree was unchanged during that period.
+
+00:11:34 --> 00:11:40
+THE COURT: Sustained as to the photograph. Exhibit 2 is refused for now. Exhibit 7 is admitted.
+
+00:11:41 --> 00:11:45
+MS. NAVARRO: Officer, what did the driver say when you approached the vehicle?
+
+00:11:45 --> 00:11:52
+THE WITNESS: She said, "I honestly did not see a sign back there." That is close to her exact wording.
+
+00:11:53 --> 00:12:01
+MR. BRENNAN: Objection, Your Honor. That is hearsay and the officer is quoting a report he wrote three days after the fact.
+
+00:12:01 --> 00:12:07
+MS. NAVARRO: Statement of a party opponent, Your Honor. By rule it is not hearsay at all.
+
+00:12:08 --> 00:12:16
+THE COURT: The objection is overruled. It comes in as an admission. The timing of the report goes to weight, Mr. Brennan.
+
+00:12:16 --> 00:12:20
+MS. NAVARRO: Nothing further on direct, Your Honor. I pass the witness.
+
+00:12:20 --> 00:12:24
+THE COURT: Cross-examination, Mr. Brennan. Let's keep it tight.
+
+00:12:24 --> 00:12:30
+MR. BRENNAN: Officer, you did not write your narrative report on August 22, 2024, did you?
+
+00:12:30 --> 00:12:35
+THE WITNESS: I completed the citation that night. The narrative was completed later that week.
+
+00:12:36 --> 00:12:41
+MR. BRENNAN: The report is in front of you. Read me the date on the header.
+
+00:12:42 --> 00:12:44
+THE WITNESS: The report is dated August 25, 2024.
+
+00:12:45 --> 00:12:50
+MR. BRENNAN: Did you take any field notes on the evening of August 22, 2024?
+
+00:12:50 --> 00:12:56
+THE WITNESS: Not written notes, no. I had the citation copy and I had the recordings.
+
+00:12:56 --> 00:13:02
+MR. BRENNAN: So nothing in this case was written down at that intersection except the citation.
+
+00:13:02 --> 00:13:03
+MS. NAVARRO: Objection, argumentative.
+
+00:13:04 --> 00:13:07
+THE COURT: The objection is overruled. He may answer that one.
+
+00:13:08 --> 00:13:13
+THE WITNESS: The citation is the only thing I wrote at the scene, that is correct.
+
+00:13:14 --> 00:13:19
+MR. BRENNAN: Officer, would you read the second paragraph of your report into the record?
+
+00:13:19 --> 00:13:25
+MS. NAVARRO: Objection. The report is not in evidence, and this is an improper use of a document.
+
+00:13:26 --> 00:13:30
+MR. BRENNAN: I am impeaching the witness with his own writing, Your Honor.
+
+00:13:31 --> 00:13:36
+THE COURT: I'll allow it for impeachment only. Officer, read it as written, punctuation and all.
+
+00:13:37 --> 00:13:53
+THE WITNESS: "I observed a gray sedan travelling eastbound on Birch Street comma approaching the posted stop sign period The vehicle did not decelerate comma and no brake lights were observed period I acquired the target on radar at 62 miles per hour period"
+
+00:13:54 --> 00:14:01
+MR. BRENNAN: You observed all of that at 9:40 in the evening, in the dark, from 80 feet away.
+
+00:14:01 --> 00:14:06
+THE WITNESS: From 80 feet, yes, with a clear line of sight to the intersection.
+
+00:14:07 --> 00:14:13
+MR. BRENNAN: And the stop sign stands on the northwest corner, under a mature oak, does it not?
+
+00:14:14 --> 00:14:16
+THE WITNESS: The sign is near that corner, yes.
+
+00:14:17 --> 00:14:19
+MR. BRENNAN: Near it, or on it?
+
+00:14:19 --> 00:14:24
+THE WITNESS: Well -- on that corner. I would have to look at the diagram again.
+
+00:14:25 --> 00:14:31
+MR. BRENNAN: On August 22, 2024, did any branch hang over the face of that stop sign?
+
+00:14:31 --> 00:14:37
+THE WITNESS: I could not tell you branch by branch. The sign was visible from where I sat.
+
+00:14:38 --> 00:14:43
+MR. BRENNAN: Visible to you. Was it visible to a driver eastbound on Birch Street?
+
+00:14:43 --> 00:14:44
+MS. NAVARRO: Objection, speculation.
+
+00:14:45 --> 00:14:49
+THE COURT: Sustained. He cannot testify to another driver's line of sight.
+
+00:14:49 --> 00:14:54
+MR. BRENNAN: Who trims that oak, Officer, and how often does it get cut back?
+
+00:14:55 --> 00:15:07
+THE WITNESS: Public works trims that corridor on some rotation. The tree had been cut back, I think, in the spring, or maybe it was the year before that, I am not --
+
+00:15:07 --> 00:15:09
+MR. BRENNAN: You are not sure.
+
+00:15:09 --> 00:15:14
+MR. BRENNAN: Let's talk about the radar. How many vehicles were in that corridor?
+
+00:15:14 --> 00:15:20
+THE WITNESS: I recall one other set of headlights well behind the sedan, several hundred feet back.
+
+00:15:21 --> 00:15:27
+MR. BRENNAN: Is the beam a narrow pencil, Officer, or does it open out down the roadway?
+
+00:15:27 --> 00:15:57
+THE WITNESS: It opens out, the beam widens with distance, that is the nature of the equipment, and the operator has to know which vehicle he is tracking, which is exactly why we are taught to confirm every reading against our own visual estimate of speed before we ever write a citation, and I did that here, because the sedan was the only vehicle anywhere near that intersection when the tone came up and the number locked.
+
+00:15:57 --> 00:16:03
+MR. BRENNAN: Objection, non-responsive, and I move to strike everything after "the beam widens with distance."
+
+00:16:03 --> 00:16:09
+THE COURT: I'll allow the answer. You asked him about the beam and he explained the beam.
+
+00:16:10 --> 00:16:16
+MR. BRENNAN: Your Honor, may we approach? This goes to the training records I raised at the outset.
+
+00:16:17 --> 00:16:21
+THE COURT: Come up. Briefly, counsel. I have a calendar behind this one.
+
+00:16:21 --> 00:16:28
+MR. BRENNAN: The City produced a certification, not a training file. I cannot test the visual estimate claim without it.
+
+00:16:29 --> 00:16:36
+MS. NAVARRO: The training file was never requested in writing. Counsel had a 30-day period to serve that demand.
+
+00:16:36 --> 00:16:44
+THE COURT: A 30-day period he apparently let run out. I am not continuing this trial over it, Mr. Brennan.
+
+00:16:44 --> 00:16:51
+MR. BRENNAN: Then I will take it up in front of the court, and the weight is yours to assign.
+
+00:16:52 --> 00:16:56
+THE COURT: That is exactly right. Step back and ask your questions, counsel.
+
+00:16:57 --> 00:17:03
+MR. BRENNAN: Officer, when you took the radar course, were you still on probation with the department?
+
+00:17:03 --> 00:17:09
+THE WITNESS: I was hired in March of 2022, and the probationary period runs 18 months.
+
+00:17:09 --> 00:17:14
+MR. BRENNAN: So the probationary period was still running when you were first certified.
+
+00:17:14 --> 00:17:20
+THE WITNESS: It was, yes. That is ordinary for a new traffic assignment in our department.
+
+00:17:20 --> 00:17:26
+MR. BRENNAN: How many hours of that 40-hour course were spent on visual speed estimation?
+
+00:17:26 --> 00:17:33
+THE WITNESS: Um, I would say six or eight hours, including the practical portion out in the lot.
+
+00:17:33 --> 00:17:36
+MR. BRENNAN: Six or eight. Which is it, Officer?
+
+00:17:36 --> 00:17:38
+MS. NAVARRO: Objection, asked and answered.
+
+00:17:38 --> 00:17:44
+THE COURT: The objection is overruled. He gave a range and counsel may pin it down.
+
+00:17:44 --> 00:17:51
+THE WITNESS: I mean, I cannot give you a precise figure two years later. It was most of one day.
+
+00:17:52 --> 00:17:57
+MR. BRENNAN: Your certification was renewed June 30, 2024. What did that renewal require of you?
+
+00:17:58 --> 00:18:05
+THE WITNESS: A written examination and a practical check with the forks. Strike that, the forks are the daily operator check.
+
+00:18:06 --> 00:18:13
+THE WITNESS: Let me start again. The renewal required a written examination and a supervised practical with a live unit.
+
+00:18:13 --> 00:18:19
+MR. BRENNAN: And a shop calibration certificate is good for a 30-day period, is it not?
+
+00:18:20 --> 00:18:23
+THE WITNESS: That is my understanding of the shop policy, yes.
+
+00:18:24 --> 00:18:30
+MR. BRENNAN: Your Honor, I would ask for a read back of the last question and answer.
+
+00:18:30 --> 00:18:34
+THE COURT: Read it back, please, and then let's move along.
+
+00:18:34 --> 00:18:44
+THE CLERK: Question: "And a shop calibration certificate is good for a 30-day period, is it not?" Answer: "That is my understanding of the shop policy, yes."
+
+00:18:45 --> 00:18:51
+MR. BRENNAN: One last matter. You took that radar number after the vehicle had already cleared the intersection.
+
+00:18:51 --> 00:18:57
+THE WITNESS: After it cleared, yes. That is where the tracking distance was available to me.
+
+00:18:57 --> 00:18:59
+MR. BRENNAN: Nothing further, Your Honor.
+
+00:18:59 --> 00:19:01
+THE COURT: Ms. Navarro, any redirect?
+
+00:19:01 --> 00:19:07
+MS. NAVARRO: Did anything in the footage differ from what you remembered about the stop?
+
+00:19:07 --> 00:19:14
+THE WITNESS: No. The sedan is in frame, the sign is in frame, and the timing matched my recollection.
+
+00:19:14 --> 00:19:20
+MS. NAVARRO: You were asked about beam width. Could that reading have come from the trailing headlights?
+
+00:19:21 --> 00:19:26
+MR. BRENNAN: Objection, leading, and it calls for speculation about a vehicle he never identified.
+
+00:19:26 --> 00:19:31
+THE COURT: Overruled as to leading on redirect. He may answer within his own observation.
+
+00:19:32 --> 00:19:37
+THE WITNESS: No. Those headlights were several hundred feet back and well outside the tracking window.
+
+00:19:38 --> 00:19:44
+MS. NAVARRO: Officer, read the first line of the citation into the record, as you wrote it.
+
+00:19:44 --> 00:19:52
+THE WITNESS: "Reckless driving comma 62 miles per hour in a posted 30 zone comma Birch Street at Nolan Avenue period"
+
+00:19:52 --> 00:19:54
+MS. NAVARRO: Nothing further, Your Honor.
+
+00:19:54 --> 00:19:57
+THE COURT: Recross, Mr. Brennan, on those points only.
+
+00:19:57 --> 00:20:01
+MR. BRENNAN: Officer, the timing you say matched. Matched against which clock?
+
+00:20:02 --> 00:20:07
+THE WITNESS: The time stamp on the recording and the time I wrote on the citation.
+
+00:20:08 --> 00:20:12
+MR. BRENNAN: And you cannot say the camera clock was synchronized that night.
+
+00:20:12 --> 00:20:15
+THE WITNESS: Not of my own knowledge, no.
+
+00:20:15 --> 00:20:17
+MR. BRENNAN: Nothing further for this witness.
+
+00:20:18 --> 00:20:22
+THE COURT: Officer Reyes, you are excused. Ms. Navarro, does the City rest?
+
+00:20:23 --> 00:20:24
+MS. NAVARRO: The City rests, Your Honor.
+
+00:20:25 --> 00:20:31
+MR. BRENNAN: At the close of the City's case, the defense moves for a judgment of acquittal.
+
+00:20:31 --> 00:20:35
+THE COURT: State your grounds, Mr. Brennan, and be specific about them.
+
+00:20:36 --> 00:20:43
+MR. BRENNAN: Reckless driving requires a willful disregard for the safety of persons or property, not merely a speed number.
+
+00:20:43 --> 00:20:50
+MR. BRENNAN: The radar reading rests on a calibration log this court admitted only for the officer's state of mind.
+
+00:20:51 --> 00:20:58
+MR. BRENNAN: Strip that out and the City has a visual estimate, written three days later, with no field notes.
+
+00:20:58 --> 00:21:00
+THE COURT: Ms. Navarro, your response.
+
+00:21:00 --> 00:21:07
+MS. NAVARRO: On this motion the evidence goes in the light most favorable to the City, Your Honor.
+
+00:21:07 --> 00:21:14
+MS. NAVARRO: The court has the citation, the footage, the certification, and the officer's own observation at that intersection.
+
+00:21:14 --> 00:21:22
+MS. NAVARRO: 62 miles per hour is more than double the posted limit, through a controlled intersection, after ignoring a stop sign.
+
+00:21:23 --> 00:21:29
+THE COURT: The motion for judgment of acquittal is denied. There is enough here to require a verdict.
+
+00:21:29 --> 00:21:34
+THE COURT: Mr. Brennan, does the defense intend to put on a case?
+
+00:21:34 --> 00:21:41
+MR. BRENNAN: The defense rests. Ms. Vance will not testify, and no inference may be drawn from her silence.
+
+00:21:41 --> 00:21:47
+THE COURT: None will be drawn. The burden never shifted and it stays with the City throughout.
+
+00:21:48 --> 00:21:52
+THE COURT: Brief closings, counsel. Five minutes each, and I do mean five.
+
+00:21:53 --> 00:22:00
+MS. NAVARRO: Officer Reyes watched a gray sedan run the stop sign at that intersection at 9:40 in the evening.
+
+00:22:00 --> 00:22:08
+MS. NAVARRO: He tracked the vehicle on radar across 400 yards and read 62 miles per hour on a calibrated unit.
+
+00:22:08 --> 00:22:16
+MS. NAVARRO: His certification was current, the calibration was done that morning, and the footage shows the stop as he described it.
+
+00:22:17 --> 00:22:24
+MS. NAVARRO: The citation, Exhibit 7, was written at the scene. The City asks the court to find the defendant guilty.
+
+00:22:25 --> 00:22:32
+MR. BRENNAN: The sign sits behind an oak, the radar beam opens out, and the report came three days late.
+
+00:22:32 --> 00:22:39
+MR. BRENNAN: Officer Reyes is not dishonest. He is reconstructing an ordinary stop from memory, and memory is not proof.
+
+00:22:40 --> 00:22:47
+MR. BRENNAN: The City must prove willful disregard, not a number on a display. Ms. Vance is entitled to an acquittal.
+
+00:22:48 --> 00:22:55
+THE COURT: Thank you both. I am prepared to rule from the bench, and I will state my reasons.
+
+00:22:55 --> 00:23:02
+THE COURT: The court finds Officer Reyes credible. Nothing in his manner suggested invention about what he saw at that intersection.
+
+00:23:03 --> 00:23:10
+THE COURT: The radar reading, however, rests on a calibration log admitted for a limited purpose and never authenticated.
+
+00:23:10 --> 00:23:18
+THE COURT: The certification, Exhibit 3, establishes that the officer was qualified. It does not establish that the unit was accurate.
+
+00:23:18 --> 00:23:26
+THE COURT: Without the calibration entry for its truth, this court will not rest a criminal finding on the figure 62.
+
+00:23:26 --> 00:23:33
+THE COURT: The citation, the footage, and the officer's testimony do establish that the vehicle failed to stop at the sign.
+
+00:23:34 --> 00:23:42
+THE COURT: That failure is proved. Willful disregard for the safety of persons or property is not proved beyond a reasonable doubt.
+
+00:23:42 --> 00:23:48
+THE COURT: On the charge of reckless driving, the court finds the defendant, Petra Vance, not guilty.
+
+00:23:49 --> 00:23:56
+THE COURT: On the stop sign violation noticed with the citation, the court finds the infraction established by the officer's testimony.
+
+00:23:57 --> 00:24:04
+THE COURT: The court imposes a fine of $185 and court costs of $85.50, payable to the clerk of this court.
+
+00:24:05 --> 00:24:20
+THE COURT: Let the minute order read as follows. Motion for judgment of acquittal denied comma verdict of not guilty entered on the reckless driving count comma infraction found on the stop sign notice comma fine and costs imposed period
+
+00:24:20 --> 00:24:28
+THE COURT: Ms. Vance, you have a 30-day period in which to pay that fine or to request a payment plan.
+
+00:24:29 --> 00:24:35
+MR. BRENNAN: Thank you, Your Honor. We will take a certified copy of the citation and the minute order.
+
+00:24:36 --> 00:24:44
+THE CLERK: Exhibits 3, 4, 5, 6, and 7 are retained by the clerk. Exhibit 2 is refused and returned to the City.
+
+00:24:45 --> 00:24:50
+THE COURT: We are adjourned on case 4471. Call the next matter after the recess.
+
+00:24:50 --> 00:24:55
+THE CLERK: All rise. This court stands in recess until half past three this afternoon.
