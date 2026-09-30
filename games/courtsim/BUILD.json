@@ -1,53 +1,53 @@
 {
   "job": "COURTSIM-SHIP-059",
-  "built_utc": "2026-09-30T04:25:10.323Z",
-  "build_id": "897fd2b8e4b7",
-  "module_dir": "js-897fd2b8e4b7",
+  "built_utc": "2026-09-30T04:40:28.594Z",
+  "build_id": "e9a7892629bf",
+  "module_dir": "js-e9a7892629bf",
   "entry": "courtroom.html",
   "source_commit": "f9b600724af0d06e3de983d24b79ed4dfe2109ee",
   "files": [
     {
       "path": "/courtroom.html",
-      "bytes": 11732,
-      "sha256": "22c7290b39921019"
+      "bytes": 15647,
+      "sha256": "f4a10a412be408ac"
     },
     {
-      "path": "/js-897fd2b8e4b7/camera_controller.js",
+      "path": "/js-e9a7892629bf/camera_controller.js",
       "bytes": 35353,
       "sha256": "15d4667343775494"
     },
     {
-      "path": "/js-897fd2b8e4b7/camera_input.js",
+      "path": "/js-e9a7892629bf/camera_input.js",
       "bytes": 29580,
       "sha256": "ae8f53c3cbd6f44f"
     },
     {
-      "path": "/js-897fd2b8e4b7/contain.js",
+      "path": "/js-e9a7892629bf/contain.js",
       "bytes": 151,
       "sha256": "38a7a22e5585c5dd"
     },
     {
-      "path": "/js-897fd2b8e4b7/licenses_ui.js",
+      "path": "/js-e9a7892629bf/licenses_ui.js",
       "bytes": 12776,
       "sha256": "910b20abac85cc96"
     },
     {
-      "path": "/js-897fd2b8e4b7/proceedings.js",
+      "path": "/js-e9a7892629bf/proceedings.js",
       "bytes": 18521,
       "sha256": "f4cad423bd39937e"
     },
     {
-      "path": "/js-897fd2b8e4b7/scene.js",
+      "path": "/js-e9a7892629bf/scene.js",
       "bytes": 393716,
       "sha256": "16fc1496b94278f4"
     },
     {
-      "path": "/js-897fd2b8e4b7/tts.js",
+      "path": "/js-e9a7892629bf/tts.js",
       "bytes": 11054,
       "sha256": "b6693511687424c9"
     },
     {
-      "path": "/js-897fd2b8e4b7/voice_cast.js",
+      "path": "/js-e9a7892629bf/voice_cast.js",
       "bytes": 13974,
       "sha256": "9d1d258fde38a49f"
     },

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="897fd2b8e4b7"><head><meta charset="utf-8">
+<html lang="en" data-build="e9a7892629bf"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CourtSim — courtroom + head tracking</title>
 <!--
@@ -164,11 +164,11 @@
 <script type="module">
 // The eight-file closure. Every specifier below and inside these modules is
 // relative, which is what makes this correct at /liza-study-room/games/courtsim/.
-import { CourtroomScene, castFromLabels, setCounselCast } from './js-897fd2b8e4b7/scene.js';
-import { CameraController } from './js-897fd2b8e4b7/camera_controller.js';
+import { CourtroomScene, castFromLabels, setCounselCast } from './js-e9a7892629bf/scene.js';
+import { CameraController } from './js-e9a7892629bf/camera_controller.js';
 // Side-effect import: mounts itself and binds K. Imported rather than added as
 // a second <script> so the build's module-graph walk reaches and copies it.
-import './js-897fd2b8e4b7/licenses_ui.js';
+import './js-e9a7892629bf/licenses_ui.js';
 
 const $ = (id) => document.getElementById(id);
 const PARTS = ['MS. OKONKWO', 'MR. DELACROIX', 'THE CLERK', 'THE COURT', 'THE WITNESS'];
@@ -196,6 +196,38 @@ async function boot() {
     try { setCounselCast(castFromLabels(PARTS)); } catch (e) { /* cast is cosmetic */ }
     window.__courtsimScene = scene;
     window.__courtsimCamera = camera;
+
+    // =====================================================================
+    // TWO THINGS THAT ONLY SHOWED UP WHEN THIS WAS OPENED FROM OUTSIDE, ON
+    // THE PUBLISHED URL, IN A REAL BROWSER. Both would have read as "it is
+    // broken" on the ThinkPad, and neither raised an error anywhere.
+    //
+    // 1. THE OPENING VIEW WAS THE FLOOR. The default camera pose is the
+    //    reporter's seat, which on a cold load sits looking down at the
+    //    carpet: a full courtroom was rendering perfectly and the screen was
+    //    a brown rectangle with one floating name label on it. Pressing Wide
+    //    showed the judge, the witness, both counsel tables, the flags and
+    //    the seal -- all of it had been there the whole time. So the page
+    //    opens on Wide, which is the shot that shows him the room is real.
+    //
+    // 2. A RESIZE NUDGE, AND IT IS BELT-AND-BRACES RATHER THAN A FIX.
+    //    The black margins first seen around the published render looked
+    //    like an under-sized canvas; measured, they were not -- the canvas
+    //    was exactly the viewport (960x1501 CSS, 1080x1688 backing at dpr
+    //    1.125) and the black was outside the browser viewport in the
+    //    screenshot frame. So this is NOT correcting a bug that was
+    //    confirmed, and it is not claimed as one. It is two idempotent
+    //    resize events that cost nothing and cover the ordinary case of a
+    //    canvas laid out before its container settles.
+    // =====================================================================
+    try {
+      camera.setPreset('wide');
+      const wideBtn = document.querySelector('#camrow button[data-p="wide"]');
+      if (wideBtn) wideBtn.classList.add('on');
+    } catch (e) { /* the room is still usable without it */ }
+    const nudge = () => window.dispatchEvent(new Event('resize'));
+    requestAnimationFrame(nudge);
+    setTimeout(nudge, 1200);
   } catch (err) {
     $('bootmsg').textContent = 'The courtroom could not start: ' + (err && err.message);
     return;
@@ -204,26 +236,65 @@ async function boot() {
   const note = secureContextNote();
   if (note) $('look-webcam-note').textContent = note;
 
-  // HIDE THE BOOT CARD ONLY WHEN THERE IS SOMETHING BEHIND IT, and then say
-  // out loud if anybody is missing. An empty courtroom that reports success is
-  // the single failure this job was told to make impossible, so the count is
-  // read from the scene's own instrument rather than inferred from "no error".
+  // =======================================================================
+  // THE EMPTY-COURTROOM INSTRUMENT.
+  //
+  // The first version of this counted only FAILURES and gave up after four
+  // seconds. On localhost that was fine. On the published site the cast is
+  // 159 MB and takes minutes, so for the whole of that time the counter read
+  // zero failures -- because nothing had failed, nothing had finished either
+  // -- and the page would have cheerfully declared itself complete over an
+  // empty room. A check that reports success while the thing it checks has
+  // not happened yet is the exact failure this project keeps paying for.
+  //
+  // So it counts what has actually ARRIVED, off the browser's own resource
+  // timings, and it keeps counting for four minutes. The boot card stays up
+  // with a live figure until the first characters are in, which is also the
+  // honest thing to show someone on a slow connection.
+  // =======================================================================
+  // 12, NOT 21, AND THE DIFFERENCE WAS MEASURED RATHER THAN ASSUMED.
+  // The tier ships 21 characters and the running app requests SIXTEEN of
+  // them: the twelve-strong core cast plus four of the nine spectators
+  // (1, 3, 7 and 8 — scene.js picks a subset for the gallery). Set against
+  // 21 this check fires "the room is NOT complete" on every single load of a
+  // perfectly good build. That false alarm was caught by counting the
+  // requests in a real browser instead of trusting the file count, and it is
+  // written down here because a warning that cries wolf is worse than no
+  // warning: he stops reading it, and then it is useless on the day it is
+  // right. The floor is the core cast — if those twelve are in, the room has
+  // its people.
+  const EXPECTED = 12;
   const t0 = Date.now();
   const tick = setInterval(() => {
-    let fails = null;
-    try { fails = scene.getAvatarLoadFailures(); } catch (e) { fails = null; }
-    const n = (fails && (fails.length != null ? fails.length : fails.count)) || 0;
-    if (Date.now() - t0 > 4000) {
-      $('boot').style.display = 'none';
-      if (n > 0) {
-        $('room-warning').style.display = 'block';
-        $('room-warning-detail').textContent =
-          n + ' character file(s) failed to load. The room is not complete. '
-          + 'This is what an empty courtroom looks like from the inside, and it '
-          + 'is being said out loud rather than left for you to count heads.';
-      }
+    let arrived = 0;
+    try {
+      arrived = performance.getEntriesByType('resource')
+        .filter((r) => r.name.indexOf('.glb') >= 0 && r.responseEnd > 0).length;
+    } catch (e) { arrived = 0; }
+    let fails = 0;
+    try {
+      const f = scene.getAvatarLoadFailures();
+      fails = (f && (f.length != null ? f.length : f.count)) || 0;
+    } catch (e) { fails = 0; }
+    const waited = Date.now() - t0;
+
+    if (arrived < 1) {
+      $('bootmsg').textContent = 'Downloading the cast — 159 MB the first time, '
+        + 'then it is cached. ' + Math.round(waited / 1000) + 's so far.';
+      return;
     }
-    if (Date.now() - t0 > 40000) clearInterval(tick);
+    $('boot').style.display = 'none';
+
+    if (fails > 0 || (waited > 240000 && arrived < EXPECTED)) {
+      $('room-warning').style.display = 'block';
+      $('room-warning-detail').textContent =
+        arrived + ' of ' + EXPECTED + ' characters arrived'
+        + (fails ? ', ' + fails + ' failed outright' : '')
+        + '. The room is NOT complete. This is what an empty courtroom looks '
+        + 'like from the inside, and it is being said out loud rather than '
+        + 'left for you to count heads.';
+    }
+    if (waited > 300000) clearInterval(tick);
   }, 1000);
 }
 
