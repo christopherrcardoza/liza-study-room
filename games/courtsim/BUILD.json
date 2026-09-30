@@ -1,55 +1,55 @@
 {
   "job": "COURTSIM-SHIP-059",
-  "built_utc": "2026-09-30T04:20:30.117Z",
-  "build_id": "421f9da0c6b7",
-  "module_dir": "js-421f9da0c6b7",
+  "built_utc": "2026-09-30T04:25:10.323Z",
+  "build_id": "897fd2b8e4b7",
+  "module_dir": "js-897fd2b8e4b7",
   "entry": "courtroom.html",
   "source_commit": "f9b600724af0d06e3de983d24b79ed4dfe2109ee",
   "files": [
     {
       "path": "/courtroom.html",
       "bytes": 11732,
-      "sha256": "13857b4f26786cab"
+      "sha256": "22c7290b39921019"
     },
     {
-      "path": "/js-421f9da0c6b7/camera_controller.js",
-      "bytes": 139583,
-      "sha256": "6721aa5c34d6dcd2"
+      "path": "/js-897fd2b8e4b7/camera_controller.js",
+      "bytes": 35353,
+      "sha256": "15d4667343775494"
     },
     {
-      "path": "/js-421f9da0c6b7/camera_input.js",
-      "bytes": 84750,
-      "sha256": "46338d80ba66d664"
+      "path": "/js-897fd2b8e4b7/camera_input.js",
+      "bytes": 29580,
+      "sha256": "ae8f53c3cbd6f44f"
     },
     {
-      "path": "/js-421f9da0c6b7/contain.js",
-      "bytes": 1620,
-      "sha256": "14040faf93026cbf"
+      "path": "/js-897fd2b8e4b7/contain.js",
+      "bytes": 151,
+      "sha256": "38a7a22e5585c5dd"
     },
     {
-      "path": "/js-421f9da0c6b7/licenses_ui.js",
-      "bytes": 19115,
-      "sha256": "c3c189ab21a13370"
+      "path": "/js-897fd2b8e4b7/licenses_ui.js",
+      "bytes": 12776,
+      "sha256": "910b20abac85cc96"
     },
     {
-      "path": "/js-421f9da0c6b7/proceedings.js",
-      "bytes": 43620,
-      "sha256": "ff3fabbc1b286588"
+      "path": "/js-897fd2b8e4b7/proceedings.js",
+      "bytes": 18521,
+      "sha256": "f4cad423bd39937e"
     },
     {
-      "path": "/js-421f9da0c6b7/scene.js",
-      "bytes": 1214311,
-      "sha256": "cd247f19a63cbcf2"
+      "path": "/js-897fd2b8e4b7/scene.js",
+      "bytes": 393716,
+      "sha256": "16fc1496b94278f4"
     },
     {
-      "path": "/js-421f9da0c6b7/tts.js",
-      "bytes": 50544,
-      "sha256": "b3e966a41a936c4c"
+      "path": "/js-897fd2b8e4b7/tts.js",
+      "bytes": 11054,
+      "sha256": "b6693511687424c9"
     },
     {
-      "path": "/js-421f9da0c6b7/voice_cast.js",
-      "bytes": 58585,
-      "sha256": "64bb6a0641cae630"
+      "path": "/js-897fd2b8e4b7/voice_cast.js",
+      "bytes": 13974,
+      "sha256": "9d1d258fde38a49f"
     },
     {
       "path": "/licenses/index.html",

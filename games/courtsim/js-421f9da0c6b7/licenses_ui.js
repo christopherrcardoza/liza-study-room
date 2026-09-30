@@ -1,60 +1,6 @@
-// =========================================================================
-// COURTSIM-NOTICE-052 -- CREDITS & LICENCES, REACHABLE IN EVERY VIEW MODE.
-//
-// WHY THIS FILE EXISTS.
-//
-// This build ships twenty-one Microsoft Rocketbox avatars and a 75.7 MB
-// NVIDIA Audio2Face model. Rocketbox is MIT. MIT has no credit clause: it
-// requires the copyright notice AND the full permission notice to be
-// included in all copies or substantial portions of the software. The NVIDIA
-// Open Model License section 3.1 requires a copy of the agreement AND a file
-// named `Notice` carrying one exact sentence.
-//
-// The published site does both. THIS build -- the one that goes to a
-// classroom -- carried no notice of any kind until this job.
-// COURTSIM-LEGAL-051 measured that and handed it over; see
-// reports/HANDOFF_TO_LEGAL_LANE_UPDATE_20260918.md sections 5.3 and 6.3.
-//
-// WHY IT IS A KEY AND NOT JUST A BUTTON.
-//
-// ROOM ONLY sets #courtroom-toolbar to display:none, and ROOM ONLY is the
-// mode the founder calls the real one -- it is also what STUDENT VIEW is. A
-// toolbar button alone would make the notice unreachable in exactly the mode
-// most likely to be in front of a class. So this follows the route N
-// (speaker names), D (dictation) and L (lightboard) already take: a key,
-// registered on the window, that survives Room Only, Desk, All Controls,
-// fullscreen and cinema. K, because A C D F H L N P V are taken.
-//
-// WHY IT BUILDS ITS OWN DOM AND ITS OWN STYLE.
-//
-// Same pattern import_ui.js documents: one script tag is the only change any
-// other file needs. It also means this module has ZERO imports -- it cannot
-// be broken by another lane's refactor, it needs nothing from css/style.css
-// (which is a shared file), and the live-session build's module-graph walk
-// copies exactly one extra file to carry it. A notice that only renders when
-// everything else loaded correctly is a notice that disappears exactly when
-// something is wrong.
-//
-// THE STATIC PAGE IS THE ONE THAT SURVIVES EVERYTHING. licenses/index.html
-// has no script and no stylesheet link: it opens from the dev server, from
-// the published site, from file:// on a USB stick, and with JavaScript off.
-// This panel is the convenience; that page is the guarantee.
-// =========================================================================
 
-// licenses/ sits beside js/ in every tree this ships in -- the dev tree, the
-// live-session dist (build_live.mjs copies modules to js/ and the notices to
-// licenses/), and the published site. Resolved from this module's own URL
-// rather than from document.baseURI so it is correct whatever page mounts it.
-// The import map's ?v= cache-buster is dropped by the URL parse, which is
-// what we want: these are static texts, not modules.
 const LIC_DIR = new URL('../licenses/', import.meta.url).href;
 
-// The two notices that this build is actually obliged to deliver, embedded
-// verbatim. They are embedded, not only fetched, for one reason: if the
-// fetch fails -- file://, an offline copy, a server that does not serve
-// .txt, a path that moved -- the requirement must still be met by the bytes
-// already on screen. A notice behind a network request is a notice that can
-// be absent.
 const ROCKETBOX_MIT = `MIT License
 
 Copyright (c) 2020 Microsoft
@@ -79,8 +25,6 @@ SOFTWARE.`;
 
 const NVIDIA_NOTICE = 'Licensed by NVIDIA Corporation under the NVIDIA Open Model License';
 
-// Every component, in the order a reader should meet them: the two that ship
-// as bytes first, then the one vendored in the tree, then the CDN runtime.
 const COMPONENTS = [
   {
     name: 'Microsoft Rocketbox avatars',
@@ -305,31 +249,16 @@ function buildPanel() {
       window.open(LIC_DIR + 'index.html', '_blank', 'noopener');
     });
   }
-  // A dialog that swallows the app's shortcuts while it is open would be a
-  // trap; a dialog that leaks its own typing into them is worse. Only Esc is
-  // taken here, and only while the panel is open.
   panel.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { close(); e.stopPropagation(); }
   });
 
-  // THE LICENCE TEXT IS LONGER THAN THE PANEL AND IT HAS TO BE POSSIBLE TO
-  // READ ALL OF IT. The body is `overflow-y: auto`, which is normally
-  // enough. It is not relied on:
-  //   - the wheel is applied to the body DIRECTLY, so it cannot be lost to
-  //     anything else on the page that might claim the event, and it cannot
-  //     scroll the room behind the dialog instead;
-  //   - the body is focusable (tabindex below), so PageUp/PageDown, the
-  //     arrow keys and Home/End work without a mouse at all.
-  // Measured through a driven browser: the body reports scrollHeight 1679
-  // against clientHeight 724, so there IS material below the fold to reach.
   const body = panel.querySelector('.lic-body');
   if (body) {
     body.tabIndex = 0;
     body.addEventListener('wheel', (e) => {
       const before = body.scrollTop;
       body.scrollTop += e.deltaY;
-      // Only claim the event if it actually moved something. At the very top
-      // or the very bottom the page underneath should behave normally.
       if (body.scrollTop !== before) { e.preventDefault(); e.stopPropagation(); }
     }, { passive: false });
   }
@@ -342,9 +271,6 @@ function open() {
   lastFocus = document.activeElement;
   backdrop.hidden = false;
   panel.hidden = false;
-  // Focus the BODY, not the close button: it is the scrollable region, so
-  // PageDown and the arrow keys read the licence rather than doing nothing.
-  // Esc still closes from anywhere inside the panel.
   const first = panel.querySelector('.lic-body') || panel.querySelector('#licenses-close-btn');
   if (first) { try { first.focus(); } catch (_) { /* focus is best effort */ } }
 }
@@ -361,24 +287,7 @@ function close() {
 
 function toggle() { if (isOpen()) close(); else open(); }
 
-// -------------------------------------------------------------------------
-// Mount. Everything below is defensive on purpose: this module must not be
-// able to put an error in the console on a cold boot of any page that
-// includes it, including pages that have none of these elements.
-// -------------------------------------------------------------------------
 function mount() {
-  // 1. The toolbar control.
-  //
-  //    index.html ships it as a real <a href="licenses/index.html">, not as
-  //    a <button>, and that is deliberate: if this module ever fails to load
-  //    the control still WORKS -- it just navigates to the static notices
-  //    page instead of opening the panel. A dead control that looks alive is
-  //    the one failure mode a notice must not have. When the module is here,
-  //    the click is intercepted and the panel opens in place instead.
-  //
-  //    If the element is missing entirely (the live-session build has no
-  //    #window-presets), one is created where a host exists; the K key and
-  //    the footer link cover the rest.
   const host = document.getElementById('window-presets');
   let btn = document.getElementById('licenses-open-btn');
   if (!btn && host) {
@@ -397,10 +306,6 @@ function mount() {
     });
   }
 
-  // 2. The key. Registered on window in the bubble phase, so any control
-  //    that is genuinely handling K first still wins, and skipped entirely
-  //    while text is being typed -- the same guard main.js's own courtroom
-  //    handler uses, for the same reason.
   window.addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
     if (e.key !== 'k' && e.key !== 'K') return;
@@ -415,15 +320,10 @@ function mount() {
     e.preventDefault();
   });
 
-  // 3. Esc closes from anywhere, not only from inside the panel.
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isOpen()) { close(); e.preventDefault(); }
   });
 
-  // 4. A visible link on any screen that has a footer slot for one. The
-  //    static markup in index.html already carries one on the selection
-  //    screen; this catches pages that do not (live.html), and never paints
-  //    anything over the courtroom.
   const slot = document.getElementById('licenses-footer-slot');
   if (slot && !slot.querySelector('a')) {
     const a = document.createElement('a');
@@ -436,8 +336,6 @@ function mount() {
   }
 }
 
-// Exported so a caller can open it directly if one ever wants to. Nothing
-// currently imports this module; it mounts itself.
 export { open as openLicenses, close as closeLicenses, toggle as toggleLicenses };
 
 if (document.readyState === 'loading') {
