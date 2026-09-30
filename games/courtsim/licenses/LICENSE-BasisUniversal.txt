@@ -1,0 +1,71 @@
+Basis Universal GPU Texture Compression -- transcoder
+Apache License, Version 2.0
+
+FILES THIS COVERS, IN THIS REPOSITORY:
+
+    web/vendor/basis/basis_transcoder.js      57,529 bytes
+    web/vendor/basis/basis_transcoder.wasm   527,333 bytes
+
+HOW THE LICENCE WAS ESTABLISHED, 2026-09-18, BY COURTSIM-NOTICE-052.
+
+COURTSIM-LEGAL-051 section 6.7 recorded these two files as the one component
+in the whole stack with NO LICENCE EVIDENCE AT ALL, and as apparently dead
+code. Both halves of that were checked and both are now corrected. The
+correction was made by measurement, not by assumption -- the report was right
+to refuse to guess.
+
+1. WHERE THEY CAME FROM. tools\make_ktx2_avatars.bat step 6 copies them, by
+   name, out of the KTX2 toolchain's own node_modules:
+
+       tools\_ktx2_toolchain\node_modules\three\examples\jsm\libs\basis\
+
+   That is three.js 0.169.0's bundled Basis Universal transcoder --
+   "license": "MIT", "version": "0.169.0" in that package's package.json --
+   the same three.js version index.html pins on the CDN.
+
+2. THAT THEY ARE THE SAME FILES, NOT MERELY A SIMILAR ONE. SHA-256, computed
+   on this machine on both copies:
+
+       basis_transcoder.js    8478b5b6d6b74e7d3082b89f6417321d
+                              8d1dc0307f2b30d4484bb11b441696a1
+       basis_transcoder.wasm  6cf17dc889352c42e9acf8897107978d
+                              127005fe3386c36a0e3845e27967630a
+
+   Byte-identical, both files, to the copies inside three.js 0.169.0. This is
+   a hash match on the actual bytes, not an inference from a filename.
+
+3. WHAT THE UPSTREAM SAYS THE LICENCE IS. The folder those files were copied
+   from ships a README.md alongside them -- which never got copied into
+   web\vendor\basis\, which is why the previous sweep found nothing there.
+   Its closing section reads, verbatim:
+
+       ## License
+       [Apache License 2.0](https://github.com/BinomialLLC/basis_universal/blob/master/LICENSE)
+
+   and it names the upstream project: Basis Universal, Binomial LLC,
+   https://github.com/BinomialLLC/basis_universal
+
+4. WHETHER IT IS DEAD CODE. It is NOT unreferenced. COURTSIM-LEGAL-051
+   searched web\js\ and web\index.html and correctly found nothing. The
+   reference is in neither: it is in
+
+       web\assets\_ktx2_harness\index.html   (COURTSIM-KTX2-032)
+
+   which constructs a three.js KTX2Loader and calls
+   .setTranscoderPath('/vendor/basis/'). That harness is a developer page,
+   it is not reachable from the app's UI, and the shipping build never loads
+   a KTX2 texture -- there are zero .ktx2 files anywhere in web\assets\ and
+   nothing in web\js\ mentions KTX2Loader. But the harness is in the tree and
+   is served by the dev server, so the transcoder is a live dependency of
+   something that ships, not dead weight.
+
+   IT WAS THEREFORE KEPT RATHER THAN DELETED, and its licence is named here.
+
+THE LICENCE TEXT ITSELF is the Apache License 2.0, shipped in full alongside
+this file as LICENSE-Apache-2.0.txt. That one text covers Basis Universal,
+Transformers.js, kokoro-js, and the Kokoro and Whisper model weights; it is
+not duplicated per component.
+
+NOTICE FILE: the Apache License section 4(d) obligation to propagate a NOTICE
+file applies only where the upstream distribution contains one. three.js
+0.169.0's basis folder contains no NOTICE file, so there is none to carry.

@@ -1,0 +1,147 @@
+{
+  "_job": "COURTSIM-CAST-018",
+  "_supersedes": "COURTSIM-CAST-010 make_variants.py (clothing + hair only)",
+  "_what": "Per-SEAT gallery PEOPLE. Skin tone, hair, brows, lips and facial hair are repainted per seat so a gallery figure stops reading as the twin of the same GLB elsewhere in the room. Deterministic: literal constants keyed by seat index, baked into files on disk. The same seat is the same person every load.",
+  "_apply": "UNCHANGED from CAST-010 -- scene.js _applyCastVariant already swaps body/head baseColor maps and multiplies the opacity material by strandTint. These files just describe different people now.",
+  "_morphs": "No GLB is touched and no morphTargetInfluence is read or written. The 52 ARKit targets are used READ-ONLY, as the landmarking system that locates brows/eyes/lips/jaw.",
+  "variantSize": 512,
+  "seats": [
+    {
+      "seat": 0,
+      "role": "juror_2",
+      "person": "brown-skinned woman, copper-auburn hair",
+      "twin": "juror_2 in the jury box",
+      "note": "brown-skinned woman, copper-auburn hair (was reading as juror_2 in the jury box)",
+      "strandTint": [
+        0.88,
+        0.52,
+        0.34
+      ],
+      "skinRef": [
+        0.0536,
+        0.4703,
+        0.702
+      ],
+      "bodyMap": "assets/avatars_cast/seat0_juror_2_body.png",
+      "headMap": "assets/avatars_cast/seat0_juror_2_head.png",
+      "opacityMap": "assets/avatars_cast/seat0_juror_2_opacity.png",
+      "opacityTint": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "maskPx": {
+        "cloth": 536320,
+        "bodySkin": 336126,
+        "hair": 314064,
+        "headSkin": 493657,
+        "brow": 13009
+      },
+      "bodyMaskPx": 536320,
+      "headMaskPx": 314064
+    },
+    {
+      "seat": 1,
+      "role": "counsel_b",
+      "person": "fair woman, warm blonde hair",
+      "twin": "counsel_b at the counsel table",
+      "note": "fair woman, warm blonde hair (was reading as counsel_b at the counsel table)",
+      "strandTint": [
+        1.0,
+        0.86,
+        0.55
+      ],
+      "skinRef": [
+        0.0734,
+        0.5786,
+        0.6392
+      ],
+      "bodyMap": "assets/avatars_cast/seat1_counsel_b_body.png",
+      "headMap": "assets/avatars_cast/seat1_counsel_b_head.png",
+      "opacityMap": "assets/avatars_cast/seat1_counsel_b_opacity.png",
+      "opacityTint": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "maskPx": {
+        "cloth": 786928,
+        "bodySkin": 126467,
+        "hair": 237373,
+        "headSkin": 591907,
+        "brow": 193
+      },
+      "bodyMaskPx": 786928,
+      "headMaskPx": 237373
+    },
+    {
+      "seat": 2,
+      "role": "juror_5",
+      "person": "older man, grey hair and grey beard, lighter complexion",
+      "twin": "juror_5 in the jury box",
+      "note": "older man, grey hair and grey beard, lighter complexion (was reading as juror_5 in the jury box)",
+      "strandTint": [
+        0.9,
+        0.9,
+        0.92
+      ],
+      "skinRef": [
+        0.0644,
+        0.507,
+        0.4588
+      ],
+      "bodyMap": "assets/avatars_cast/seat2_juror_5_body.png",
+      "headMap": "assets/avatars_cast/seat2_juror_5_head.png",
+      "opacityMap": "assets/avatars_cast/seat2_juror_5_opacity.png",
+      "opacityTint": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "maskPx": {
+        "cloth": 645556,
+        "bodySkin": 323216,
+        "hair": 72103,
+        "headSkin": 582871,
+        "beard": 6208,
+        "brow": 289
+      },
+      "bodyMaskPx": 645556,
+      "headMaskPx": 72103
+    },
+    {
+      "seat": 3,
+      "role": "clerk",
+      "person": "deep-olive woman, near-black hair",
+      "twin": "the clerk at her desk",
+      "note": "deep-olive woman, near-black hair (was reading as the clerk at her desk)",
+      "strandTint": [
+        0.45,
+        0.42,
+        0.48
+      ],
+      "skinRef": [
+        0.0575,
+        0.4428,
+        0.8
+      ],
+      "bodyMap": "assets/avatars_cast/seat3_clerk_body.png",
+      "headMap": "assets/avatars_cast/seat3_clerk_head.png",
+      "opacityMap": "assets/avatars_cast/seat3_clerk_opacity.png",
+      "opacityTint": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "maskPx": {
+        "cloth": 669526,
+        "bodySkin": 235638,
+        "hair": 95777,
+        "headSkin": 723959,
+        "brow": 820
+      },
+      "bodyMaskPx": 669526,
+      "headMaskPx": 95777
+    }
+  ]
+}

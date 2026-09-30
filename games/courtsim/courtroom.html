@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en" data-build="075342b17255"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CourtSim — courtroom + head tracking</title>
+<!--
+  COURTSIM-SHIP-059 -- THE PUBLISHABLE ENTRY POINT.
+
+  WHY THIS FILE EXISTS AND WHY IT IS NOT index.html OR live.html.
+
+  index.html loads js/main.js, which imports three modules that are subject to
+  an unfiled patent registration at the top level. publish_courtsim.py refuses
+  outright on them, correctly, so index.html cannot be published at all. That
+  is not a bug to work around; it is the boundary working. The three are named
+  in tools/publish_bundle/BUILD_PRIVATE.json, which stays in the private repo
+  and is never copied here -- naming what was excluded, on a public site, is a
+  disclosure that there is something to exclude.
+
+  tools/live_session/live.html was the obvious candidate and it does NOT
+  work on a static host, measured rather than assumed:
+
+    1. Its lobby is the only way past the overlay, and every lobby button
+       calls LiveSession.create()/join(), which POST to /live/create and
+       /live/join on its own origin. GitHub Pages is static -- there is no
+       signalling server -- so the founder would get a lobby box that does
+       nothing. That is the exact failure this project has already paid for.
+    2. live.html has no element with id "courtroom-screen", and
+       camera_controller.js's _bindViewKeys() returns early unless that
+       element exists and is not .hidden. So H -- the head-tracking toggle --
+       is DEAD on live.html.
+    3. Its module closure reaches live_session.js -> lightboard_mode.js and
+       live_mouth.js by ROOT-ABSOLUTE specifiers ("/js/lightboard_mode.js").
+       Pages serves this game from /liza-study-room/games/courtsim/, so those
+       resolve to the domain root and 404.
+
+  So this page is the courtroom itself, solo, with the head tracker wired and
+  nothing that needs a server. Its module closure is eight files and every
+  specifier in it is relative, so it is correct under a subpath.
+
+  WHAT IT DELIBERATELY DOES NOT CONTAIN
+    - no main.js, and none of the modules under the pre-filing hold, nor
+      anything that imports one. Not disabled: absent. The build script walks
+      this file's module graph and refuses to build if any of them, or any
+      distinctive symbol from them, is reachable. The list itself lives in
+      the private repo, for the reason given above.
+    - no LiveSession, so nothing here asks a server for anything.
+
+  WHAT IT MUST CONTAIN, and each one is load-bearing rather than decorative:
+    - #courtroom-screen, without class "hidden"  -> or H does nothing
+    - #look-head-mode (a <select>)               -> THE ONLY PATH TO
+      getUserMedia in camera_input.js is a change event on this element.
+      Without it the webcam can never open and "head tracking" would mean
+      mouse-driven look only. A page that silently degrades to the mouse is
+      a page that reports success and does nothing.
+    - #look-webcam-centre, #look-webcam-note, #look-mode-btn, #camera-status,
+      #look-rate-slider, #look-rate-readout, #look-toast -> camera_input.js's
+      attachUi() looks all of these up and guards every one, so they are
+      optional to it and NOT optional to him: they are where the words go
+      when the camera refuses, when the model is downloading, and when the
+      mouse has taken the head back.
+
+  OWNERSHIP: this file is tools/. Nothing under web/js was edited by this job.
+-->
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
+</script>
+<style>
+  :root { --ink:#e8e8ec; --dim:#8d8d99; --panel:#16161c; --line:#2a2a34;
+          --go:#3fa46a; --warn:#d8a13a; --bad:#c8503f; }
+  html,body { margin:0; height:100%; background:#08080b; color:var(--ink);
+              font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; overflow:hidden; }
+  #courtroom-screen { position:fixed; inset:0; }
+  #scene-canvas { position:fixed; inset:0; width:100vw; height:100vh; display:block; }
+  .panel { position:fixed; background:rgba(18,18,24,.93); border:1px solid var(--line);
+           border-radius:8px; padding:12px 14px; backdrop-filter:blur(6px); z-index:10; }
+  button, select { background:#232330; color:var(--ink); border:1px solid var(--line);
+           border-radius:5px; padding:7px 12px; font:inherit; cursor:pointer; margin:3px 3px 0 0 }
+  button.on { background:#3a3a4c; border-color:#55556e }
+  button:disabled { opacity:.45; cursor:default }
+  #top { left:12px; top:12px; width:320px; max-height:86vh; overflow:auto }
+  #bottom { left:12px; right:12px; bottom:12px; display:flex; gap:6px;
+            align-items:center; flex-wrap:wrap }
+  h1 { font-size:16px; margin:0 0 6px }
+  .sub { color:var(--dim); font-size:12px; margin:4px 0 10px }
+  label { display:block; font-size:12px; color:var(--dim); margin:10px 0 3px }
+  #look-webcam-note { font-size:12px; color:var(--warn); margin-top:6px; min-height:1.2em }
+  #camera-status { font-size:12px; color:var(--dim); margin-top:6px }
+  #look-toast { position:fixed; left:50%; transform:translateX(-50%); top:14px;
+                z-index:30; padding:8px 16px; display:none }
+  #boot { position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+          z-index:20; text-align:center; max-width:560px }
+  #room-warning { right:12px; top:12px; width:340px; display:none;
+                  border-color:var(--bad); background:rgba(200,80,63,.95) }
+  #buildline { color:var(--dim); font-size:11px; margin-top:10px;
+               font-family:ui-monospace,Consolas,monospace }
+  a { color:#7fe3a5 }
+</style></head>
+<body>
+
+<!-- NOT class="hidden". camera_controller.js:_bindViewKeys() bails out unless
+     this element exists and is visible, and H is the head-tracking toggle. -->
+<div id="courtroom-screen">
+  <canvas id="scene-canvas"></canvas>
+</div>
+
+<div id="boot" class="panel">
+  <h1>Building the courtroom…</h1>
+  <div class="sub" id="bootmsg">Loading the room and twenty-one people.
+    The first load fetches about 160 MB of characters, so give it a moment.</div>
+</div>
+
+<div id="look-toast" class="panel"></div>
+
+<div id="room-warning" class="panel">
+  <b>Some characters did not load.</b>
+  <div class="sub" id="room-warning-detail" style="color:#fff"></div>
+</div>
+
+<div id="top" class="panel">
+  <h1>Head tracking</h1>
+  <div class="sub">Your webcam moves the view when you move your head.
+    Nothing is recorded and nothing leaves this machine.</div>
+
+  <button type="button" id="look-mode-btn">Look Around (H)</button>
+
+  <label for="look-head-mode">Head tracking</label>
+  <select id="look-head-mode">
+    <option value="off" selected>Off (mouse only)</option>
+    <option value="lean">Lean (no download)</option>
+    <option value="precise">Turn my head (6.7 MB, needs internet)</option>
+  </select>
+
+  <button type="button" id="look-webcam-centre" disabled
+          title="Sit how you mean to sit, then press this. Also Shift+H.">Centre my head (Shift+H)</button>
+  <div id="look-webcam-note"></div>
+  <div id="camera-status"></div>
+
+  <label for="look-rate-slider">Edge turn rate</label>
+  <input type="range" id="look-rate-slider" style="width:100%">
+  <span id="look-rate-readout" class="sub"></span>
+
+  <div class="sub" style="margin-top:12px">
+    <b>H</b> turns Look Around on and off. <b>Shift+H</b> re-centres your head.
+    Pick <i>Turn my head</i> above and allow the camera when the browser asks.
+  </div>
+  <div class="sub">
+    <a href="licenses/index.html" target="_blank" rel="noopener">Credits &amp; licences</a>
+    — also on the <b>K</b> key.
+  </div>
+  <div id="buildline">build: <span id="buildid">…</span></div>
+</div>
+
+<div id="bottom" class="panel">
+  <span class="sub" style="margin:0">View:</span>
+  <span id="camrow">
+    <button data-p="reporter">Reporter's seat</button>
+    <button data-p="wide">Wide</button>
+    <button data-p="bench">Bench</button>
+    <button data-p="witness">Witness</button>
+    <button data-p="counselA">Counsel A</button>
+    <button data-p="counselB">Counsel B</button>
+  </span>
+</div>
+
+<script type="module">
+// The eight-file closure. Every specifier below and inside these modules is
+// relative, which is what makes this correct at /liza-study-room/games/courtsim/.
+import { CourtroomScene, castFromLabels, setCounselCast } from './js-075342b17255/scene.js';
+import { CameraController } from './js-075342b17255/camera_controller.js';
+// Side-effect import: mounts itself and binds K. Imported rather than added as
+// a second <script> so the build's module-graph walk reaches and copies it.
+import './js-075342b17255/licenses_ui.js';
+
+const $ = (id) => document.getElementById(id);
+const PARTS = ['MS. OKONKWO', 'MR. DELACROIX', 'THE CLERK', 'THE COURT', 'THE WITNESS'];
+
+let scene = null, camera = null;
+
+// SAY IT IN WORDS RATHER THAN FAILING QUIETLY. getUserMedia needs a secure
+// context. Pages is HTTPS so this should never fire -- but if it ever does,
+// he gets a sentence instead of a select box that refuses for no visible
+// reason. Nothing in the head-tracking path checks for localhost; this is the
+// only place in the published bundle that mentions a secure context at all.
+function secureContextNote() {
+  if (window.isSecureContext) return '';
+  return 'This page is not on a secure connection, so the browser will not '
+       + 'give any site the camera. Head tracking cannot start here. '
+       + 'Open the https:// address instead.';
+}
+
+async function boot() {
+  try {
+    scene = new CourtroomScene($('scene-canvas'));
+    camera = new CameraController(scene, $('scene-canvas'));
+    scene.cameraController = camera;
+    scene.handleBecameVisible();
+    try { setCounselCast(castFromLabels(PARTS)); } catch (e) { /* cast is cosmetic */ }
+    window.__courtsimScene = scene;
+    window.__courtsimCamera = camera;
+  } catch (err) {
+    $('bootmsg').textContent = 'The courtroom could not start: ' + (err && err.message);
+    return;
+  }
+
+  const note = secureContextNote();
+  if (note) $('look-webcam-note').textContent = note;
+
+  // HIDE THE BOOT CARD ONLY WHEN THERE IS SOMETHING BEHIND IT, and then say
+  // out loud if anybody is missing. An empty courtroom that reports success is
+  // the single failure this job was told to make impossible, so the count is
+  // read from the scene's own instrument rather than inferred from "no error".
+  const t0 = Date.now();
+  const tick = setInterval(() => {
+    let fails = null;
+    try { fails = scene.getAvatarLoadFailures(); } catch (e) { fails = null; }
+    const n = (fails && (fails.length != null ? fails.length : fails.count)) || 0;
+    if (Date.now() - t0 > 4000) {
+      $('boot').style.display = 'none';
+      if (n > 0) {
+        $('room-warning').style.display = 'block';
+        $('room-warning-detail').textContent =
+          n + ' character file(s) failed to load. The room is not complete. '
+          + 'This is what an empty courtroom looks like from the inside, and it '
+          + 'is being said out loud rather than left for you to count heads.';
+      }
+    }
+    if (Date.now() - t0 > 40000) clearInterval(tick);
+  }, 1000);
+}
+
+$('camrow').addEventListener('click', (e) => {
+  const p = e.target.getAttribute('data-p');
+  if (!p || !camera) return;
+  [...$('camrow').children].forEach((b) => b.classList.remove('on'));
+  e.target.classList.add('on');
+  camera.setPreset(p);
+});
+
+// Stamped by tools/build_publish_bundle.mjs. It is on screen so that "is this
+// the new one" is answerable by looking, on his laptop, without devtools.
+$('buildid').textContent = document.documentElement.dataset.build || 'unstamped';
+
+boot();
+</script>
+</body></html>

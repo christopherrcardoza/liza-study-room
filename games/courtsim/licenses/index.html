@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CourtSim — Credits &amp; licences</title>
+<!-- COURTSIM-NOTICE-052 -- THE NOTICE PAGE, DELIBERATELY SELF-CONTAINED.
+
+     No stylesheet link, no script, no import map, no dependency on anything
+     in web/js or web/css. The reason is the whole point of this job: a
+     notice that only renders when the app's module graph loads correctly is
+     a notice that disappears exactly when something is broken. This page
+     opens from the dev server, from the published site, from a file:// URL
+     on a USB stick, and from a browser with JavaScript off.
+
+     The in-app panel (js/licenses_ui.js) shows the same material without
+     leaving the room. This page is the copy that survives everything else. -->
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; padding: 28px 22px 64px;
+    background: #14161c; color: #e7e9ee;
+    font: 15px/1.6 system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 19px; margin: 34px 0 8px; border-bottom: 1px solid #2c313d; padding-bottom: 6px; }
+  h3 { font-size: 16px; margin: 20px 0 6px; }
+  a { color: #8fc4ff; }
+  p, li { max-width: 74ch; }
+  .lede { color: #b6bcc9; }
+  pre {
+    background: #0e1015; border: 1px solid #2c313d; border-radius: 6px;
+    padding: 14px 16px; overflow-x: auto; white-space: pre-wrap;
+    font: 12.5px/1.55 ui-monospace, Consolas, "Courier New", monospace;
+    color: #cdd3de;
+  }
+  table { border-collapse: collapse; margin: 10px 0; width: 100%; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #262b35; vertical-align: top; }
+  th { color: #9aa3b2; font-weight: 600; }
+  .files a { display: inline-block; margin: 0 14px 6px 0; }
+  .back { display: inline-block; margin-bottom: 18px; }
+  .note { color: #b6bcc9; font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+
+<a class="back" href="../index.html">&larr; Back to CourtSim</a>
+
+<h1>Credits &amp; licences</h1>
+<p class="lede">
+  CourtSim is built on work by other people. Every piece of it is named below,
+  with the licence it is under and the complete text of that licence shipped
+  in this folder — not a summary of it, and not a credit line standing in for
+  it.
+</p>
+
+<h2>Character models — Microsoft Rocketbox</h2>
+<p>
+  The twenty-one people in this courtroom are modified conversion derivatives
+  of <a href="https://github.com/microsoft/Microsoft-Rocketbox">Microsoft
+  Rocketbox</a>, released by Microsoft under the MIT licence in November 2020.
+  <strong>Copyright (c) 2020 Microsoft.</strong>
+</p>
+<p>
+  MIT does not ask for credit. It asks that the copyright notice
+  <em>and the permission notice below</em> be included in all copies or
+  substantial portions of the software. Here is the complete text, and it also
+  ships beside this page as
+  <a href="LICENSE-Rocketbox.txt">LICENSE-Rocketbox.txt</a>.
+</p>
+<pre>MIT License
+
+Copyright (c) 2020 Microsoft
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+
+<h3>Which avatar came from which Rocketbox identity</h3>
+<table>
+  <tr><th>In CourtSim</th><th>Rocketbox ID</th><th>Rocketbox library file</th></tr>
+  <tr><td>judge</td><td>&mdash;</td><td>Business_Male_01</td></tr>
+  <tr><td>witness</td><td>&mdash;</td><td>Female_Adult_01</td></tr>
+  <tr><td>counsel A</td><td>&mdash;</td><td>Business_Male_02</td></tr>
+  <tr><td>counsel B</td><td>&mdash;</td><td>Business_Female_01</td></tr>
+  <tr><td>bailiff</td><td>&mdash;</td><td>Police_Male_01</td></tr>
+  <tr><td>clerk</td><td>&mdash;</td><td>Female_Adult_02</td></tr>
+  <tr><td>jurors 1&ndash;6</td><td>&mdash;</td><td>Male_Adult_02, Female_Adult_03, Male_Adult_03, Female_Adult_04, Male_Adult_04, Female_Adult_05</td></tr>
+  <tr><td>spectator 1</td><td>m001</td><td>Male_Adult_11</td></tr>
+  <tr><td>spectator 2</td><td>m014</td><td>Male_Adult_08</td></tr>
+  <tr><td>spectator 3</td><td>m015</td><td>Business_Male_04</td></tr>
+  <tr><td>spectator 4</td><td>m019</td><td>Male_Adult_16</td></tr>
+  <tr><td>spectator 5</td><td>m169</td><td>Police_Male_05</td></tr>
+  <tr><td>spectator 6</td><td>m301</td><td>Sports_Male_02</td></tr>
+  <tr><td>spectator 7</td><td>f009</td><td>Female_Adult_09</td></tr>
+  <tr><td>spectator 8</td><td>f016</td><td>Business_Female_03</td></tr>
+  <tr><td>spectator 9</td><td>f017</td><td>Female_Adult_14</td></tr>
+</table>
+<p class="note">
+  The Rocketbox README asks, as a courtesy rather than a licence condition,
+  that research use cite Gonzalez-Franco et al., <em>“The Rocketbox library
+  and the utility of freely available rigged avatars,”</em> Frontiers in
+  Virtual Reality, DOI 10.3389/frvir.2020.561558.
+</p>
+
+<h2>Facial animation — NVIDIA Audio2Face-3D</h2>
+<p>
+  The mouths are driven by
+  <a href="https://huggingface.co/nvidia/Audio2Face-3D-v2.3-Mark">NVIDIA
+  Audio2Face-3D-v2.3-Mark</a> and by reduced lip-sync data derived from it,
+  under the NVIDIA Open Model License. Section 3.1 of that agreement requires
+  both a copy of the agreement and a file named <code>Notice</code> carrying
+  one exact sentence. Both ship here:
+</p>
+<pre>Licensed by NVIDIA Corporation under the NVIDIA Open Model License</pre>
+<p class="files">
+  <a href="LICENSE-NVIDIA-Open-Model.txt">Complete NVIDIA Open Model Agreement</a>
+  <a href="NVIDIA-Trustworthy-AI-Terms.txt">Incorporated Trustworthy AI terms</a>
+  <a href="Notice">The required <code>Notice</code> file</a>
+</p>
+
+<h2>Texture transcoder — Basis Universal</h2>
+<p>
+  <a href="https://github.com/BinomialLLC/basis_universal">Basis Universal</a>
+  by Binomial LLC, under the Apache License 2.0. The two transcoder files in
+  <code>web/vendor/basis/</code> carry no licence header of their own; they
+  were identified by a SHA-256 match against the copy bundled in three.js
+  0.169.0. The working is written out in full.
+</p>
+<p class="files">
+  <a href="LICENSE-Apache-2.0.txt">Complete Apache License 2.0</a>
+  <a href="LICENSE-BasisUniversal.txt">How the licence was established</a>
+</p>
+
+<h2>Browser runtime and model weights</h2>
+<p>
+  These are fetched from public CDNs when needed rather than copied into this
+  build. Their full texts ship here anyway, because an offline classroom
+  package would redistribute them.
+</p>
+<table>
+  <tr><th>Component</th><th>Version</th><th>Licence</th><th>Full text</th></tr>
+  <tr><td><a href="https://github.com/mrdoob/three.js">three.js</a></td><td>0.169.0</td><td>MIT, © 2010-2024 three.js authors</td><td><a href="LICENSE-three.js.txt">LICENSE-three.js.txt</a></td></tr>
+  <tr><td><a href="https://github.com/pyodide/pyodide">Pyodide</a></td><td>0.26.4</td><td>MPL-2.0</td><td><a href="LICENSE-Pyodide-MPL-2.0.txt">LICENSE-Pyodide-MPL-2.0.txt</a></td></tr>
+  <tr><td><a href="https://github.com/huggingface/transformers.js">Transformers.js</a></td><td>3.0.0</td><td>Apache-2.0</td><td><a href="LICENSE-Apache-2.0.txt">LICENSE-Apache-2.0.txt</a></td></tr>
+  <tr><td><a href="https://github.com/hexgrad/kokoro">kokoro-js</a></td><td>1.2.1</td><td>Apache-2.0</td><td><a href="LICENSE-Apache-2.0.txt">LICENSE-Apache-2.0.txt</a></td></tr>
+  <tr><td><a href="https://github.com/microsoft/onnxruntime">ONNX Runtime Web</a></td><td>1.21 / 1.22-dev</td><td>MIT, © Microsoft Corporation</td><td><a href="LICENSE-onnxruntime.txt">LICENSE-onnxruntime.txt</a></td></tr>
+  <tr><td><a href="https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX">Kokoro-82M v1.0 ONNX</a> (the voices)</td><td>&mdash;</td><td>Apache-2.0</td><td><a href="LICENSE-Apache-2.0.txt">LICENSE-Apache-2.0.txt</a></td></tr>
+  <tr><td><a href="https://huggingface.co/Xenova/whisper-tiny.en">whisper-tiny.en</a> (the recogniser)</td><td>&mdash;</td><td>Apache-2.0</td><td><a href="LICENSE-Apache-2.0.txt">LICENSE-Apache-2.0.txt</a></td></tr>
+</table>
+<p class="note">
+  Blender and <code>@gltf-transform/cli</code> are used to prepare assets on
+  the developer's machine. They are build tools, are not part of this build,
+  and are not distributed with it.
+</p>
+
+<h2>Two things this page does not answer</h2>
+<p>
+  <strong>CourtSim's own code has no licence of its own.</strong> There is no
+  <code>LICENSE</code> file in this repository, which by default means all
+  rights reserved. Whether that is right for a build handed to students is a
+  decision for the founder, and it has not been made.
+</p>
+<p>
+  <strong>This page covers software and model assets only.</strong> It does
+  not cover the written study content or any reference material. That is a
+  separate question and nothing here speaks to it.
+</p>
+<p class="note">
+  Nobody who assembled this page is a lawyer and none of it is legal advice.
+  Every licence named above was retrieved and read, and the texts are shipped
+  beside this page so they can be read again by anyone who wants to.
+  <br><a href="PROVENANCE.md">PROVENANCE.md</a> holds the same record in plain text.
+</p>
+
+</main>
+</body>
+</html>

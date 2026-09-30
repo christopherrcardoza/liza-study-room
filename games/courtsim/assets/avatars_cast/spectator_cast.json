@@ -1,0 +1,30 @@
+{
+  "_job": "COURTSIM-ASSETS-023",
+  "_what": "The nine Rocketbox identities the web build has never had, converted from FBX and shipped as web GLBs. COURTSIM-CAST-010 proved the desktop build holds a DIFFERENT twelve, not more people: web and desktop share only m008, f014 and f003. These nine are the desktop-only remainder.",
+  "_gate": "Every file below passed tools/verify_spectator_gate.py: 52 ARKit morph names byte-identical to the shipped cast, every accessor and image reference in range, AK_25_JawOpen deltas in the real 0.016-0.019 m band, all 16 scene.js bones present. Then tools/verify_avatars.py reported 21/21 on the live tier.",
+  "_tiers": [
+    "web/assets/avatars                          unoptimised source, 175 morph targets",
+    "web/assets/avatars_optimized                level 3 (morph NORMALs dropped)",
+    "web/assets/avatars_optimized_L2_keepnormals level 2 -- THE TIER THE BUILD LOADS",
+    "web/assets/avatars_L2_morphstrip            level 2 + strip_dead_morphs.py"
+  ],
+  "_note_on_variants": "These are real, different PEOPLE, so they need no per-seat repainting. cast_variants.json (COURTSIM-CAST-010/018) repaints the four gallery seats of the OLD identity-sharing gallery and is keyed by SEAT INDEX, not by role: if scene.js is re-pointed at the roles below, that repaint must be disabled in the same edit or it will apply juror_2's recoloured atlas to a different avatar's UV layout. See the handoff in reports/COURTSIM_ASSETS_023.md.",
+  "spectators": [
+    { "role": "spectator_1", "identity": "m001", "source": "Adults/Male_Adult_11",           "reads_as": "lean younger man, short buzz cut, dark work shirt",            "primitives": 2, "cutout_mesh": false },
+    { "role": "spectator_2", "identity": "m014", "source": "Adults/Male_Adult_08",           "reads_as": "casual man with a cutout hair mesh",                          "primitives": 3, "cutout_mesh": true },
+    { "role": "spectator_3", "identity": "m015", "source": "Professions/Business_Male_04",   "reads_as": "older bald man, heavy brow, waistcoat over a green shirt",    "primitives": 2, "cutout_mesh": false },
+    { "role": "spectator_4", "identity": "m019", "source": "Adults/Male_Adult_16",           "reads_as": "casual man",                                                  "primitives": 2, "cutout_mesh": false },
+    { "role": "spectator_5", "identity": "m169", "source": "Professions/Police_Male_05",     "reads_as": "POLICE UNIFORM -- deliberately NOT seated in the gallery; a second uniformed figure reads as a second bailiff", "primitives": 2, "cutout_mesh": false },
+    { "role": "spectator_6", "identity": "m301", "source": "Professions/Sports_Male_02",     "reads_as": "SPORTS KIT -- held back for the same reason: wrong register for a courtroom gallery", "primitives": 2, "cutout_mesh": false },
+    { "role": "spectator_7", "identity": "f009", "source": "Adults/Female_Adult_09",         "reads_as": "woman, light brown hair tied back, grey cardigan",            "primitives": 3, "cutout_mesh": true },
+    { "role": "spectator_8", "identity": "f016", "source": "Professions/Business_Female_03", "reads_as": "woman, dark hair tied back, tan cardigan over a blouse",      "primitives": 3, "cutout_mesh": true },
+    { "role": "spectator_9", "identity": "f017", "source": "Adults/Female_Adult_14",         "reads_as": "woman, black bob, brown suit",                                "primitives": 3, "cutout_mesh": true }
+  ],
+  "proposed_gallery": {
+    "_why": "Four seats, unchanged coordinates -- COURTSIM-FIX-V chose them and COURTSIM-ROOM-002 re-derived them from the bench constants; this job changes WHO sits there, not where. Two men and two women, two business and two casual, none of them in a uniform.",
+    "seat_0": { "pos": [-2.55, "FLOOR_Y", "GALLERY_BENCH_Z[0]"], "role": "spectator_7", "identity": "f009" },
+    "seat_1": { "pos": [1.30,  "FLOOR_Y", "GALLERY_BENCH_Z[0]"], "role": "spectator_3", "identity": "m015" },
+    "seat_2": { "pos": [-0.80, "FLOOR_Y", "GALLERY_BENCH_Z[2]"], "role": "spectator_1", "identity": "m001" },
+    "seat_3": { "pos": [2.90,  "FLOOR_Y", "GALLERY_BENCH_Z[2]"], "role": "spectator_8", "identity": "f016" }
+  }
+}
