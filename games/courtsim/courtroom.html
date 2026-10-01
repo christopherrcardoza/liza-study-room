@@ -2,64 +2,7 @@
 <html lang="en" data-build="e9a7892629bf"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CourtSim — courtroom + head tracking</title>
-<!--
-  COURTSIM-SHIP-059 -- THE PUBLISHABLE ENTRY POINT.
 
-  WHY THIS FILE EXISTS AND WHY IT IS NOT index.html OR live.html.
-
-  index.html loads js/main.js, which imports three modules that are subject to
-  an unfiled patent registration at the top level. publish_courtsim.py refuses
-  outright on them, correctly, so index.html cannot be published at all. That
-  is not a bug to work around; it is the boundary working. The three are named
-  in tools/publish_bundle/BUILD_PRIVATE.json, which stays in the private repo
-  and is never copied here -- naming what was excluded, on a public site, is a
-  disclosure that there is something to exclude.
-
-  tools/live_session/live.html was the obvious candidate and it does NOT
-  work on a static host, measured rather than assumed:
-
-    1. Its lobby is the only way past the overlay, and every lobby button
-       calls LiveSession.create()/join(), which POST to /live/create and
-       /live/join on its own origin. GitHub Pages is static -- there is no
-       signalling server -- so the founder would get a lobby box that does
-       nothing. That is the exact failure this project has already paid for.
-    2. live.html has no element with id "courtroom-screen", and
-       camera_controller.js's _bindViewKeys() returns early unless that
-       element exists and is not .hidden. So H -- the head-tracking toggle --
-       is DEAD on live.html.
-    3. Its module closure reaches live_session.js -> lightboard_mode.js and
-       live_mouth.js by ROOT-ABSOLUTE specifiers ("/js/lightboard_mode.js").
-       Pages serves this game from /liza-study-room/games/courtsim/, so those
-       resolve to the domain root and 404.
-
-  So this page is the courtroom itself, solo, with the head tracker wired and
-  nothing that needs a server. Its module closure is eight files and every
-  specifier in it is relative, so it is correct under a subpath.
-
-  WHAT IT DELIBERATELY DOES NOT CONTAIN
-    - no main.js, and none of the modules under the pre-filing hold, nor
-      anything that imports one. Not disabled: absent. The build script walks
-      this file's module graph and refuses to build if any of them, or any
-      distinctive symbol from them, is reachable. The list itself lives in
-      the private repo, for the reason given above.
-    - no LiveSession, so nothing here asks a server for anything.
-
-  WHAT IT MUST CONTAIN, and each one is load-bearing rather than decorative:
-    - #courtroom-screen, without class "hidden"  -> or H does nothing
-    - #look-head-mode (a <select>)               -> THE ONLY PATH TO
-      getUserMedia in camera_input.js is a change event on this element.
-      Without it the webcam can never open and "head tracking" would mean
-      mouse-driven look only. A page that silently degrades to the mouse is
-      a page that reports success and does nothing.
-    - #look-webcam-centre, #look-webcam-note, #look-mode-btn, #camera-status,
-      #look-rate-slider, #look-rate-readout, #look-toast -> camera_input.js's
-      attachUi() looks all of these up and guards every one, so they are
-      optional to it and NOT optional to him: they are where the words go
-      when the camera refuses, when the model is downloading, and when the
-      mouse has taken the head back.
-
-  OWNERSHIP: this file is tools/. Nothing under web/js was edited by this job.
--->
 <script type="importmap">
 { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
 </script>
@@ -96,8 +39,7 @@
 </style></head>
 <body>
 
-<!-- NOT class="hidden". camera_controller.js:_bindViewKeys() bails out unless
-     this element exists and is visible, and H is the head-tracking toggle. -->
+
 <div id="courtroom-screen">
   <canvas id="scene-canvas"></canvas>
 </div>

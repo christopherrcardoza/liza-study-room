@@ -2,65 +2,7 @@
 <html lang="en" data-build="4cc9ecc1cdc5"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CourtSim — practice room</title>
-<!--
-  COURTSIM-SHIP-068 -- THE PRACTICE ENTRY POINT.
 
-  COURTSIM-SHIP-059 published courtroom.html and it works: the room renders,
-  the cast loads, the head tracker is wired. COURTSIM-FIELDTEST-067 then
-  measured what that page actually IS, and it is a viewer. Eleven controls.
-  No session, because no main.js. Liza cannot practise on it, and nobody had
-  ever ruled on what the public address was for.
-
-  THIS PAGE IS THE RULING: the public address is a DICTATION PRACTICE ROOM.
-
-  WHY NOT JUST PUBLISH THE APP. Measured, in section 2 of
-  reports/COURTSIM_SHIP_068.md, not assumed:
-    * main.js STATICALLY imports nine modules this build must not carry.
-      A static import cannot be turned off by a flag; removing it is surgery
-      on another lane's 9,579-line file, and every call site it feeds would
-      then throw somewhere that is not guarded.
-    * FIFTEEN modules in main.js's own closure name the registered mechanics
-      in LIVE CODE -- not in comments, which the build already strips, but in
-      running code and in several cases in ENGLISH SENTENCES SHOWN ON SCREEN.
-      Redaction cannot reach those without changing behaviour, and the build
-      refuses (correctly) rather than trying.
-  So the app cannot be published today without another lane editing live code
-  in files this lane does not own. That is stated as a handoff, with the exact
-  lines, rather than worked around here.
-
-  WHAT A PRACTISING STUDENT ACTUALLY NEEDS, which is what this delivers:
-  a real proceeding, read aloud by the right voices at a rate she chooses,
-  in a room she can look around, with somewhere to write and the official
-  transcript to check herself against afterwards. That is how dictation
-  practice has always worked, and none of it requires a scorer.
-
-  WHAT IS ABSENT, AND IT IS SAID ON THE PAGE RATHER THAN LEFT AS A MYSTERY:
-    * NO SCORING. The three modules that grade a take are registered and
-      unfiled. Nothing here grades anything.
-    * NO MICROPHONE. There is no speech recogniser in this bundle at all.
-      That absence is load-bearing twice over: it is why nothing can be
-      scored, and it is what makes the head tracker safe to ship, because
-      the registered combination is head tracking ALONGSIDE speech and there
-      is no speech here for it to be alongside.
-
-  HEAD TRACKING IS ONE FLAG. tools/build_practice_bundle.mjs takes
-  --head-tracking=on|off. ON is what is built by default and the trade is one
-  sentence: with it on he gets the webcam feature he asked to test, and this
-  page must never gain a microphone; with it off a microphone becomes a
-  future option and the webcam is localhost-only. He cannot have both on one
-  public address while the filing is open.
-
-  ELEMENTS THAT ARE LOAD-BEARING RATHER THAN DECORATIVE, same list as
-  courtroom.html's and for the same measured reasons:
-    #courtroom-screen, not .hidden  -> or camera_controller's H key is dead
-    #look-head-mode (a <select>)    -> the ONLY path to getUserMedia
-    #look-webcam-centre, #look-webcam-note, #look-mode-btn, #camera-status,
-    #look-rate-slider, #look-rate-readout, #look-toast -> where the words go
-    when the camera refuses or the model is still downloading.
-
-  OWNERSHIP: this file and everything it imports from ./lib/ is tools/.
-  Nothing under web/js, web/css or web/index.html was edited by this job.
--->
 <script type="importmap">
 { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
 </script>
@@ -118,8 +60,7 @@
 </style></head>
 <body>
 
-<!-- NOT class="hidden". camera_controller.js:_bindViewKeys() bails out unless
-     this element exists and is visible, and H is the head-tracking toggle. -->
+
 <div id="courtroom-screen">
   <canvas id="scene-canvas"></canvas>
 </div>
@@ -169,22 +110,13 @@
     <button type="button" id="stop-btn" disabled>Stop</button>
   </div>
   <div class="sub" id="session-status">Not started.</div>
-  <!-- MEASURED ON A REAL RUN, NOT ESTIMATED: the cast is about 160 MB and
-       the voice model reported 326 MB on its own progress callback. That is
-       most of half a gigabyte before a word is spoken, once, and a student
-       who is not told will conclude at the four-minute mark that it is
-       broken. So it is said before she presses the button, not after. -->
+  
   <div class="sub" id="first-run-note">The first time only, this downloads
     about <b>160&nbsp;MB</b> of characters and <b>326&nbsp;MB</b> of voices.
     On a home connection that is several minutes. After that it is cached and
     Begin is quick.</div>
 
-  <!-- HEAD-TRACKING-BLOCK-START -- tools/build_practice_bundle.mjs deletes
-       everything between these two markers when built with
-       --head-tracking=off, and then ASSERTS that no element id containing
-       "look-head-mode" survives into the output. That select's change event
-       is the only path to getUserMedia in camera_input.js, so removing it
-       removes the webcam entirely rather than merely hiding a control. -->
+  
   <h2>Head tracking</h2>
   <div class="sub">Your webcam moves the view when you move your head.
     Nothing is recorded and nothing leaves this machine.</div>
@@ -211,7 +143,7 @@
     <b>H</b> turns Look Around on and off. <b>Shift+H</b> re-centres your head.
     Pick <i>Turn my head</i> above and allow the camera when the browser asks.
   </div>
-  <!-- HEAD-TRACKING-BLOCK-END -->
+  
 
   <div id="whatitdoes">
     <b>What this build does and does not do.</b>

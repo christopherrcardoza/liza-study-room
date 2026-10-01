@@ -8,10 +8,7 @@
 <title>CourtSim (Web)</title>
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
-<!-- ROCKETBOX-INTO-SCENE-001 -- GLTFLoader.js (examples/jsm) imports 'three'
-     as a bare module specifier internally; without this map the browser
-     can't resolve it ("Failed to resolve module specifier 'three'") even
-     though scene.js's own three.module.js import (a full URL) works fine. -->
+
 <script type="importmap">
 {
   "imports": {
@@ -57,11 +54,7 @@
   <div id="courtroom-screen" class="screen hidden">
     <div id="scene-canvas-wrap">
       <canvas id="scene-canvas"></canvas>
-      <!-- CAMERA-AND-STAGING-001 Step 2 -- discrete preset viewpoints,
-           the zoom tool (satellite-map click-a-point behaviour, plus a
-           plain +/- for people who want that instead), and a reset,
-           all as a click, not a menu dive (Rule 129: current state
-           stays legible via the pressed/aria-pressed styling below). -->
+      
       <div id="camera-controls">
         <div id="camera-presets" role="group" aria-label="Camera viewpoint">
           <button type="button" class="cam-preset-btn" data-preset="reporter">Reporter</button>
@@ -73,11 +66,7 @@
           <button type="button" class="cam-preset-btn" data-preset="speaker">Follow Speaker</button>
         </div>
         <div id="camera-zoom-row">
-          <!-- FIELD-TEST-BUILD-002 -- FREE-ORBIT-001. Same toggle-a-mode-
-               then-drag pattern as the zoom-in/out buttons beside it:
-               click to arm, then drag on the scene to look around (all
-               the way around -- "360, in all degrees"), instead of the
-               plain drag's own walk-the-viewpoint behavior. -->
+          
           <button type="button" id="orbit-mode-btn" aria-pressed="false" title="Drag the scene to look around in any direction (360 degrees)">Orbit (drag to look around)</button>
           <button type="button" id="zoom-in-mode-btn" title="Click a point on the scene to zoom toward it">Zoom In (click scene)</button>
           <button type="button" id="zoom-out-mode-btn" title="Click a point on the scene to zoom away from it">Zoom Out (click scene)</button>
@@ -86,10 +75,7 @@
           <button type="button" id="camera-reset-btn" title="Return to the reporter's seat">Reset View</button>
         </div>
         <div id="camera-status" class="dim small"></div>
-        <!-- VIEWPORT-CONTAIN-001 Step 4 -- values on a range get a real
-             control with a defended default, not a hardcoded constant
-             (Rule 111 as amended). Both persist (Rule 129) and visibly
-             change the room's own framing at two different settings. -->
+        
         <div id="camera-framing-row">
           <div class="slider-group">
             <label for="protection-slider" title="How much clearance the guarantee-volume solve leaves at the frame edge">Framing Margin</label>
@@ -103,7 +89,7 @@
           </div>
         </div>
       </div>
-      <!-- CAMERA-AND-STAGING-001 Step 3 -- window/aspect presets. -->
+      
       <div id="window-presets" role="group" aria-label="Window size">
         <button type="button" id="fullscreen-btn" title="Real full screen -- the 3D view becomes the whole monitor, Esc to exit">FULLSCREEN</button>
         <button type="button" class="win-preset-btn" data-winpreset="fill">Fill Screen</button>
@@ -129,18 +115,13 @@
           <input type="range" id="volume-slider" min="0" max="100" step="1" value="80">
           <span id="volume-readout" class="slider-readout">80%</span>
         </div>
-        <!-- FIELD-TEST-BUILD-002 -- MOTION-SPEED-001. "A toggle for how
-             fast the people move, from zero to not moving at all." 0% =
-             every avatar's idle motion (breathing/head-turn sway) and
-             head-turn-toward-speaker freezes completely; 100% ("full
-             speed") = today's normal, unmodified idle-motion rate. -->
+        
         <div class="slider-group">
           <label for="motion-speed-slider">Motion</label>
           <input type="range" id="motion-speed-slider" min="0" max="100" step="1" value="100">
           <span id="motion-speed-readout" class="slider-readout">100%</span>
         </div>
-        <!-- FIELD-TEST-BUILD-001 (web lane) -- opens #settings-popup below.
-             Same screen as the sliders above, per this job's own scope. -->
+        
         <button type="button" id="settings-gear-btn" title="Difficulty / Settings">&#9881; Settings</button>
       </div>
       <div id="caption" class="caption"></div>
@@ -154,20 +135,13 @@
       <div id="progress-label">Utterance 0 / 0</div>
       <div class="button-row">
         <button id="begin-proceeding-btn">Begin Proceeding (I'm ready)</button>
-        <!-- PLAY-PAUSE-001 (web lane) -- one button, two icon states,
-             switching as state.paused changes (see main.js's
-             updatePlayPauseUi()). Disabled until a proceeding actually
-             starts, matching begin/finish's own enable discipline. -->
+        
         <button type="button" id="play-pause-btn" aria-pressed="false" aria-label="Pause" disabled>&#9208;</button>
         <button id="finish-btn">Finish &amp; Score</button>
       </div>
     </div>
 
-    <!-- FIELD-TEST-BUILD-001 (web lane) STEP 3/4 -- difficulty/settings
-         popup, built on the reusable popup-chrome component (popup_chrome.js).
-         Sits outside #courtroom-overlay's own max-width:900px box (this
-         element's parent, #courtroom-screen, is max-width:none) so
-         "maximize" can actually fill most of the viewport. -->
+    
     <div id="settings-popup" class="popup-window hidden" role="dialog" aria-label="Difficulty and Settings">
       <div class="popup-titlebar">
         <span class="popup-title">Difficulty / Settings</span>
